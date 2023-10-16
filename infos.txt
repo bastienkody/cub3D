@@ -1,0 +1,11 @@
+-------------
+| INFOS.TXT |
+-------------
+
+"*.cub" --> is ".cub" accepted or not ?
+* meaning in bash is any character or none
+however ".blabla" is not a file with extension blabla, but an hidden file
+When I create a file name ".cub" and then try "rm *.cub" --> no such file
+But if I create a file "cub" and then try "rm *cub" -> it deletes the right file
+it works with any command. bash and zsh.
+From this tests I conclude that ".cub" is not acceptable.

@@ -1,23 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bguillau <bguillau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bguillau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/13 16:23:33 by bguillau          #+#    #+#             */
-/*   Updated: 2023/10/13 16:25:19 by bguillau         ###   ########.fr       */
+/*   Created: 2022/11/18 19:00:08 by bguillau          #+#    #+#             */
+/*   Updated: 2023/06/13 16:29:52 by bguillau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3D.h"
+#ifndef MATRIX_H
+# define MATRIX_H
 
-int	main(int argc, char ** argv, __attribute__((unused)) char **envp)
-{
-	t_data	*data;
+# include "char_matrix/char_matrix.h"
+# include "int_matrix/int_matrix.h"
 
-	data = main_parser(argc, argv);
-	if (!data)
-		return (2);
-	return (0);
-}
+#endif

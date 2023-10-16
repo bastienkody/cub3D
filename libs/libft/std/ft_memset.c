@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bguillau <bguillau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bguillau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/13 16:23:33 by bguillau          #+#    #+#             */
-/*   Updated: 2023/10/13 16:25:19 by bguillau         ###   ########.fr       */
+/*   Created: 2022/11/07 11:40:09 by bguillau          #+#    #+#             */
+/*   Updated: 2022/11/18 18:22:09 by bguillau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3D.h"
+#include "../libft.h"
 
-int	main(int argc, char ** argv, __attribute__((unused)) char **envp)
+void	*ft_memset(void *s, int c, size_t n)
 {
-	t_data	*data;
+	char	*tmp;
 
-	data = main_parser(argc, argv);
-	if (!data)
-		return (2);
-	return (0);
+	if (!n || !s)
+		return (s);
+	tmp = (char *)s;
+	while (--n)
+		tmp[n] = c;
+	tmp[n] = c;
+	return (s);
 }

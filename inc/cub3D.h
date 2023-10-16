@@ -13,10 +13,34 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
-#include "../libft/libft.h"
-#include <fcntl.h>
-#include <stdio.h>
-#include <string.h>
+/*	includes	*/
+# include "../libs/libft/libft.h"
+# include <fcntl.h>
+# include <stdio.h>
+# include <string.h>
 
+/*	alpha const	*/
+# define BAD_ARG_NB "Bad number of argument"
+# define BAD_CONFIG_NAME "Bad config file name (*.cub expected)"
+
+/*	num const	*/
+
+/*	typedef	*/
+typedef struct s_data
+{
+	char			*no_path;
+	char			*so_path;
+	char			*we_path;
+	char			*ea_path;
+	unsigned char	floor_rgb[3];
+	unsigned char	ceil_rgb[3];
+	char			**map;
+}				t_data;
+
+/*	parsing	*/
+t_data	*main_parser(int argc, char **argv);
+
+/*	error	*/
+void	print_error(char *str);
 
 #endif

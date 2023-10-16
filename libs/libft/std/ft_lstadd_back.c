@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bguillau <bguillau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bguillau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/13 16:23:33 by bguillau          #+#    #+#             */
-/*   Updated: 2023/10/13 16:25:19 by bguillau         ###   ########.fr       */
+/*   Created: 2022/11/16 18:21:13 by bguillau          #+#    #+#             */
+/*   Updated: 2022/11/18 17:19:01 by bguillau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3D.h"
+#include "../libft.h"
 
-int	main(int argc, char ** argv, __attribute__((unused)) char **envp)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	t_data	*data;
+	t_list	*ptr;
 
-	data = main_parser(argc, argv);
-	if (!data)
-		return (2);
-	return (0);
+	if (!new)
+		return ;
+	if (lst)
+	{
+		if (!*lst)
+		{
+			*lst = new;
+			return ;
+		}
+		ptr = ft_lstlast(*lst);
+		ptr->next = new;
+	}
 }

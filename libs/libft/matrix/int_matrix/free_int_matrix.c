@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   free_int_matrix.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bguillau <bguillau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bguillau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/13 16:23:33 by bguillau          #+#    #+#             */
-/*   Updated: 2023/10/13 16:25:19 by bguillau         ###   ########.fr       */
+/*   Created: 2023/03/24 16:39:35 by bguillau          #+#    #+#             */
+/*   Updated: 2023/03/24 17:30:57 by bguillau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3D.h"
+#include "int_matrix.h"
 
-int	main(int argc, char ** argv, __attribute__((unused)) char **envp)
+void	free_int_matrix(int **matrix, int size)
 {
-	t_data	*data;
+	int	i;
 
-	data = main_parser(argc, argv);
-	if (!data)
-		return (2);
-	return (0);
+	i = 0;
+	while (i < size)
+		free(matrix[i++]);
+	free(matrix);
 }
