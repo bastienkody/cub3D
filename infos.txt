@@ -2,6 +2,9 @@
 | INFOS.TXT |
 -------------
 
+-------------
+Config file :
+-------------
 "*.cub" --> is ".cub" accepted or not ?
 * meaning in bash is any character or none
 however ".blabla" is not a file with extension blabla, but an hidden file

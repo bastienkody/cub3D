@@ -20,8 +20,10 @@
 # include <string.h>
 
 /*	alpha const	*/
+# define ALLOC_FAIL "Malloc error - cub3D exiting"
 # define BAD_ARG_NB "Bad number of argument"
 # define BAD_CONFIG_NAME "Bad config file name (*.cub expected)"
+# define BAD_LINE "Following line format is not acceptable: "
 
 /*	num const	*/
 

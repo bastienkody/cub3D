@@ -27,11 +27,19 @@ int	open_config_file(char *path)
 	return (fd);
 }
 
-int	analyze_line(char *line, t_data *data)
+// failure for the map content (two steps: config then map?)
+	// + tab_len needed
+	// + is_str_only
+int	analyze_line(char *line, char **split, t_data *data)
 {
-	char	*buf;
-
-	while (*line && *line != ' ')
+	if (!split)
+		return (print_error(ALLOC_FAIL), 2);
+	if (tab_len(split) < 2 && !is_str_only(line, ' '))
+		return (ft_fprintf(2, "%s%s\n", BAD_LINE, line), 1);
+	if (tab_len(split) == 2)
+		config_line;
+	else
+		map_line;
 }
 
 t_data	*main_parser(int argc, char **argv)
@@ -44,7 +52,7 @@ t_data	*main_parser(int argc, char **argv)
 		return (print_error(BAD_ARG_NB), NULL);
 	data = malloc(sizeof(t_data));
 	if (!data)
-		return (NULL);
+		return (print_error(ALLOC_FAIL), NULL);
 	ft_bzero(data, sizeof(t_data));
 	fd = open_config_file(argv[1]);
 	if (fd < 0)
@@ -54,8 +62,9 @@ t_data	*main_parser(int argc, char **argv)
 		line = get_next_line(fd);
 		if (!line)
 			break;
-		if (!analyze_line(line, data))
-			return (0);
+		// trim le linefeed
+		if (analyze_line(line, ft_split(line, ' '), data) != 0)
+			return (NULL);
 	}
 	return (data);
 }
