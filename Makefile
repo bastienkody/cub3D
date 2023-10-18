@@ -6,7 +6,7 @@ PARS_DIR	=	parsing/
 PRINT_DIR	=	printer/
 
 ###		SOURCE FILES		###
-PARS_NAME	=	parser.c
+PARS_NAME	=	
 PRINT_NAME	=	error.c
 
 PARS_SRC	=	$(addprefix ${PARS_DIR}, ${PARS_NAME})

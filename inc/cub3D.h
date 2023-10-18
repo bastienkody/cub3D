@@ -24,16 +24,18 @@
 # define BAD_ARG_NB "Bad number of argument"
 # define BAD_CONFIG_NAME "Bad config file name (*.cub expected)"
 # define BAD_LINE "Following line format is not acceptable: "
+# define LINE_NOT_CONFIG "Texture/rgb config is not completed yet but the \
+	following line does not comply with config format: "
 
 /*	num const	*/
 
 /*	typedef	*/
 typedef struct s_data
 {
-	char			*no_path;
-	char			*so_path;
-	char			*we_path;
-	char			*ea_path;
+	int				*no_path;
+	int				*so_path;
+	int				*we_path;
+	int				*ea_path;
 	unsigned char	floor_rgb[3];
 	unsigned char	ceil_rgb[3];
 	char			**map;
@@ -41,8 +43,10 @@ typedef struct s_data
 
 /*	parsing	*/
 t_data	*main_parser(int argc, char **argv);
+int		is_str_only_c(char *str, char c);
+int		tab_len(char **tab);
 
 /*	error	*/
-void	print_error(char *str);
+void	print_error(char *str1, char *str2);
 
 #endif

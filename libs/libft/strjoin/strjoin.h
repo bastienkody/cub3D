@@ -31,8 +31,12 @@ char	*strjoin3_fall(char const *s1, char const *s2, char const *s3);
 char	*strjoin_char(char *str, char c);
 char	*strjoin_char_fstr(char *str, char c);
 
-/*	superjoin	*/
+/*	superjoin va	*/
 char	*superjoin(char const *s1, ...);
 char	*superjoin_fall(char const *s1, ...);
+
+/*	superjoin tab	*/
+char	*superjoin_tab(char **tab);
+char	*superjoin_tab_fall(char **tab);
 
 #endif
