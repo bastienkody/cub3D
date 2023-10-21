@@ -6,7 +6,9 @@ PARS_DIR	=	parsing/
 PRINT_DIR	=	printer/
 
 ###		SOURCE FILES		###
-PARS_NAME	=	
+PARS_NAME	=	parser.c\
+				parser_utils.c\
+				texture_n_rgb.c
 PRINT_NAME	=	error.c
 
 PARS_SRC	=	$(addprefix ${PARS_DIR}, ${PARS_NAME})
@@ -44,7 +46,7 @@ ${NAME}:	${LIBFT} ${MLX} ${OBJS} ${HEADER}
 
 ${LIBFT}:
 			@echo -n "\033[33mlibft compilation ...\033[0m"
-			@make --no-print-directory -C ./libs/libft/ >/dev/null 2>&1
+			@make --no-print-directory -C ./libs/libft/ 
 			@echo "\033[33mlibft compiled\033[0m"
 
 ${MLX}:

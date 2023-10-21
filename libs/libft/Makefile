@@ -67,6 +67,7 @@ PRINTF_FILES		=	ft_fprintf.c \
 						ft_fprintf_utils.c
 
 ATOI_FILES			=	ft_atoc_novf.c\
+						ft_atouc_novf.c\
 						ft_atoi_novf.c\
 						ft_atoll_novf.c
 

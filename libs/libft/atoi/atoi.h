@@ -26,6 +26,7 @@ int	ft_atoc(const char *nptr);
 int	ft_atol(const char *nptr);
 
 int	ft_atoc_novf(const char *nptr, char *nb);
+int	ft_atouc_novf(const char *nptr, unsigned char *nb);
 int	ft_atoi_novf(const char *nptr, int *nb);
 int	ft_atoll_novf(const char *nptr, long long int *nb);
 

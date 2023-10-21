@@ -43,8 +43,15 @@ typedef struct s_data
 
 /*	parsing	*/
 t_data	*main_parser(int argc, char **argv);
-int		is_str_only_c(char *str, char c);
+int		get_texture(char *line, char **split, t_data *data);
+int		get_rgb(char *line, char **split, t_data *data);
+
+/*	parsing utils	*/
 int		tab_len(char **tab);
+int		is_str_only_c(char *str, char c);
+int		is_texture_line(char **split);
+int		is_rgb_line(char **split);
+void	update_map_on(int *map_on, t_data *data);
 
 /*	error	*/
 void	print_error(char *str1, char *str2);
