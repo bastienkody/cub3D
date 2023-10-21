@@ -9,7 +9,8 @@ PRINT_DIR	=	printer/
 PARS_NAME	=	parser.c\
 				parser_utils.c\
 				texture_n_rgb.c
-PRINT_NAME	=	error.c
+PRINT_NAME	=	error.c\
+				dataprint.c
 
 PARS_SRC	=	$(addprefix ${PARS_DIR}, ${PARS_NAME})
 PRINT_SRC	=	$(addprefix ${PRINT_DIR}, ${PRINT_NAME})

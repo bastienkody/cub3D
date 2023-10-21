@@ -19,5 +19,6 @@ int	main(int argc, char ** argv, __attribute__((unused)) char **envp)
 	data = main_parser(argc, argv);
 	if (!data)
 		return (2);
-	return (0);
+	print_data(data);
+	return (free(data), 0);
 }

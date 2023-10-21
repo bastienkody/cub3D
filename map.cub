@@ -1,0 +1,12 @@
+NO ./infos.txt
+SO ./infos.txt
+
+EA ./infos.txt     
+ WE ./infos.txt
+F 255,255  , 255 
+
+C 11,110 , 110 
+ 
+
+  00000001000111N
+11111110000001

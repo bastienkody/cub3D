@@ -12,15 +12,27 @@
 
 #include "../../inc/cub3D.h"
 
-void	print_error(char *str1, char *str2)
+void	print_data(t_data *data)
 {
-	ft_fprintf(2, "Error\n");
-	if (str1)
-		ft_fprintf(2, "%s ", str1);
-	if (!str2)
-		write(2, "\n", 1);
-	else
-		ft_fprintf(2, "%s\n", str2);
+	int	i;
 
-
+	if (!data)
+		return ((void)ft_fprintf(1, "Data addr is NULL\n"));
+	ft_fprintf(1, "nopath:%i\n", data->no_path);
+	ft_fprintf(1, "sopath:%i\n", data->so_path);
+	ft_fprintf(1, "wepath:%i\n", data->we_path);
+	ft_fprintf(1, "eapath:%i\n", data->ea_path);
+	i = -1;
+	ft_fprintf(1, "Floor color : ");
+	while (++i < 3)
+		ft_fprintf(1, "%i,", data->floor_rgb[i]);
+	i = -1;
+	ft_fprintf(1, "\nCeiling color : ");
+	while (++i < 3)
+		ft_fprintf(1, "%i,", data->ceil_rgb[i]);
+	while (data->map && *(data->map))
+	{
+		ft_fprintf(1, "%s\n", *(data->map));
+		data->map++;
+	}
 }

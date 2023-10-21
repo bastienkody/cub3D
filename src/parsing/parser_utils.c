@@ -36,6 +36,8 @@ int	is_texture_line(char **split)
 	int					i;
 	static const char	*start[5] = {"NO", "SO", "WE", "EA", NULL};
 
+	if (!split || !split[0])
+		return (0);
 	i = -1;
 	while(++i < 4)
 		if (!ft_strcmp(split[0], start[i]))
@@ -48,6 +50,8 @@ int	is_rgb_line(char **split)
 	int					i;
 	static const char	*start[3] = {"F", "C", NULL};
 
+	if (!split || !split[0])
+		return (0);
 	i = -1;
 	while(++i < 2)
 		if (!ft_strcmp(split[0], start[i]))
@@ -58,7 +62,7 @@ int	is_rgb_line(char **split)
 /*	set map_on when config infos are all done	*/
 void	update_map_on(int *map_on, t_data *data)
 {
-	if (!(*map_on) && data->no_path && data->so_path && data->we_path &&\
-		data->ea_path && data->floor_rgb && data->ceil_rgb)
+	if (!(*map_on) && data->no_path && data->so_path && data->we_path \
+		&& data->ea_path && *(data->floor_rgb) && *(data->ceil_rgb))
 		*map_on = 1;
 }
