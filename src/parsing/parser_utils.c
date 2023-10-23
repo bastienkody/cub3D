@@ -63,6 +63,6 @@ int	is_rgb_line(char **split)
 void	update_map_on(int *map_on, t_data *data)
 {
 	if (!(*map_on) && data->no_path && data->so_path && data->we_path \
-		&& data->ea_path && *(data->floor_rgb) && *(data->ceil_rgb))
+		&& data->ea_path && data->floor && data->ceil)
 		*map_on = 1;
 }

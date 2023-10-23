@@ -1,9 +1,11 @@
+
+NO      ./infos.txt                
+
 SO ./infos.txt
 
 EA ./infos.txt     
  WE ./infos.txt
-F -254,255  , 255 
+F 255,255  , 255 
 
-C 11,110 , 110 
- 
-
+C 0,0,0 
+1110000 

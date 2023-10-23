@@ -46,7 +46,6 @@ typedef struct s_data
 	char			**map;
 	t_bool			ceil;
 	t_bool			floor;
-	t_bool			map_bool;
 }				t_data;
 
 /*	parsing	*/

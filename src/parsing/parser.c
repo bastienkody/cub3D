@@ -31,18 +31,25 @@ int	is_config_full(t_data *data)
 {
 	if (data->no_path && data->so_path && data->we_path && data->ea_path)
 		if (*(data->floor_rgb) && *(data->ceil_rgb))
-			if (data->ceil && data->floor && data->map_bool)
+			if (data->ceil && data->floor && tab_len(data->map))
 				return (1);
 	return (0);
 }
 
-//tmp to compil
 int	next_map_line(char *line, char **split, t_data *data)
 {
-	(void)data;
-	(void)split;
-	data->map_bool = true;
-	return (ft_fprintf(1, "map line: %s\n", line));
+	char	**new_map;
+
+	free_charray(split);
+	ft_fprintf(2, "DEBUG 1 \n");
+	new_map = charray_add_one(data->map, line);
+	ft_fprintf(2, "DEBUG 2 \n");
+	free_charray(data->map);
+	data->map = new_map;
+	free(line);
+	if (!data->map)
+		return(print_error(ALLOC_FAIL, NULL), 0);
+	return (1);
 }
 
 // three steps: texture and rgb then map?
@@ -63,8 +70,8 @@ int	analyze_line(char *line, char **split, t_data *data)
 	if (map_on && !is_str_only_c(line, ' '))
 		return (next_map_line(line, split, data));
 	if (!is_str_only_c(line, ' '))
-		return (print_error(LINE_NOT_CONFIG, line), free(line), free_char_matrix(split), 0);
-	return (free(line), free_char_matrix(split), 1);
+		return (print_error(LINE_NOT_CONFIG, line), free(line), free_charray(split), 0);
+	return (free(line), free_charray(split), 1);
 }
 
 /*	data freed here if ret NULL	(imp to free in main)	*/
