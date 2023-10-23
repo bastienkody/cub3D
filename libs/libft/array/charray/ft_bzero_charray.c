@@ -12,11 +12,11 @@
 
 #include <stddef.h>
 
-void	ft_bzero_char_matrix(char **matrix, size_t n)
+void	ft_bzero_charray(char **array, size_t n)
 {
-	if (!n || !matrix)
+	if (!n || !array)
 		return ;
 	while (--n)
-		matrix[n] = NULL;
-	matrix[n] = NULL;
+		array[n] = NULL;
+	array[n] = NULL;
 }

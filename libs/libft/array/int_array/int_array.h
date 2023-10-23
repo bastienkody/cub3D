@@ -10,17 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CHAR_MATRIX_H
-# define CHAR_MATRIX_H
+#ifndef INT_ARRAY_H
+# define INT_ARRAY_H
 
 # include <stdlib.h>
 
-void	free_char_matrix(char **matrix);
-void	ft_bzero_char_matrix(char **matrix, size_t n);
-
-char	**charmatrix_dup(char **src_matrix);
-char	**charmatrix_add_one(char **src_matrix, char *entry);
-char	**charmatrix_del_one(char **src_matrix, char *key);
-char	**charmatrix_buble_sort(char **src_matrix);
+/*	Prototypes	*/
+void	free_int_array(int **array, int size);
 
 #endif

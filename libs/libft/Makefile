@@ -4,9 +4,9 @@ STD_DIR				=	./std/
 GNL_DIR				=	./gnl/
 PRINTF_DIR			=	./ft_fprintf/
 ATOI_DIR			=	./atoi/
-MATRIX_DIR			=	./matrix/
-CHAR_MATRIX_DIR		=	./matrix/char_matrix/
-INT_MATRIX_DIR		=	./matrix/int_matrix/
+ARRAY_DIR			=	./array/
+CHARRAY_DIR			=	./array/charray/
+INT_ARRAY_DIR		=	./array/int_array/
 STRJOIN_DIR			=	./strjoin/
 
 ###			SOURCFILES			###
@@ -71,13 +71,13 @@ ATOI_FILES			=	ft_atoc_novf.c\
 						ft_atoi_novf.c\
 						ft_atoll_novf.c
 
-MATRIX_FILES		=
+ARRAY_FILES			=
 
-CHAR_MATRIX_FILES	=	free_char_matrix.c\
-						ft_bzero_char_matrix.c\
-						dup_char_matrix.c
+CHARRAY_FILES		=	free_charray.c\
+						ft_bzero_charray.c\
+						dup_charray.c
 
-INT_MATRIX_FILES	=	free_int_matrix.c
+INT_ARRAY_FILES		=	free_int_array.c
 
 STRJOIN_FILES		=	strjoin.c\
 						strjoin3.c\
@@ -90,13 +90,13 @@ STD_SRCS			=	$(addprefix ${STD_DIR}, ${STD_FILES})
 GNL_SRCS			=	$(addprefix ${GNL_DIR}, ${GNL_FILES})
 PRINTF_SRCS			=	$(addprefix ${PRINTF_DIR}, ${PRINTF_FILES})
 ATOI_SRCS			=	$(addprefix ${ATOI_DIR}, ${ATOI_FILES})
-MATRIX_SRCS			=	$(addprefix ${MATRIX_DIR}, ${MATRIX_FILES})
-CHAR_MATRIX_SRCS	=	$(addprefix ${CHAR_MATRIX_DIR}, ${CHAR_MATRIX_FILES})
-INT_MATRIX_SRCS		=	$(addprefix ${INT_MATRIX_DIR}, ${INT_MATRIX_FILES})
+ARRAY_SRCS			=	$(addprefix ${ARRAY_DIR}, ${ARRAY_FILES})
+CHARRAY_SRCS		=	$(addprefix ${CHARRAY_DIR}, ${CHARRAY_FILES})
+INT_ARRAY_SRCS		=	$(addprefix ${INT_ARRAY_DIR}, ${INT_ARRAY_FILES})
 STRJOIN_SRCS		=	$(addprefix ${STRJOIN_DIR}, ${STRJOIN_FILES})
 
-SRCS				=	${STD_SRCS} ${GNL_SRCS} ${PRINTF_SRCS} ${ATOI_SRCS} ${MATRIX_SRCS}\
-							${CHAR_MATRIX_SRCS} ${INT_MATRIX_SRCS} ${STRJOIN_SRCS}
+SRCS				=	${STD_SRCS} ${GNL_SRCS} ${PRINTF_SRCS} ${ATOI_SRCS} ${ARRAY_SRCS}\
+							${CHARRAY_SRCS} ${INT_ARRAY_SRCS} ${STRJOIN_SRCS}
 OBJS				=	${SRCS:%.c=$(BUILD_DIR)/%.o}
 
 

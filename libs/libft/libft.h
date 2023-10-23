@@ -19,9 +19,9 @@
 # include <unistd.h>
 # include "gnl/get_next_line.h"
 # include "ft_fprintf/ft_fprintf.h"
-# include "matrix/matrix.h"
-# include "matrix/char_matrix/char_matrix.h"
-# include "matrix/int_matrix/int_matrix.h"
+# include "array/array.h"
+# include "array/charray/charray.h"
+# include "array/int_array/int_array.h"
 # include "atoi/atoi.h"
 # include "strjoin/strjoin.h"
 

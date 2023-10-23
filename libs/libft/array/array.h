@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MATRIX_H
-# define MATRIX_H
+#ifndef ARRAY_H
+# define ARRAY_H
 
-# include "char_matrix/char_matrix.h"
-# include "int_matrix/int_matrix.h"
+# include "charray/charray.h"
+# include "int_array/int_array.h"
 
 #endif
