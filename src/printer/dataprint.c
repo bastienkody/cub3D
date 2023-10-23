@@ -30,6 +30,7 @@ void	print_data(t_data *data)
 	ft_fprintf(1, "\nCeiling color : ");
 	while (++i < 3)
 		ft_fprintf(1, "%i,", data->ceil_rgb[i]);
+	ft_fprintf(1, "\n");
 	while (data->map && *(data->map))
 	{
 		ft_fprintf(1, "%s\n", *(data->map));

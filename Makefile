@@ -23,7 +23,7 @@ OBJS		=	${SRCS:%.c=$(BUILD_DIR)/%.o}
 ###		DEFINITIONS		###
 NAME		=	cub3Dd
 LIBFT		=	./libs/libft/libft.a
-MLX			=	./libs/mlx/libmlx_Linux.a
+MLX			=	./libs/mlx/libmlx.a
 CC			=	cc
 
 ###		OPTIONS		##

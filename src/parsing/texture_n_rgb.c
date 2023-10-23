@@ -38,7 +38,7 @@ int	get_texture(char *line, char **split, t_data *data)
 	return (free_char_matrix(split), free(line), fd);
 }
 
-int	store_rgb_values(char **rgb, char *line, t_data *data)
+int	store_rgb(char **rgb, char *line, t_data *data)
 {
 	int	i;
 
@@ -47,18 +47,20 @@ int	store_rgb_values(char **rgb, char *line, t_data *data)
 	{
 		while (++i < 3)
 			if (!ft_atouc_novf(rgb[i], &data->floor_rgb[i]))
-				return (print_error(BAD_LINE, line), 0);
+				return (print_error(BAD_NBR, line), free_char_matrix(rgb), 0);
+		data->floor = true;
 	}
 	else
 	{
 		while (++i < 3)
 			if (!ft_atouc_novf(rgb[i], &data->ceil_rgb[i]))
-				return (print_error(BAD_LINE, line), 0);
+				return (print_error(BAD_NBR, line), free_char_matrix(rgb), 0);
+		data->ceil = true;
 	}
 	return (1);
 }
 
-int	check_rgb_split(char **rgb, char *line, t_data *data)
+int	check_rgb(char **rgb, char *line)
 {
 	int	i;
 	int	j;
@@ -71,12 +73,10 @@ int	check_rgb_split(char **rgb, char *line, t_data *data)
 	while (++i < 3)
 	{
 		j = -1;
-		while (++j < 3)
+		while (++j < 3 && rgb[i][j])
 			if (!ft_isdigit(rgb[i][j]))
-				return (print_error(BAD_LINE, line), free_char_matrix(rgb), 0);
+				return (print_error(BAD_NBR, line), free_char_matrix(rgb), 0);
 	}
-	if (!store_rgb_values(rgb, line, data))
-		return (print_error(BAD_LINE, line), free_char_matrix(rgb), 0);
 	return (1);
 }
 
@@ -92,7 +92,7 @@ int	get_rgb(char *line, char **split, t_data *data)
 		return (print_error(ALLOC_FAIL, NULL), free(*split), free(split), free(line), 0);
 	rgb_split = ft_split(join, ',');	// to be freed too
 	free(join);
-	if (!check_rgb_split(rgb_split, line, data))
+	if (!check_rgb(rgb_split, line) || !store_rgb(rgb_split, line, data))
 		return (free(*split), free(split), free(line), 0);
 	free_char_matrix(rgb_split);
 	return (free(*split), free(split), free(line), 1);

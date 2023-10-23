@@ -41,7 +41,8 @@ int	next_map_line(char *line, char **split, t_data *data)
 {
 	(void)data;
 	(void)split;
-	return (ft_fprintf(1, "map line: %s", line));
+	data->map_bool = true;
+	return (ft_fprintf(1, "map line: %s\n", line));
 }
 
 // three steps: texture and rgb then map?

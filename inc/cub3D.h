@@ -28,6 +28,7 @@
 # define LINE_NOT_CONFIG "Texture/rgb config is not completed yet but the \
 following line does not comply with config format:"
 # define LACK_INFO "Not all infos collected while EOF found in"
+# define BAD_NBR "Overflow or non digit detected in rgb values within the following line:"
 
 /*	num const	*/
 
