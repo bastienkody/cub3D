@@ -43,8 +43,7 @@ int	next_map_line(char *line, char **split, t_data *data)
 	free_charray(split);
 	if (data->map)
 	{
-		new_map = charray_add_one(data->map, line);
-		free_charray(data->map);
+		new_map = charray_add_one(data->map, ft_strdup(line));
 		data->map = new_map;
 		if (!data->map)
 			return(print_error(ALLOC_FAIL, NULL), free(line), 0);
@@ -54,11 +53,10 @@ int	next_map_line(char *line, char **split, t_data *data)
 		data->map = malloc(2 * sizeof(char *));
 		if (!data->map)
 			return(print_error(ALLOC_FAIL, NULL), free(line), 0);
-		data->map[0] = line;
+		data->map[0] = ft_strdup(line);
 		data->map[1] = NULL;
 	}
 	free(line);
-
 	return (1);
 }
 
@@ -111,6 +109,6 @@ t_data	*main_parser(int argc, char **argv)
 			return (free(data), close(fd), NULL);
 	}
 	if (!is_config_full(data))
-		return (print_error(LACK_INFO, argv[1]), free(data), close(fd), NULL);
+		return (print_error(LACK_INFO, argv[1]), free_charray(data->map), free(data), close(fd), NULL);
 	return (close(fd), data);
 }

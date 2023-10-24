@@ -20,5 +20,5 @@ int	main(int argc, char ** argv, __attribute__((unused)) char **envp)
 	if (!data)
 		return (2);
 	print_data(data);
-	return (free(data), 0);
+	return (free_charray(data->map), free(data), 0);
 }

@@ -103,7 +103,7 @@ OBJS				=	${SRCS:%.c=$(BUILD_DIR)/%.o}
 ###			VARIABLES			###
 NAME 				=	libft.a
 CC 					=	cc
-CFLAGS 				=	-Wall -Wextra -Werror
+CFLAGS 				=	-Wall -Wextra -Werror -g3
 
 
 ###			RULES			###
