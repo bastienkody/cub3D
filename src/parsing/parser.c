@@ -41,14 +41,24 @@ int	next_map_line(char *line, char **split, t_data *data)
 	char	**new_map;
 
 	free_charray(split);
-	ft_fprintf(2, "DEBUG 1 \n");
-	new_map = charray_add_one(data->map, line);
-	ft_fprintf(2, "DEBUG 2 \n");
-	free_charray(data->map);
-	data->map = new_map;
+	if (data->map)
+	{
+		new_map = charray_add_one(data->map, line);
+		free_charray(data->map);
+		data->map = new_map;
+		if (!data->map)
+			return(print_error(ALLOC_FAIL, NULL), free(line), 0);
+	}
+	else
+	{
+		data->map = malloc(2 * sizeof(char *));
+		if (!data->map)
+			return(print_error(ALLOC_FAIL, NULL), free(line), 0);
+		data->map[0] = line;
+		data->map[1] = NULL;
+	}
 	free(line);
-	if (!data->map)
-		return(print_error(ALLOC_FAIL, NULL), 0);
+
 	return (1);
 }
 
