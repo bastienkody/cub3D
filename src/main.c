@@ -12,6 +12,14 @@
 
 #include "../inc/cub3D.h"
 
+void	end_free(t_data *data)
+{
+	if (data && data->map)
+		free_charray(data->map);
+	if (data)
+		free(data);
+}
+
 int	main(int argc, char ** argv, __attribute__((unused)) char **envp)
 {
 	t_data	*data;
@@ -20,5 +28,5 @@ int	main(int argc, char ** argv, __attribute__((unused)) char **envp)
 	if (!data)
 		return (2);
 	print_data(data);
-	return (free_charray(data->map), free(data), 0);
+	return (end_free(data), 0);
 }

@@ -16,7 +16,7 @@
 	- return a new array malloced
 	- return NULL on malloc error
 	- are not protected against NULL src
-	- do not free src
+	- do not free src (execpt add_one that "replaces" src)
 */
 
 static char	**get_new_array_malloced(char **src_array, int offset)

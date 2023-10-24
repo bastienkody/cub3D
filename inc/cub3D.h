@@ -64,4 +64,7 @@ void	update_map_on(int *map_on, t_data *data);
 void	print_error(char *str1, char *str2);
 void	print_data(t_data *data);
 
+/*	free	*/
+void	end_free(t_data *data);
+
 #endif

@@ -30,9 +30,8 @@ int	open_config_file(char *path)
 int	is_config_full(t_data *data)
 {
 	if (data->no_path && data->so_path && data->we_path && data->ea_path)
-		if (*(data->floor_rgb) && *(data->ceil_rgb))
-			if (data->ceil && data->floor && tab_len(data->map))
-				return (1);
+		if (data->ceil && data->floor && tab_len(data->map))
+			return (1);
 	return (0);
 }
 
@@ -109,6 +108,6 @@ t_data	*main_parser(int argc, char **argv)
 			return (free(data), close(fd), NULL);
 	}
 	if (!is_config_full(data))
-		return (print_error(LACK_INFO, argv[1]), free_charray(data->map), free(data), close(fd), NULL);
+		return (print_error(LACK_INFO, argv[1]), end_free(data), close(fd), NULL);
 	return (close(fd), data);
 }

@@ -31,9 +31,8 @@ void	print_data(t_data *data)
 	while (++i < 3)
 		ft_fprintf(1, "%i,", data->ceil_rgb[i]);
 	ft_fprintf(1, "\n");
-	while (data->map && *(data->map))
-	{
-		ft_fprintf(1, "%s\n", *(data->map));
-		data->map++;
-	}
+	i = -1;
+	ft_fprintf(1, "Map:\n");
+	while (data->map && data->map[++i])
+		ft_fprintf(1, "%s\n", data->map[i]);
 }
