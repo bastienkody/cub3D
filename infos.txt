@@ -1,4 +1,4 @@
--------------
+------------
 | INFOS.TXT |
 -------------
 
@@ -18,3 +18,11 @@ parsing.
 and not "config.cub"
 - Spaces in rgb --> "F  200    ,  23,255   " might be acceptable, but not for
 texture_path because its a single peace of info
+
+-----
+MAP :
+-----
+	- I decided to transform spaces into walls (' ' -> 1)
+	- Exactly one player pos (one of : N,S,E,W)
+	- Walled completly on first/last raw/column
+	- No empty lines are accepted within the map

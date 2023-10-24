@@ -59,13 +59,12 @@ int	next_map_line(char *line, char **split, t_data *data)
 	return (1);
 }
 
-// three steps: texture and rgb then map?
 int	analyze_line(char *line, char **split, t_data *data)
 {
 	static int	map_on = 0;
 
 	update_map_on(&map_on, data);
-	if (!split && !is_str_only_c(line, ' '))
+	if (!split && !is_str_only(line, " "))
 		return (print_error(ALLOC_FAIL, NULL), free(line), 0);
 	if (!map_on)
 	{
@@ -74,14 +73,15 @@ int	analyze_line(char *line, char **split, t_data *data)
 		if (is_rgb_line(split))
 			return (get_rgb(line, split, data));
 	}
-	if (map_on && !is_str_only_c(line, ' '))
+	if (map_on && !is_str_only(line, " "))
 		return (next_map_line(line, split, data));
-	if (!is_str_only_c(line, ' '))
-		return (print_error(LINE_NOT_CONFIG, line), free(line), free_charray(split), 0);
+	if (map_on && tab_len(data->map) && is_str_only(line, " ")) // empty line within the map
+		return(print_error(EMPTY_MAP, NULL), free_charray(split), free(line), 0);
+	if (!is_str_only(line, " "))
+		return (print_error(LINE_NOT_CONFIG, line), free_charray(split), free(line), 0);
 	return (free(line), free_charray(split), 1);
 }
 
-/*	data freed here if ret NULL	(imp to free in main)	*/
 t_data	*main_parser(int argc, char **argv)
 {
 	t_data	*data;
@@ -105,7 +105,7 @@ t_data	*main_parser(int argc, char **argv)
 		if (ft_strchr(line, '\n'))
 			line[ft_strlen(line) - 1] = '\0';
 		if (!analyze_line(line, ft_split(line, ' '), data))
-			return (free(data), close(fd), NULL);
+			return (end_free(data), close(fd), NULL);
 	}
 	if (!is_config_full(data))
 		return (print_error(LACK_INFO, argv[1]), end_free(data), close(fd), NULL);

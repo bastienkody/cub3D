@@ -60,14 +60,26 @@ int	store_rgb(char **rgb, char *line, t_data *data)
 	return (1);
 }
 
+int	nb_c_in_str(char *str, char c)
+{
+	int	nb;
+
+	nb = 0;
+	while (str && *str)
+		if (c == *str++)
+			nb++;
+	return (nb);
+}
+
 int	check_rgb(char **rgb, char *line)
 {
-	int	i;
-	int	j;
+	int			i;
+	int			j;
+	const int	comma_nb = nb_c_in_str(line, ',');
 
 	if (!rgb)
 		return (print_error(ALLOC_FAIL, NULL), 0);
-	if (tab_len(rgb) != 3)
+	if (comma_nb != 2 || tab_len(rgb) != 3)
 		return (print_error(BAD_LINE, line), free_charray(rgb), 0);
 	i = -1;
 	while (++i < 3)

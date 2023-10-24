@@ -23,10 +23,12 @@ int	tab_len(char **tab)
 	return (i);
 }
 
-int	is_str_only_c(char *str, char c)
+int	is_str_only(char *str, char *valid)
 {
+	if (!valid)
+		return (1);
 	while(*str)
-		if (*str++ != c)
+		if (!ft_strchr(valid, *str++))
 			return (0);
 	return (1);
 }
