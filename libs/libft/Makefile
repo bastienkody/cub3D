@@ -117,7 +117,6 @@ all		:	${NAME}
 
 ${NAME}	:	${HEADER} ${OBJS}
 		@ar rcs ${NAME} ${OBJS}
-		@echo "\033[32mcompilation succes --> \033[4;36;1m${NAME}\033[0m"
 
 clean	:
 		@rm -rf ${BUILD_DIR}

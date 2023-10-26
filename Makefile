@@ -46,14 +46,14 @@ ${NAME}:	${LIBFT} ${MLX} ${OBJS} ${HEADER}
 			@echo "Link complete for exec --> \033[4;36;1m${NAME}\033[0m"
 
 ${LIBFT}:
-			@echo -n "\033[33mlibft compilation ...\033[0m"
-			@make --no-print-directory -C ./libs/libft/ 
-			@echo "\033[33mlibft compiled\033[0m"
+			@echo -n "\033[33mlibft: compilation ...\033[0m"
+			@make --no-print-directory -C ./libs/libft/
+			@echo "\r\033[33mlibft: compiled!           \033[0m"
 
 ${MLX}:
-			@echo -n "\033[33mmlx compilation ...\033[0m"
+			@echo -n "\033[33mmlx: compilation ...\033[0m"
 			@make --no-print-directory -C ./libs/mlx >/dev/null 2>&1
-			@echo "\033[33mmlx compiled\033[0m"
+			@echo "\r\033[33mmlx: compiled!            \033[0m"
 
 clean:
 			@make --no-print-directory clean -C ./libs/libft/ >/dev/null 2>&1
