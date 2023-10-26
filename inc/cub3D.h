@@ -32,9 +32,8 @@ following line does not comply with config format:"
 # define EMPTY_MAP "Empty line within the map data is not acceptable"
 # define BAD_MAP_CHAR "Bad map char found whithin line:"
 # define BAD_PPOS "Not exactly one player position wihthin the map"
-# define BAD_WALL "Map is not completely walled"
-# define ABSCISSA "Map is too small in abscissa (< 3 rows)"
-# define ORDINATE "Map is too small in ordinate (< 3 columns)"
+# define BAD_WALL "Map is not completely surrounded by walls"
+# define TOO_SMALL "Map is too small (row or column < 3 char)"
 
 /*	alpha const	*/
 # define MAPCHAR "NSEW01 "
@@ -62,6 +61,7 @@ typedef struct s_data
 t_data	*main_parser(int argc, char **argv);
 int		get_texture(char *line, char **split, t_data *data);
 int		get_rgb(char *line, char **split, t_data *data);
+int		map_checker(char **map);
 
 /*	parsing utils	*/
 int		tab_len(char **tab);

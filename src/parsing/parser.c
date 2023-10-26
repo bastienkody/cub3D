@@ -45,13 +45,13 @@ int	next_map_line(char *line, char **split, t_data *data)
 		new_map = charray_add_one(data->map, ft_strdup(line));
 		data->map = new_map;
 		if (!data->map)
-			return(print_error(ALLOC_FAIL, NULL), free(line), 0);
+			return (print_error(ALLOC_FAIL, NULL), free(line), 0);
 	}
 	else
 	{
 		data->map = malloc(2 * sizeof(char *));
 		if (!data->map)
-			return(print_error(ALLOC_FAIL, NULL), free(line), 0);
+			return (print_error(ALLOC_FAIL, NULL), free(line), 0);
 		data->map[0] = ft_strdup(line);
 		data->map[1] = NULL;
 	}
@@ -73,10 +73,10 @@ int	analyze_line(char *line, char **split, t_data *data)
 		if (is_rgb_line(split))
 			return (get_rgb(line, split, data));
 	}
-	if (map_on && !is_str_only(line, " "))
+	if (map_on && ft_strlen(line))
 		return (next_map_line(line, split, data));
-	if (map_on && tab_len(data->map) && is_str_only(line, " ")) // empty line within the map
-		return(print_error(EMPTY_MAP, NULL), free_charray(split), free(line), 0);
+	if (map_on && tab_len(data->map) && !ft_strlen(line))
+		return (print_error(EMPTY_MAP, NULL), free_charray(split), free(line), 0);
 	if (!is_str_only(line, " "))
 		return (print_error(LINE_NOT_CONFIG, line), free_charray(split), free(line), 0);
 	return (free(line), free_charray(split), 1);
@@ -90,18 +90,17 @@ t_data	*main_parser(int argc, char **argv)
 
 	if (argc != 2)
 		return (print_error(BAD_ARG_NB, NULL), NULL);
-	data = malloc(sizeof(t_data));
-	if (!data)
-		return (print_error(ALLOC_FAIL, NULL), NULL);
-	ft_bzero(data, sizeof(t_data));
 	fd = open_config_file(argv[1]);
 	if (fd < 0)
-		return (free(data), NULL);
-	while(1)
+		return (NULL);
+	data = ft_calloc(1, sizeof(t_data));
+	if (!data)
+		return (print_error(ALLOC_FAIL, NULL), NULL);
+	while (1)
 	{
 		line = get_next_line(fd);
 		if (!line)
-			break;
+			break ;
 		if (ft_strchr(line, '\n'))
 			line[ft_strlen(line) - 1] = '\0';
 		if (!analyze_line(line, ft_split(line, ' '), data))

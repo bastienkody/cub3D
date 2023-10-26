@@ -20,13 +20,13 @@ void	end_free(t_data *data)
 		free(data);
 }
 
-int	main(int argc, char ** argv, __attribute__((unused)) char **envp)
+int	main(int argc, char **argv, __attribute__((unused)) char **envp)
 {
 	t_data	*data;
 
 	data = main_parser(argc, argv);
-	if (!data)
-		return (2);
+	if (!data || !map_checker(data->map))
+		return (1);
 	print_data(data);
 	return (end_free(data), 0);
 }

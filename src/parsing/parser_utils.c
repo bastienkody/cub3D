@@ -18,7 +18,7 @@ int	tab_len(char **tab)
 	int	i;
 
 	i = 0;
-	while(tab && *tab++)
+	while (tab && *tab++)
 		i++;
 	return (i);
 }
@@ -27,7 +27,7 @@ int	is_str_only(char *str, char *valid)
 {
 	if (!valid)
 		return (1);
-	while(*str)
+	while (*str)
 		if (!ft_strchr(valid, *str++))
 			return (0);
 	return (1);
@@ -41,7 +41,7 @@ int	is_texture_line(char **split)
 	if (!split || !split[0])
 		return (0);
 	i = -1;
-	while(++i < 4)
+	while (++i < 4)
 		if (!ft_strcmp(split[0], start[i]))
 			return (1);
 	return (0);
@@ -55,7 +55,7 @@ int	is_rgb_line(char **split)
 	if (!split || !split[0])
 		return (0);
 	i = -1;
-	while(++i < 2)
+	while (++i < 2)
 		if (!ft_strcmp(split[0], start[i]))
 			return (1);
 	return (0);

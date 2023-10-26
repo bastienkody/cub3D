@@ -1,14 +1,15 @@
 ###		DIRECTORY		###
 HEADER		=	./inc/cub3D.h
 BUILD_DIR	=	./build
-SRC_DIR 	=	./src/
+SRC_DIR 	=	src/
 PARS_DIR	=	parsing/
 PRINT_DIR	=	printer/
 
 ###		SOURCE FILES		###
 PARS_NAME	=	parser.c\
 				parser_utils.c\
-				texture_n_rgb.c
+				texture_n_rgb.c\
+				map_check.c
 PRINT_NAME	=	error.c\
 				dataprint.c
 

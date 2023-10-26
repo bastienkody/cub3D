@@ -1,50 +1,83 @@
 
 #include "../../inc/cub3D.h"
 
-int	is_edge(char **map, int i, int j)
+int	is_edge_a_wall(char **map, int i, int j)
 {
-	if (i == 0 || i == tab_len(map) - 1 || j == 0 || i == tab_len(map) - 1)
-		return (1);
-	// check pour lignes dont strlen(map[n]) > (map[n-1] || map[n+1]) -> must be wall or space?
-	// if (! firstline !lastline)
-		// if (j >= ft_strlen(map[i-1]) || j>= ft_strlen(map[i+1]))
-			// return (1);
-	return (0);
+	const int	l_len = ft_strlen(map[i]);
+
+	if (i == 0 || i == tab_len(map) - 1 || j == 0 || j == l_len - 1)
+		if (map[i][j] != '1')
+			return (0);
+	return (1);
 }
 
-int	space_to_wall(char **map, int i, int j)
+int	longest_line(char **map)
 {
-	if (map[i][j] == ' ')
-		map[i][j] = '1';
+	int	l_line;
+	int	i;
+
+	l_line = 0;
+	i = -1;
+	while (map[++i])
+		if ((int)ft_strlen(map[i]) > l_line)
+			l_line = ft_strlen(map[i]);
+	return (l_line);
+}
+
+/*	resize all lines to the longest	found in map
+	turn spaces and extended size chars to walls	*/
+int	normalize_map(char **map)
+{
+	int			i;
+	int			j;
+	int			c_line;
+	const int	l_line = longest_line(map);
+
+	i = -1;
+	while (map[++i])
+	{
+		c_line = ft_strlen(map[i]);
+		if (c_line < l_line)
+		{
+			map[i] = ft_realloc(map[i], l_line + 1);
+			if (!map[i])
+				return (print_error(ALLOC_FAIL, NULL), 0);
+		}
+		j = -1;
+		while (++j < l_line)
+			if (j >= c_line || map[i][j] == ' ')
+				map[i][j] = '1';
+		map[i][j] = '\0';
+	}
 	return (1);
 }
 
 // MAPCHAR = "NSEW01 "
 int	map_checker(char **map)
 {
-	static			int	p_pos = 0;
-	int				i;
-	int				j;
+	static int	p_pos = 0;
+	int			i;
+	int			j;
 
-	if (tab_len(map) < 3)
-		return (print_error(ORDINATE, NULL), 0);
+	if (!normalize_map(map))
+		return (0);
+	if (tab_len(map) < 3 || ft_strlen(map[0]) < 3)
+		return (print_error(TOO_SMALL, NULL), 0);
 	i = -1;
-	while(map[++i])
+	while (map[++i])
 	{
-		if (ft_strlen(map[i]) < 3)
-			return (print_error(ABSCISSA, NULL), 0);
 		j = -1;
-		while(map[i][++j])
+		while (map[i][++j])
 		{
 			if (!ft_strchr(MAPCHAR, map[i][j]))
 				return (print_error(BAD_MAP_CHAR, map[i]), 0);
-			if (space_to_wall(map, i, j) && is_edge(map, i, j))
-				if (!is_str_only(map[i], "1"))
-					return (print_error(BAD_WALL, NULL), 0);
+			if (!is_edge_a_wall(map, i, j))
+				return (print_error(BAD_WALL, NULL), 0);
 			if (ft_strchr(NSEW, map[i][j]))
 				p_pos += 1;
 		}
 	}
 	if (p_pos != 1)
 		return (print_error(BAD_PPOS, map[i]), 0);
+	return (1);
 }
