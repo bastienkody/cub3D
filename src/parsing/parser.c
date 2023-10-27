@@ -27,64 +27,64 @@ int	open_config_file(char *path)
 	return (fd);
 }
 
-int	is_config_full(t_data *data)
+int	is_config_full(t_info *info)
 {
-	if (data->no_path && data->so_path && data->we_path && data->ea_path)
-		if (data->ceil && data->floor && tab_len(data->map))
+	if (info->no_path && info->so_path && info->we_path && info->ea_path)
+		if (info->ceil && info->floor && tab_len(info->map))
 			return (1);
 	return (0);
 }
 
-int	next_map_line(char *line, char **split, t_data *data)
+int	next_map_line(char *line, char **split, t_info *info)
 {
 	char	**new_map;
 
 	free_charray(split);
-	if (data->map)
+	if (info->map)
 	{
-		new_map = charray_add_one(data->map, ft_strdup(line));
-		data->map = new_map;
-		if (!data->map)
+		new_map = charray_add_one(info->map, ft_strdup(line));
+		info->map = new_map;
+		if (!info->map)
 			return (print_error(ALLOC_FAIL, NULL), free(line), 0);
 	}
 	else
 	{
-		data->map = malloc(2 * sizeof(char *));
-		if (!data->map)
+		info->map = malloc(2 * sizeof(char *));
+		if (!info->map)
 			return (print_error(ALLOC_FAIL, NULL), free(line), 0);
-		data->map[0] = ft_strdup(line);
-		data->map[1] = NULL;
+		info->map[0] = ft_strdup(line);
+		info->map[1] = NULL;
 	}
 	free(line);
 	return (1);
 }
 
-int	analyze_line(char *line, char **split, t_data *data)
+int	analyze_line(char *line, char **split, t_info *info)
 {
 	static int	map_on = 0;
 
-	update_map_on(&map_on, data);
+	update_map_on(&map_on, info);
 	if (!split && !is_str_only(line, " "))
 		return (print_error(ALLOC_FAIL, NULL), free(line), 0);
 	if (!map_on)
 	{
 		if (is_texture_line(split))
-			return ((get_texture(line, split, data) > 0));
+			return ((get_texture(line, split, info) > 0));
 		if (is_rgb_line(split))
-			return (get_rgb(line, split, data));
+			return (get_rgb(line, split, info));
 	}
 	if (map_on && ft_strlen(line))
-		return (next_map_line(line, split, data));
-	if (map_on && tab_len(data->map) && !ft_strlen(line))
+		return (next_map_line(line, split, info));
+	if (map_on && tab_len(info->map) && !ft_strlen(line))
 		return (print_error(EMPTY_MAP, NULL), free_charray(split), free(line), 0);
 	if (!is_str_only(line, " "))
 		return (print_error(LINE_NOT_CONFIG, line), free_charray(split), free(line), 0);
 	return (free(line), free_charray(split), 1);
 }
 
-t_data	*main_parser(int argc, char **argv)
+t_info	*main_parser(int argc, char **argv)
 {
-	t_data	*data;
+	t_info	*info;
 	int		fd;
 	char	*line;
 
@@ -93,8 +93,8 @@ t_data	*main_parser(int argc, char **argv)
 	fd = open_config_file(argv[1]);
 	if (fd < 0)
 		return (NULL);
-	data = ft_calloc(1, sizeof(t_data));
-	if (!data)
+	info = ft_calloc(1, sizeof(t_info));
+	if (!info)
 		return (print_error(ALLOC_FAIL, NULL), NULL);
 	while (1)
 	{
@@ -103,10 +103,10 @@ t_data	*main_parser(int argc, char **argv)
 			break ;
 		if (ft_strchr(line, '\n'))
 			line[ft_strlen(line) - 1] = '\0';
-		if (!analyze_line(line, ft_split(line, ' '), data))
-			return (end_free(data), close(fd), NULL);
+		if (!analyze_line(line, ft_split(line, ' '), info))
+			return (end_free(info), close(fd), NULL);
 	}
-	if (!is_config_full(data))
-		return (print_error(LACK_INFO, argv[1]), end_free(data), close(fd), NULL);
-	return (close(fd), data);
+	if (!is_config_full(info))
+		return (print_error(LACK_INFO, argv[1]), end_free(info), close(fd), NULL);
+	return (close(fd), info);
 }

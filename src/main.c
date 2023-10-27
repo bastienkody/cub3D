@@ -12,21 +12,21 @@
 
 #include "../inc/cub3D.h"
 
-void	end_free(t_data *data)
+void	end_free(t_info *info)
 {
-	if (data && data->map)
-		free_charray(data->map);
-	if (data)
-		free(data);
+	if (info && info->map)
+		free_charray(info->map);
+	if (info)
+		free(info);
 }
 
 int	main(int argc, char **argv, __attribute__((unused)) char **envp)
 {
-	t_data	*data;
+	t_info	*info;
 
-	data = main_parser(argc, argv);
-	if (!data || !map_checker(data->map))
+	info = main_parser(argc, argv);
+	if (!info || !map_checker(info->map))
 		return (1);
-	print_data(data);
-	return (end_free(data), 0);
+	print_info(info);
+	return (end_free(info), 0);
 }

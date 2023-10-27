@@ -29,7 +29,7 @@
 following line does not comply with config format:"
 # define LACK_INFO "Not all infos collected while EOF found in"
 # define BAD_NBR "Overflow or non digit detected in rgb values within the following line:"
-# define EMPTY_MAP "Empty line within the map data is not acceptable"
+# define EMPTY_MAP "Empty line within the map info is not acceptable"
 # define BAD_MAP_CHAR "Bad map char found whithin line:"
 # define BAD_PPOS "Not exactly one player position wihthin the map"
 # define BAD_WALL "Map is not completely surrounded by walls"
@@ -44,7 +44,7 @@ following line does not comply with config format:"
 /*	typedef	*/
 typedef bool t_bool;
 
-typedef struct s_data
+typedef struct s_info
 {
 	int				no_path;
 	int				so_path;
@@ -55,12 +55,12 @@ typedef struct s_data
 	char			**map;
 	t_bool			ceil;
 	t_bool			floor;
-}				t_data;
+}				t_info;
 
 /*	parsing	*/
-t_data	*main_parser(int argc, char **argv);
-int		get_texture(char *line, char **split, t_data *data);
-int		get_rgb(char *line, char **split, t_data *data);
+t_info	*main_parser(int argc, char **argv);
+int		get_texture(char *line, char **split, t_info *info);
+int		get_rgb(char *line, char **split, t_info *info);
 int		map_checker(char **map);
 
 /*	parsing utils	*/
@@ -68,13 +68,13 @@ int		tab_len(char **tab);
 int		is_str_only(char *str, char *valid);
 int		is_texture_line(char **split);
 int		is_rgb_line(char **split);
-void	update_map_on(int *map_on, t_data *data);
+void	update_map_on(int *map_on, t_info *info);
 
 /*	printers	*/
 void	print_error(char *str1, char *str2);
-void	print_data(t_data *data);
+void	print_info(t_info *info);
 
 /*	free	*/
-void	end_free(t_data *data);
+void	end_free(t_info *info);
 
 #endif

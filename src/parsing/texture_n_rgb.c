@@ -13,7 +13,7 @@
 #include "../../inc/cub3D.h"
 
 /*	is it fd or path needed for mlx_xpm_to_img??	*/
-int	get_texture(char *line, char **split, t_data *data)
+int	get_texture(char *line, char **split, t_info *info)
 {
 	int	fd;
 
@@ -26,19 +26,19 @@ int	get_texture(char *line, char **split, t_data *data)
 		perror(split[1]);
 	}
 	//close (fd) [if path needed not fd]
-	// data_path = split[1];
+	// info_path = split[1];
 	if (!ft_strcmp(split[0], "NO"))
-		data->no_path = fd;
+		info->no_path = fd;
 	else if (!ft_strcmp(split[0], "SO"))
-		data->so_path = fd;
+		info->so_path = fd;
 	else if (!ft_strcmp(split[0], "WE"))
-		data->we_path = fd;
+		info->we_path = fd;
 	else if (!ft_strcmp(split[0], "EA"))
-		data->ea_path = fd;
+		info->ea_path = fd;
 	return (free_charray(split), free(line), fd);
 }
 
-int	store_rgb(char **rgb, char *line, t_data *data)
+int	store_rgb(char **rgb, char *line, t_info *info)
 {
 	int	i;
 
@@ -46,16 +46,16 @@ int	store_rgb(char **rgb, char *line, t_data *data)
 	if (line[0] == 'F')
 	{
 		while (++i < 3)
-			if (!ft_atouc_novf(rgb[i], &data->floor_rgb[i]))
+			if (!ft_atouc_novf(rgb[i], &info->floor_rgb[i]))
 				return (print_error(BAD_NBR, line), free_charray(rgb), 0);
-		data->floor = true;
+		info->floor = true;
 	}
 	else
 	{
 		while (++i < 3)
-			if (!ft_atouc_novf(rgb[i], &data->ceil_rgb[i]))
+			if (!ft_atouc_novf(rgb[i], &info->ceil_rgb[i]))
 				return (print_error(BAD_NBR, line), free_charray(rgb), 0);
-		data->ceil = true;
+		info->ceil = true;
 	}
 	return (1);
 }
@@ -92,7 +92,7 @@ int	check_rgb(char **rgb, char *line)
 	return (1);
 }
 
-int	get_rgb(char *line, char **split, t_data *data)
+int	get_rgb(char *line, char **split, t_info *info)
 {
 	char		*join;
 	char		**rgb_split;
@@ -104,7 +104,7 @@ int	get_rgb(char *line, char **split, t_data *data)
 		return (print_error(ALLOC_FAIL, NULL), free(*split), free(split), free(line), 0);
 	rgb_split = ft_split(join, ',');	// to be freed too
 	free(join);
-	if (!check_rgb(rgb_split, line) || !store_rgb(rgb_split, line, data))
+	if (!check_rgb(rgb_split, line) || !store_rgb(rgb_split, line, info))
 		return (free(*split), free(split), free(line), 0);
 	free_charray(rgb_split);
 	return (free(*split), free(split), free(line), 1);

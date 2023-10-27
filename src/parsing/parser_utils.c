@@ -62,9 +62,9 @@ int	is_rgb_line(char **split)
 }
 
 /*	set map_on when config infos are all done	*/
-void	update_map_on(int *map_on, t_data *data)
+void	update_map_on(int *map_on, t_info *info)
 {
-	if (!(*map_on) && data->no_path && data->so_path && data->we_path \
-		&& data->ea_path && data->floor && data->ceil)
+	if (!(*map_on) && info->no_path && info->so_path && info->we_path \
+		&& info->ea_path && info->floor && info->ceil)
 		*map_on = 1;
 }
