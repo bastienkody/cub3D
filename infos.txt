@@ -22,7 +22,19 @@ texture_path because its a single peace of info
 -----
 MAP :
 -----
-	- I decided to transform spaces into walls (' ' -> 1)
+	- I decided to :
+		- transform spaces into walls (' ' -> 1)
+		- make all lines the same lenght (the longest)
+		- place walls for extra char of enlarged lines
+	--> All maps are rectangle and no problem of wall for shorter line
 	- Exactly one player pos (one of : N,S,E,W)
-	- Walled completly on first/last raw/column
+	--> should it be stored in info and then replaces by a 0 on the map ?
 	- No empty lines are accepted within the map
+
+------------
+MLX BASICS : 
+------------
+	- input convention : /usr/include/X11/keysymdef.h
+	- events : /usr/include/X11/X.h
+	- Endian : for portability will be checking it with : 
+			int n=1; *(char *)&n = 1 ? little (most sign left) : big (most sign right) 

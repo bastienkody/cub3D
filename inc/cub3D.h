@@ -14,14 +14,14 @@
 # define CUB3D_H
 
 /*	includes	*/
+# include "../libs/mlx/mlx.h"
 # include "../libs/libft/libft.h"
 # include <fcntl.h>
 # include <stdio.h>
 # include <string.h>
 # include <stdbool.h>
 
-/*	error msg	*/
-# define ALLOC_FAIL "Malloc error - cub3D exiting"
+/*	error parsing msg	*/
 # define BAD_ARG_NB "Bad number of argument"
 # define BAD_CONFIG_NAME "Bad config file name (*.cub expected)"
 # define BAD_LINE "Following line format is not acceptable:"
@@ -35,6 +35,11 @@ following line does not comply with config format:"
 # define BAD_WALL "Map is not completely surrounded by walls"
 # define TOO_SMALL "Map is too small (row or column < 3 char)"
 
+/*	generic errors */
+# define ALLOC_FAIL "Malloc error - cub3D exiting"
+# define BAD_INI "Mlx initialization failed. Perhaps check envp before retry"
+# define BAD_WIN "Mlx window creation failed"
+
 /*	alpha const	*/
 # define MAPCHAR "NSEW01 "
 # define NSEW "NSEW"
@@ -46,22 +51,40 @@ typedef bool t_bool;
 
 typedef struct s_info
 {
+	void			*ptr;
+	void			*win;
+	char			**map;
 	int				no_path;
 	int				so_path;
 	int				we_path;
 	int				ea_path;
 	unsigned char	floor_rgb[3];
-	unsigned char	ceil_rgb[3];
-	char			**map;
 	t_bool			ceil;
+	unsigned char	ceil_rgb[3];
 	t_bool			floor;
+	int				pposx;
+	int				pposy;
+	int				pdirx;
+	int				pdiry;
 }				t_info;
+
+typedef struct s_img
+{
+	void	*ptr;
+	char	*addr;
+	int		bpp;
+	int		line_len;
+	int		endian;
+}				t_img;
+
+/*	display	*/
+int		init_display(t_info *info);
 
 /*	parsing	*/
 t_info	*main_parser(int argc, char **argv);
 int		get_texture(char *line, char **split, t_info *info);
 int		get_rgb(char *line, char **split, t_info *info);
-int		map_checker(char **map);
+int		map_checker(t_info *info);
 
 /*	parsing utils	*/
 int		tab_len(char **tab);

@@ -1,7 +1,7 @@
 
 #include "../../inc/cub3D.h"
 
-int	is_edge_a_wall(char **map, int i, int j)
+int	is_this_edge_a_wall(char **map, int i, int j)
 {
 	const int	l_len = ft_strlen(map[i]);
 
@@ -52,32 +52,62 @@ int	normalize_map(char **map)
 	return (1);
 }
 
+void	store_p_pos(t_info *info)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while (info->map[++i])
+	{
+		j = -1;
+		while (info->map[i][++j])
+		{
+			if (ft_strchr(NSEW, info->map[i][j]))
+			{
+				info->pposx = j;
+				info->pposy = i;
+				if (info->map[i][j] == 'N')
+					info->pdiry = -1;
+				if (info->map[i][j] == 'S')
+					info->pdiry = 1;
+				if (info->map[i][j] == 'W')
+					info->pdirx = -1;
+				if (info->map[i][j] == 'E')
+					info->pdirx = 1;
+				info->map[i][j] = '0';
+				return ;
+			}
+		}
+	}
+}
+
 // MAPCHAR = "NSEW01 "
-int	map_checker(char **map)
+int	map_checker(t_info *info)
 {
 	static int	p_pos = 0;
 	int			i;
 	int			j;
 
-	if (!normalize_map(map))
+	if (!normalize_map(info->map))
 		return (0);
-	if (tab_len(map) < 3 || ft_strlen(map[0]) < 3)
+	if (tab_len(info->map) < 3 || ft_strlen(info->map[0]) < 3)
 		return (print_error(TOO_SMALL, NULL), 0);
 	i = -1;
-	while (map[++i])
+	while (info->map[++i])
 	{
 		j = -1;
-		while (map[i][++j])
+		while (info->map[i][++j])
 		{
-			if (!ft_strchr(MAPCHAR, map[i][j]))
-				return (print_error(BAD_MAP_CHAR, map[i]), 0);
-			if (!is_edge_a_wall(map, i, j))
+			if (!ft_strchr(MAPCHAR, info->map[i][j]))
+				return (print_error(BAD_MAP_CHAR, info->map[i]), 0);
+			if (!is_this_edge_a_wall(info->map, i, j))
 				return (print_error(BAD_WALL, NULL), 0);
-			if (ft_strchr(NSEW, map[i][j]))
+			if (ft_strchr(NSEW, info->map[i][j]))
 				p_pos += 1;
 		}
 	}
 	if (p_pos != 1)
-		return (print_error(BAD_PPOS, map[i]), 0);
-	return (1);
+		return (print_error(BAD_PPOS, info->map[i]), 0);
+	return (store_p_pos(info), 1);
 }

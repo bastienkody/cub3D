@@ -4,6 +4,7 @@ BUILD_DIR	=	./build
 SRC_DIR 	=	src/
 PARS_DIR	=	parsing/
 PRINT_DIR	=	printer/
+DISP_DIR	=	display/
 
 ###		SOURCE FILES		###
 PARS_NAME	=	parser.c\
@@ -12,11 +13,15 @@ PARS_NAME	=	parser.c\
 				map_check.c
 PRINT_NAME	=	error.c\
 				dataprint.c
+DISP_NAME	=	init.c\
+				endian.c\
+				utils.c
 
 PARS_SRC	=	$(addprefix ${PARS_DIR}, ${PARS_NAME})
 PRINT_SRC	=	$(addprefix ${PRINT_DIR}, ${PRINT_NAME})
+DISP_SRC	=	$(addprefix ${DISP_DIR}, ${DISP_NAME})
 
-SRCS_NAME 	=	main.c ${PARS_SRC} ${PRINT_SRC}
+SRCS_NAME 	=	main.c ${PARS_SRC} ${PRINT_SRC} ${DISP_SRC}
 
 SRCS		=	$(addprefix ${SRC_DIR}, ${SRCS_NAME})
 OBJS		=	${SRCS:%.c=$(BUILD_DIR)/%.o}
@@ -25,11 +30,12 @@ OBJS		=	${SRCS:%.c=$(BUILD_DIR)/%.o}
 NAME		=	cub3Dd
 LIBFT		=	./libs/libft/libft.a
 MLX			=	./libs/mlx/libmlx.a
+XWIN		=	-lXext -lX11
 CC			=	cc
 
 ###		OPTIONS		##
 CFLAGS		=	-Wall -Wextra -Werror -g3
-LDFLAGS		=	${LIBFT} ${MLX}
+LDFLAGS		=	${LIBFT} ${MLX} ${XWIN}
 REDIRVOID	=	>/dev/null 2>&1
 
 ###		RULES		###
