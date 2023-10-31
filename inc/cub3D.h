@@ -58,9 +58,9 @@ typedef struct s_info
 	int				so_path;
 	int				we_path;
 	int				ea_path;
-	unsigned char	floor_rgb[3];
+	unsigned int	floor_rgb;
 	t_bool			ceil;
-	unsigned char	ceil_rgb[3];
+	unsigned int	ceil_rgb;
 	t_bool			floor;
 	int				pposx;
 	int				pposy;

@@ -38,32 +38,14 @@ int	get_texture(char *line, char **split, t_info *info)
 	return (free_charray(split), free(line), fd);
 }
 
-/*	convert/store rgb_tmp into hexa	
-	use of an external converter? 
-	if so maybe this function can be absorb by check_rgb ?	*/
-/*int	store_rgb(char **rgb, char *line, t_info *info)
+/*	bitshifting is consistent to endianess (maths, not data representation)	*/
+unsigned int	argb_to_hex(int a, int r, int g, int b)
 {
-	int	i;
-
-	i = -1;
-	if (line[0] == 'F')
-	{
-		while (++i < 3)
-			if (!ft_atouc_novf(rgb[i], &info->floor_rgb[i]))
-				return (print_error(BAD_NBR, line), free_charray(rgb), 0);
-		info->floor = true;
-	}
-	else
-	{
-		while (++i < 3)
-			if (!ft_atouc_novf(rgb[i], &info->ceil_rgb[i]))
-				return (print_error(BAD_NBR, line), free_charray(rgb), 0);
-		info->ceil = true;
-	}
-	return (1);
+	return (a << 24 | r << 16 | g << 8 | b);
 }
 
-int	nb_c_in_str(char *str, char c)
+/*	because of use ft_split on comma ...	*/
+int	count_c_in_str(char *str, char c)
 {
 	int	nb;
 
@@ -74,14 +56,15 @@ int	nb_c_in_str(char *str, char c)
 	return (nb);
 }
 
-int	check_rgb(char **rgb_split, char *line, int rgb_tmp[3])
+int	check_rgb(t_info *info, char **rgb_split, char *line, char **line_split)
 {
-	int			i;
-	int			j;
+	int	i;
+	int	j;
+	int rgb_tmp[3];
 
 	if (!rgb_split)
 		return (print_error(ALLOC_FAIL, NULL), 0);
-	if (nb_c_in_str(line, ',') != 2 || tab_len(rgb_split) != 3)
+	if (count_c_in_str(line, ',') != 2 || tab_len(rgb_split) != 3)
 		return (print_error(BAD_LINE, line), free_charray(rgb_split), 0);
 	i = -1;
 	while (++i < 3)
@@ -93,18 +76,24 @@ int	check_rgb(char **rgb_split, char *line, int rgb_tmp[3])
 			if (!ft_isdigit(rgb_split[i][j]))
 				return (print_error(BAD_NBR, line), free_charray(rgb_split), 0);
 	}
-	//if *line == 'F' then rgb_tmp into info->f_clr
-	//if *line == 'C' then rgb_tmp into info->c_clr
+	if (*line_split[0] == 'F')
+	{
+		info->floor_rgb = argb_to_hex(255, rgb_tmp[0], rgb_tmp[1], rgb_tmp[2]);
+		info->floor = true;
+	}
+	else
+	{
+		info->ceil_rgb = argb_to_hex(255, rgb_tmp[0], rgb_tmp[1], rgb_tmp[2]);
+		info->ceil = true;
+	}
+	// store rgb needed bc of norminette?
 	return (1);
 }
-*/
+
 int	get_rgb(char *line, char **split, t_info *info)
 {
-	return ((void)line, (void)split, (void)info, 1);
-}
-/*	char		*join;
+	char		*join;
 	char		**rgb_split;
-	int			rgb_tmp[3];
 
 	if (tab_len(split) < 2)
 		return (print_error(BAD_LINE, line), free_charray(split), free(line), 0);
@@ -113,8 +102,8 @@ int	get_rgb(char *line, char **split, t_info *info)
 		return (print_error(ALLOC_FAIL, NULL), free(*split), free(split), free(line), 0);
 	rgb_split = ft_split(join, ',');
 	free(join);
-	if (!check_rgb(rgb_split, line, rgb_tmp) || !store_rgb(rgb_tmp, line, info))
+	if (!check_rgb(info, rgb_split, line, split))
 		return (free(*split), free(split), free(line), 0);
 	free_charray(rgb_split);
 	return (free(*split), free(split), free(line), 1);
-}*/
+}
