@@ -21,6 +21,4 @@ void	print_error(char *str1, char *str2)
 		write(2, "\n", 1);
 	else
 		ft_fprintf(2, "%s\n", str2);
-
-
 }

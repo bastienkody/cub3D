@@ -24,16 +24,18 @@
 /*	error parsing msg	*/
 # define BAD_ARG_NB "Bad number of argument"
 # define BAD_CONFIG_NAME "Bad config file name (*.cub expected)"
-# define BAD_LINE "Following line format is not acceptable:"
-# define LINE_NOT_CONFIG "Texture/rgb config is not completed yet but the \
+# define BADLINE "Following line format is not acceptable:"
+# define NOTCONF "Texture/rgb config is not completed yet but the \
 following line does not comply with config format:"
 # define LACK_INFO "Not all infos collected while EOF found in"
-# define BAD_NBR "Overflow or non digit detected in rgb values within the following line:"
-# define EMPTY_MAP "Empty line within the map info is not acceptable"
+# define BAD_NBR "Overflow or non digit detected in rgb values within the \
+following line:"
+# define EMPTY "Empty line within the map info is not acceptable"
 # define BAD_MAP_CHAR "Bad map char found whithin line:"
 # define BAD_PPOS "Not exactly one player position wihthin the map"
 # define BAD_WALL "Map is not completely surrounded by walls"
 # define TOO_SMALL "Map is too small (row or column < 3 char)"
+# define MULTI_DEF "Multiple definition of the following identifier:"
 
 /*	generic errors */
 # define ALLOC_FAIL "Malloc error - cub3D exiting"
@@ -47,7 +49,7 @@ following line does not comply with config format:"
 /*	num const	*/
 
 /*	typedef	*/
-typedef bool t_bool;
+typedef bool	t_bool;
 
 typedef struct s_info
 {
@@ -78,26 +80,29 @@ typedef struct s_img
 }				t_img;
 
 /*	display	*/
-int		init_display(t_info *info);
+int				init_display(t_info *info);
 
 /*	parsing	*/
-t_info	*main_parser(int argc, char **argv);
-int		get_texture(char *line, char **split, t_info *info);
-int		get_rgb(char *line, char **split, t_info *info);
-int		map_checker(t_info *info);
+t_info			*main_parser(int argc, char **argv);
+int				get_texture(char *line, char **split, t_info *info);
+int				get_rgb(char *line, char **split, t_info *info);
+int				map_checker(t_info *info);
 
 /*	parsing utils	*/
-int		tab_len(char **tab);
-int		is_str_only(char *str, char *valid);
-int		is_texture_line(char **split);
-int		is_rgb_line(char **split);
-void	update_map_on(int *map_on, t_info *info);
+int				tab_len(char **tab);
+int				is_str_only(char *str, char *valid);
+int				is_texture_line(char **split);
+int				is_rgb_line(char **split);
+void			update_map_on(int *map_on, t_info *info);
+int				count_c_in_str(char *str, char c);
+int				argb_hex(unsigned char a, unsigned char r, unsigned char g, \
+				unsigned char b);
 
 /*	printers	*/
-void	print_error(char *str1, char *str2);
-void	print_info(t_info *info);
+void			print_error(char *str1, char *str2);
+void			print_info(t_info *info);
 
 /*	free	*/
-void	end_free(t_info *info);
+void			end_free(t_info *info);
 
 #endif

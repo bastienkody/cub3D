@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_check.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bguillau <bguillau@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/01 17:53:00 by bguillau          #+#    #+#             */
+/*   Updated: 2023/11/01 17:53:06 by bguillau         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../../inc/cub3D.h"
 
@@ -76,13 +87,11 @@ void	store_p_pos(t_info *info)
 				if (info->map[i][j] == 'E')
 					info->pdirx = 1;
 				info->map[i][j] = '0';
-				return ;
 			}
 		}
 	}
 }
 
-// MAPCHAR = "NSEW01 "
 int	map_checker(t_info *info)
 {
 	static int	p_pos = 0;
@@ -96,11 +105,11 @@ int	map_checker(t_info *info)
 	i = -1;
 	while (info->map[++i])
 	{
+		if (!is_str_only(info->map[i], MAPCHAR))
+			return (print_error(BAD_MAP_CHAR, info->map[i]), 0);
 		j = -1;
 		while (info->map[i][++j])
 		{
-			if (!ft_strchr(MAPCHAR, info->map[i][j]))
-				return (print_error(BAD_MAP_CHAR, info->map[i]), 0);
 			if (!is_this_edge_a_wall(info->map, i, j))
 				return (print_error(BAD_WALL, NULL), 0);
 			if (ft_strchr(NSEW, info->map[i][j]))

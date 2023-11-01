@@ -22,17 +22,15 @@ void	print_info(t_info *info)
 	ft_fprintf(1, "sopath:%i\n", info->so_path);
 	ft_fprintf(1, "wepath:%i\n", info->we_path);
 	ft_fprintf(1, "eapath:%i\n", info->ea_path);
-	i = -1;
 	ft_fprintf(1, "Floor color : ");
-	while (++i < 3)
-		ft_fprintf(1, "%i,", info->floor_rgb[i]);
-	i = -1;
+	ft_fprintf(1, "%x", info->floor_rgb);
 	ft_fprintf(1, "\nCeiling color : ");
-	while (++i < 3)
-		ft_fprintf(1, "%i,", info->ceil_rgb[i]);
+	ft_fprintf(1, "%x", info->ceil_rgb);
 	ft_fprintf(1, "\n");
 	i = -1;
 	ft_fprintf(1, "Map:\n");
 	while (info->map && info->map[++i])
 		ft_fprintf(1, "%s\n", info->map[i]);
+	ft_fprintf(1, "Player pos = x:%i, y:%i\n", info->pposx, info->pposy);
+	ft_fprintf(1, "Player dir = x:%i, y:%i\n", info->pdirx, info->pdiry);
 }

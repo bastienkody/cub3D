@@ -24,14 +24,11 @@ int	main(int argc, char **argv, __attribute__((unused)) char **envp)
 {
 	t_info	*info;
 
-	(void)argc;
-	(void)argv;
-	info = calloc(1, sizeof(t_info));
-	//info = main_parser(argc, argv);
-	//if (!info || !map_checker(info))
-		//return (1);
-	//print_info(info);
-	init_display(info);
-	mlx_loop(info->ptr);
+	info = main_parser(argc, argv);
+	if (!info)
+		return (1);
+	if (!map_checker(info))
+		return (end_free(info), 1);
+	print_info(info);
 	return (end_free(info), 0);
 }

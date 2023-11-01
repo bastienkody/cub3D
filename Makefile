@@ -10,11 +10,11 @@ DISP_DIR	=	display/
 PARS_NAME	=	parser.c\
 				parser_utils.c\
 				texture_n_rgb.c\
+				color_utils.c\
 				map_check.c
 PRINT_NAME	=	error.c\
 				dataprint.c
 DISP_NAME	=	init.c\
-				endian.c\
 				utils.c
 
 PARS_SRC	=	$(addprefix ${PARS_DIR}, ${PARS_NAME})

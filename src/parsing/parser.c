@@ -80,19 +80,19 @@ int	analyze_line(char *line, char **split, t_info *info)
 	if (map_on && ft_strlen(line))
 		return (next_map_line(line, split, info));
 	if (map_on && tab_len(info->map) && !ft_strlen(line))
-		return (print_error(EMPTY_MAP, NULL), free_charray(split), free(line), 0);
+		return (print_error(EMPTY, NULL), free_charray(split), free(line), 0);
 	if (!is_str_only(line, " "))
-		return (print_error(LINE_NOT_CONFIG, line), free_charray(split), free(line), 0);
+		return (print_error(NOTCONF, line), free_charray(split), free(line), 0);
 	return (free(line), free_charray(split), 1);
 }
 
-t_info	*main_parser(int argc, char **argv)
+t_info	*main_parser(int argc, char **av)
 {
 	t_info	*info;
 	int		fd;
 	char	*line;
 
-	fd = open_config_file(argc, argv);
+	fd = open_config_file(argc, av);
 	if (fd < 0)
 		return (NULL);
 	info = ft_calloc(1, sizeof(t_info));
@@ -109,6 +109,6 @@ t_info	*main_parser(int argc, char **argv)
 			return (end_free(info), close(fd), NULL);
 	}
 	if (!is_config_full(info))
-		return (print_error(LACK_INFO, argv[1]), end_free(info), close(fd), NULL);
+		return (print_error(LACK_INFO, av[1]), end_free(info), close(fd), NULL);
 	return (close(fd), info);
 }
