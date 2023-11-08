@@ -12,7 +12,6 @@
 
 #include "../../inc/cub3D.h"
 
-/*	size (entries nb) of a char**	*/
 int	tab_len(char **tab)
 {
 	int	i;

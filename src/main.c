@@ -14,10 +14,20 @@
 
 void	end_free(t_info *info)
 {
-	if (info && info->map)
-		free_charray(info->map);
-	if (info)
-		free(info);
+	free_charray(info->map);
+	free(info->no_path);
+	free(info->so_path);
+	free(info->we_path);
+	free(info->ea_path);
+	if (info->ptr)
+	{
+		if (info->win)
+			mlx_destroy_window(info->ptr, info->win);
+		mlx_destroy_display(info->ptr);
+		free(info->ptr);
+	}
+	free(info);
+	exit(EXIT_SUCCESS);
 }
 
 int	main(int argc, char **argv, __attribute__((unused)) char **envp)
@@ -30,5 +40,6 @@ int	main(int argc, char **argv, __attribute__((unused)) char **envp)
 	if (!map_checker(info))
 		return (end_free(info), 1);
 	print_info(info);
+	init_display(info);
 	return (end_free(info), 0);
 }

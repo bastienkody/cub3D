@@ -18,10 +18,10 @@ void	print_info(t_info *info)
 
 	if (!info)
 		return ((void)ft_fprintf(1, "info addr is NULL\n"));
-	ft_fprintf(1, "nopath:%i\n", info->no_path);
-	ft_fprintf(1, "sopath:%i\n", info->so_path);
-	ft_fprintf(1, "wepath:%i\n", info->we_path);
-	ft_fprintf(1, "eapath:%i\n", info->ea_path);
+	ft_fprintf(1, "nopath:%s\n", info->no_path, info->no_path);
+	ft_fprintf(1, "sopath:%s\n", info->so_path, info->so_path);
+	ft_fprintf(1, "wepath:%s\n", info->we_path, info->we_path);
+	ft_fprintf(1, "eapath:%s\n", info->ea_path, info->ea_path);
 	ft_fprintf(1, "Floor color : ");
 	ft_fprintf(1, "%x", info->floor_rgb);
 	ft_fprintf(1, "\nCeiling color : ");

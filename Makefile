@@ -9,13 +9,16 @@ DISP_DIR	=	display/
 ###		SOURCE FILES		###
 PARS_NAME	=	parser.c\
 				parser_utils.c\
-				texture_n_rgb.c\
-				color_utils.c\
+				texture.c\
+				rgb.c\
+				rgb_utils.c\
 				map_check.c
 PRINT_NAME	=	error.c\
 				dataprint.c
 DISP_NAME	=	init.c\
-				utils.c
+				image_utils.c\
+				drawers.c\
+				hooks.c
 
 PARS_SRC	=	$(addprefix ${PARS_DIR}, ${PARS_NAME})
 PRINT_SRC	=	$(addprefix ${PRINT_DIR}, ${PRINT_NAME})
@@ -47,7 +50,7 @@ $(BUILD_DIR)/%.o: %.c
 
 all:		${NAME}
 
-${NAME}:	${LIBFT} ${MLX} ${OBJS} ${HEADER} 
+${NAME}:	${LIBFT} ${MLX} ${OBJS} ${HEADER}
 			@echo "\033[32m\c"
 			${CC} -o ${NAME} ${OBJS} ${LDFLAGS}
 			@echo "Link complete for exec --> \033[4;36;1m${NAME}\033[0m"

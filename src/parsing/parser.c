@@ -14,8 +14,8 @@
 
 int	open_config_file(int argc, char **argv)
 {
-	int		fd;
-	char	*path;
+	int			fd;
+	const char	*path = argv[1];
 
 	if (argc != 2)
 		return (print_error(BAD_ARG_NB, NULL), 0);
