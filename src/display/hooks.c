@@ -19,7 +19,7 @@ int	key_inputs(int keycode, t_info *info)
 {
 	ft_fprintf(1, "keycode:%i\n", keycode);
 	if (info->is_intro)
-		if (keycode == 65293)
+		if (keycode == 113)
 			stop_intro(info);
 	if (keycode == XK_Escape)
 		close_window((t_info *)info);
@@ -36,7 +36,7 @@ int	disp_intro(t_info *info)
 	if (!info->is_intro)
 		return (1);
 	counter++;
-	if (counter > 30)
+	if (counter > INTRO_COUNTER_UBU)
 	{
 		counter = 0;
 		flag *=-1;
