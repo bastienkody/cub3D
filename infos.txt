@@ -44,3 +44,10 @@ MLX BASICS :
 	- events : /usr/include/X11/X.h
 	- Endian : for portability will be checking it with : 
 			int n=1; *(char *)&n = 1 ? little (most sign left) : big (most sign right) 
+
+-------
+BONUS :
+-------
+		- minimap
+		- [c] for crouching (s'accroupir) + flying and laying ? 
+		- zoom in/out

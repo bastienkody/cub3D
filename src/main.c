@@ -41,6 +41,6 @@ int	main(int argc, char **argv, __attribute__((unused)) char **envp)
 	if (!map_checker(info))
 		return (end_free(info), 1);
 	print_info(info);
-	//init_display(info);
+	init_display(info);
 	return (end_free(info), 0);
 }
