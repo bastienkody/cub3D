@@ -31,10 +31,12 @@ following line does not comply with config format:"
 # define LACK_INFO "Not all infos collected while EOF found in"
 # define BAD_NBR "Overflow or non digit detected in rgb values within the \
 following line:"
-# define EMPTY "Empty line within the map info is not acceptable"
+# define EMPTY "Empty line within or after the map info is not acceptable"
 # define BAD_MAP_CHAR "Bad map char found whithin line:"
 # define BAD_PPOS "Not exactly one player position wihthin the map"
 # define BAD_WALL "Map is not completely surrounded by walls"
+# define BAD_SPACE "A space was found next to a walkable path on the following \
+line:"
 # define TOO_SMALL "Map is too small (row or column < 3 char)"
 # define MULTI_DEF "Multiple definition of the following identifier:"
 # define BAD_XPM "Only accepting xpm file for texture, not:"
@@ -114,6 +116,7 @@ int		map_checker(t_info *info);
 
 /*	parsing utils	*/
 int		tab_len(char **tab);
+int		longest_line(char **map);
 int		is_str_only(char *str, char *valid);
 int		is_texture_line(char **split);
 int		is_rgb_line(char **split);

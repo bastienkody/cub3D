@@ -16,22 +16,26 @@ From this tests I conclude that ".cub" is not acceptable.
 such as map\ .cub or "map .cub" is ok in bash. 
 I dont handle theses.
 - Quotes in the texture path --> '"config.cub"' should be accepted as config.cub
-and not "config.cub". I accept one peer of quote (double or simple). I could
-accept more by using my function
+and not "config.cub". I accept one peer of quote (double or simple).
 - Spaces in rgb --> "F  200    ,  23,255   " might be acceptable, but not for
 texture_path because its a single peace of info
+- Spaces that be part the texture path : i dont handle bc of ft_split(' ').
 
 -----
 MAP :
 -----
 	- I decided to :
-		- transform spaces into walls (' ' -> 1)
 		- make all lines the same lenght (the longest)
-		- place walls for extra char of enlarged lines
+		- turn extra char of enlarged lines to spaces
+		- transform spaces into char '2'
 	--> All maps are rectangle and no problem of wall for shorter line
 	- Exactly one player pos (one of : N,S,E,W)
-	--> should it be stored in info and then replaces by a 0 on the map ?
-	- No empty lines are accepted within the map
+	- No empty lines are accepted within the map (or after)
+-------> Eric's idea : resize la map at longest line with spaces. Do not replace
+space by 1, just check that space are surrounded (from all sides) by space or 
+wall, never 0 or player pos
+and finally check that the ractangle map is surrounded by walls
+
 
 ------------
 MLX BASICS : 

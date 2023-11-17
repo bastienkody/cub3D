@@ -14,7 +14,6 @@
 
 int	store_texture(char *path, char *id, t_info *info)
 {
-	//ft_fprintf(1, "id:%s, path:%s %p\n", id, path, path);
 	if (!path)
 		return (print_error(ALLOC_FAIL, NULL), 0);
 	if ((!ft_strcmp(id, "NO") && info->no_path) || (!ft_strcmp(id, "SO") && \
@@ -41,11 +40,11 @@ char	*rm_peer_quotes(char *str)
 	{
 		new = malloc(sizeof(char *) * (ft_strlen(str) - 2 + 1));
 		if (!new)
-			return (0);
+			return (NULL);
 		i = 0;
 		while (++i < (int)ft_strlen(str) - 1)
 			new[i - 1] = str[i];
-		new[i] = '\0';
+		new[i - 1] = '\0';
 	}
 	else
 		new = ft_strdup(str);
@@ -64,7 +63,8 @@ int	get_texture(char *line, char **split, t_info *info)
 	if (!path)
 		return (print_error(ALLOC_FAIL, 0), free_charray(split), free(line), 0);
 	if (ft_strlen(path) < 5 || ft_strcmp(&path[ft_strlen(path) -4], ".xpm"))
-		return (print_error(BAD_XPM, path), free_charray(split), free(line), free(path), 0);
+		return (print_error(BAD_XPM, path), free_charray(split), free(line), \
+			free(path), 0);
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
 	{

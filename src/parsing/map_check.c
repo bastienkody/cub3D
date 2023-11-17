@@ -14,29 +14,28 @@
 
 int	is_this_edge_a_wall(char **map, int i, int j)
 {
-	const int	l_len = ft_strlen(map[i]);
+	const int	x_len = ft_strlen(map[i]);
+	const int	y_len = tab_len(map);
 
-	if (i == 0 || i == tab_len(map) - 1 || j == 0 || j == l_len - 1)
-		if (map[i][j] != '1')
-			return (0);
+	if (i == 0 || i == y_len - 1 || j == 0 || j == x_len - 1)
+		if (map[i][j] != '1' && map[i][j] != '2')
+			return (print_error(BAD_WALL, NULL), 0);
+	if (map[i][j] == '2')
+	{
+		if (i > 0 && map[i - 1][j] == '0')
+			return (print_error(BAD_SPACE, map[i]), 0);
+		if (i < y_len - 1 && map[i + 1][j] == '0')
+			return (print_error(BAD_SPACE, map[i]), 0);
+		if (j > 0 && map[i][j - 1] == '0')
+			return (print_error(BAD_SPACE, map[i]), 0);
+		if (j < x_len - 1 && map[i][j + 1] == '0')
+			return (print_error(BAD_SPACE, map[i]), 0);
+	}
 	return (1);
 }
 
-int	longest_line(char **map)
-{
-	int	l_line;
-	int	i;
-
-	l_line = 0;
-	i = -1;
-	while (map[++i])
-		if ((int)ft_strlen(map[i]) > l_line)
-			l_line = ft_strlen(map[i]);
-	return (l_line);
-}
-
 /*	resize all lines to the longest	found in map
-	turn spaces and extended size chars to walls	*/
+	turn spaces and extended size chars to '2'	*/
 int	normalize_map(char **map)
 {
 	int			i;
@@ -57,7 +56,7 @@ int	normalize_map(char **map)
 		j = -1;
 		while (++j < l_line)
 			if (j >= c_line || map[i][j] == ' ')
-				map[i][j] = '1';
+				map[i][j] = '2';
 		map[i][j] = '\0';
 	}
 	return (1);
@@ -92,26 +91,35 @@ void	store_p_pos(t_info *info)
 	}
 }
 
+int	check_bad_char_map(char **map)
+{
+	int	i;
+
+	i = -1;
+	while (map[++i])
+		if (!is_str_only(map[i], MAPCHAR))
+			return (print_error(BAD_MAP_CHAR, map[i]), 0);
+	return (1);
+}
+
 int	map_checker(t_info *info)
 {
 	static int	p_pos = 0;
 	int			i;
 	int			j;
 
-	if (!normalize_map(info->map))
+	if (!check_bad_char_map(info->map) || !normalize_map(info->map))
 		return (0);
 	if (tab_len(info->map) < 3 || ft_strlen(info->map[0]) < 3)
 		return (print_error(TOO_SMALL, NULL), 0);
 	i = -1;
 	while (info->map[++i])
 	{
-		if (!is_str_only(info->map[i], MAPCHAR))
-			return (print_error(BAD_MAP_CHAR, info->map[i]), 0);
 		j = -1;
 		while (info->map[i][++j])
 		{
 			if (!is_this_edge_a_wall(info->map, i, j))
-				return (print_error(BAD_WALL, NULL), 0);
+				return (0);
 			if (ft_strchr(NSEW, info->map[i][j]))
 				p_pos += 1;
 		}

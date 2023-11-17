@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   color_utils.c                                      :+:      :+:    :+:   */
+/*   misc_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bguillau <bguillau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 17:52:46 by bguillau          #+#    #+#             */
-/*   Updated: 2023/11/01 17:52:48 by bguillau         ###   ########.fr       */
+/*   Updated: 2023/11/17 16:36:52 by bguillau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,17 @@ int	count_c_in_str(char *str, char c)
 		if (c == *str++)
 			nb++;
 	return (nb);
+}
+
+int	longest_line(char **map)
+{
+	int	l_line;
+	int	i;
+
+	l_line = 0;
+	i = -1;
+	while (map[++i])
+		if ((int)ft_strlen(map[i]) > l_line)
+			l_line = ft_strlen(map[i]);
+	return (l_line);
 }

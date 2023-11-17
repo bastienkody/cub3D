@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rgb.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bguillau <bguillau@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/17 16:41:00 by bguillau          #+#    #+#             */
+/*   Updated: 2023/11/17 16:41:02 by bguillau         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/cub3D.h"
 
 /*	protected against redefinition of colors	*/
@@ -7,8 +19,6 @@ int	store_rgb(t_info *info, char **line_split, unsigned char rgb_tmp[3])
 	{
 		info->floor_rgb = argb_hex(255, rgb_tmp[0], rgb_tmp[1], rgb_tmp[2]);
 		info->floor = true;
-		ft_fprintf(1, "Floor color : ");
-		ft_fprintf(1, "%x\n", info->floor_rgb);
 	}
 	else if (*line_split[0] == 'F' && info->floor)
 		return (print_error(MULTI_DEF, line_split[0]), 0);
@@ -16,8 +26,6 @@ int	store_rgb(t_info *info, char **line_split, unsigned char rgb_tmp[3])
 	{
 		info->ceil_rgb = argb_hex(255, rgb_tmp[0], rgb_tmp[1], rgb_tmp[2]);
 		info->ceil = true;
-		ft_fprintf(1, "Ceiling color : ");
-		ft_fprintf(1, "%x\n", info->ceil_rgb);
 	}
 	else if (*line_split[0] == 'C' && !info->ceil)
 		return (print_error(MULTI_DEF, line_split[0]), 0);

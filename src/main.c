@@ -14,7 +14,8 @@
 
 void	end_free(t_info *info)
 {
-	free_charray(info->map);
+	if (info->map)
+		free_charray(info->map);
 	free(info->no_path);
 	free(info->so_path);
 	free(info->we_path);
@@ -40,6 +41,6 @@ int	main(int argc, char **argv, __attribute__((unused)) char **envp)
 	if (!map_checker(info))
 		return (end_free(info), 1);
 	print_info(info);
-	init_display(info);
+	//init_display(info);
 	return (end_free(info), 0);
 }

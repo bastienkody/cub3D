@@ -11,7 +11,7 @@ PARS_NAME	=	parser.c\
 				parser_utils.c\
 				texture.c\
 				rgb.c\
-				rgb_utils.c\
+				misc_utils.c\
 				map_check.c
 PRINT_NAME	=	error.c\
 				dataprint.c
