@@ -96,6 +96,7 @@ t_info	*main_parser(int argc, char **av)
 	if (fd < 0)
 		return (NULL);
 	info = ft_calloc(1, sizeof(t_info));
+	ft_memset(info, 0, sizeof(t_info));
 	if (!info)
 		return (print_error(ALLOC_FAIL, NULL), NULL);
 	while (1)

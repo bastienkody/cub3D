@@ -20,6 +20,7 @@
 # include <stdio.h>
 # include <string.h>
 # include <stdbool.h>
+# include <math.h>
 # include <X11/keysym.h>
 
 /*	error parsing msg	*/
@@ -46,19 +47,31 @@ line:"
 # define ALLOC_FAIL "Malloc error - cub3D exiting"
 # define BAD_INI "Mlx initialization failed. Perhaps check envp before retry"
 # define BAD_WIN "Mlx window creation failed"
+# define XPM_LOAD "A xpm file failed to load"
 
 /*	alpha const	*/
 # define MAPCHAR "NSEW01 "
 # define NSEW "NSEW"
+# define TRUC ""
 
 /*	num const	*/
-# define WIN_WIDTH 1920
-# define WIN_HEIGHT 1080
+# define TILE_S 64
+# define MENUBAR_H 70
+#ifndef WIN_W
+	# define WIN_W 1920
+#endif
+#ifndef WIN_H
+	# define WIN_H 1080
+#endif
 # define INTRO_COUNTER_MAC_INTEL 30
 # define INTRO_COUNTER_UBU 750
 
 /*	colors	*/
 # define WHITE 0x00FFFFFF
+# define BLACK 0x00000000
+# define RED 0x00FF0000
+# define GREEN 0x0000FF00
+# define BLUE 0x000000FF
 
 /*	typedef	*/
 typedef bool	t_bool;
@@ -92,12 +105,21 @@ typedef struct s_info
 	t_bool			is_intro;
 	t_img			*intro1;
 	t_img			*intro2;
+	t_img			*bg_default;
+	t_img			*N_text;
+	t_img			*S_text;
+	t_img			*W_text;
+	t_img			*E_text;
 }				t_info;
 
 /*	display	*/
+void	game(t_info *info);
 int		init_display(t_info *info);
+
+/*	drawers	*/
 void	pixel_w(t_img *img, int x, int y, int color);
 void	line_w(t_img *img, int a[2], int b[2], int color);
+void	draw_rect(t_img *img, int og[2], int dim[2], int color);
 
 /*	hooks	*/
 int		close_window(t_info *info);

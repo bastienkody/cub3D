@@ -20,21 +20,20 @@ int	close_window(t_info *info)
 
 void	stop_intro(t_info *info)
 {
-	t_img	*blackbg = create_image(info->ptr, WIN_WIDTH, WIN_HEIGHT);
-
+	info->bg_default = create_image(info->ptr, WIN_W, WIN_H - 70);
 	info->is_intro = false;
-	line_w(blackbg, (int []){0, 0}, (int []){WIN_WIDTH, WIN_HEIGHT}, WHITE),
-	mlx_put_image_to_window(info->ptr, info->win, blackbg->ptr, 0, 0);
+	line_w(info->bg_default, (int []){0, 0}, (int []){WIN_W, WIN_H - 70}, WHITE);
+	mlx_put_image_to_window(info->ptr, info->win, info->bg_default->ptr, 0, 0);
 }
 
 int	key_inputs(int keycode, t_info *info)
 {
-	ft_fprintf(1, "keycode:%i\n", keycode);
+	ft_fprintf(1, "keycode:%i %s\n", keycode, TRUC);
 	if (info->is_intro)
-		if (keycode == 113)
+		if (keycode == 65293)
 			stop_intro(info);
 	if (keycode == XK_Escape)
-		close_window((t_info *)info);
+		close_window(info);
 	else if (keycode == XK_i)
 		print_info(info);	
 	return (1);

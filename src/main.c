@@ -12,6 +12,15 @@
 
 #include "../inc/cub3D.h"
 
+void	unload_texture(void * mlx_ptr, t_img *img)
+{
+	if (img && img->ptr)
+	{
+		mlx_destroy_image(mlx_ptr, img->ptr);
+		free(img);
+	}
+}
+
 void	end_free(t_info *info)
 {
 	if (info->map)
@@ -22,6 +31,13 @@ void	end_free(t_info *info)
 	free(info->ea_path);
 	if (info->ptr)
 	{
+		unload_texture(info->ptr, info->intro1);
+		unload_texture(info->ptr, info->intro2);
+		unload_texture(info->ptr, info->bg_default);
+		unload_texture(info->ptr, info->N_text);
+		unload_texture(info->ptr, info->S_text);
+		unload_texture(info->ptr, info->W_text);
+		unload_texture(info->ptr, info->E_text);
 		if (info->win)
 			mlx_destroy_window(info->ptr, info->win);
 		mlx_destroy_display(info->ptr);
@@ -41,6 +57,6 @@ int	main(int argc, char **argv, __attribute__((unused)) char **envp)
 	if (!map_checker(info))
 		return (end_free(info), 1);
 	print_info(info);
-	init_display(info);
+	game(info);
 	return (end_free(info), 0);
 }
