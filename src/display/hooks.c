@@ -20,9 +20,9 @@ int	close_window(t_info *info)
 
 void	stop_intro(t_info *info)
 {
-	info->bg_default = create_image(info->ptr, WIN_W, WIN_H - 70);
+	info->bg_default = create_image(info->ptr, WIN_W, WIN_H);
 	info->is_intro = false;
-	line_w(info->bg_default, (int []){0, 0}, (int []){WIN_W, WIN_H - 70}, WHITE);
+	line_w(info->bg_default, (int []){0, 0}, (int []){WIN_W, WIN_H}, WHITE);
 	mlx_put_image_to_window(info->ptr, info->win, info->bg_default->ptr, 0, 0);
 }
 
@@ -35,7 +35,7 @@ int	key_inputs(int keycode, t_info *info)
 	if (keycode == XK_Escape)
 		close_window(info);
 	else if (keycode == XK_i)
-		print_info(info);	
+		print_info(info);
 	return (1);
 }
 
@@ -50,7 +50,7 @@ int	disp_intro(t_info *info)
 	if (counter > INTRO_COUNTER_UBU)
 	{
 		counter = 0;
-		flag *=-1;
+		flag *= -1;
 	}
 	if (flag < 0)
 		mlx_put_image_to_window(info->ptr, info->win, info->intro1->ptr, 0, 0);

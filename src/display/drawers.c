@@ -26,7 +26,7 @@ void	line_w(t_img *img, int a[2], int b[2], int color)
 	const int	abs_dist[2] = {abs(b[0] - a[0]), abs(b[1] - a[1])};
 	int			dir[2];
 	int			err[2];
-	 
+
 	err[0] = abs_dist[0] - abs_dist[1];
 	ft_memset(dir, -1, 2);
 	if (a[0] < b[0])

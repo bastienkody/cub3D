@@ -33,7 +33,7 @@ SRCS		=	$(addprefix ${SRC_DIR}, ${SRCS_NAME})
 OBJS		=	${SRCS:%.c=$(BUILD_DIR)/%.o}
 
 ###		DEFINITIONS		###
-NAME		=	cub3Dd
+NAME		=	cub3D
 LIBFT		=	./libs/libft/libft.a
 MLX			=	./libs/mlx/libmlx.a
 XWIN		=	-lXext -lX11
@@ -41,15 +41,15 @@ SHELL		=	/usr/bin/bash
 CC			=	cc
 
 ###		SCREEN RES		###
-MENU_HEIGHT	=	70
-DIM			=	$(shell xdpyinfo | grep dim | grep -o "[0-9]*x[0-9]* pixels")
-WIDTH		=	$(shell echo ${DIM} | cut -d'x' -f1 | grep -o "[0-9]*")
-HEIGHT		=	$(shell echo ${DIM} | cut -d'x' -f2 | grep -o "[0-9]*")
+DIM			:=	$(shell xdpyinfo | grep dim | grep -o "[0-9]*x[0-9]* pixels")
+WIDTH		:=	$(shell echo ${DIM} | cut -d'x' -f1 | grep -o "[0-9]*")
+HEIGHT		:=	$(shell echo ${DIM} | cut -d'x' -f2 | grep -o "[0-9]*")
+RES_ALERT	:=	"\033[31mScreen res is lower than 1920x1080. You might not enjoy the game, please change hardware.\033[m"
+RES_OK		:=	"\033[32mScreen display set to 1920x1080. Launch game with: \033[4\;36\;1m\.\/cub3D \<map\.cub\>\033[m"
 
 ###		OPTIONS		##
 CFLAGS		=	-Wall -Wextra -Werror -g3
-WIN_FLAGS	=	-D WIN_WIDTH=${WIDTH} -D WIN_HEIGHT=${HEIGHT}
-LDFLAGS		=	${LIBFT} ${MLX} ${XWIN} ${WIN_FLAGS}
+LDFLAGS		=	${LIBFT} ${MLX} ${XWIN}
 REDIRVOID	=	>/dev/null 2>&1
 
 ###		RULES		###
@@ -59,7 +59,7 @@ $(BUILD_DIR)/%.o: %.c ${HEADER}
 			${CC} ${CFLAGS} -c $< -o $@
 			@echo -e "\033[0m\c"
 
-all:		${NAME}
+all:		${NAME} screen_res_alert
 
 ${NAME}:	${LIBFT} ${MLX} ${OBJS} ${HEADER}
 			@echo -e "\033[32m\c"
@@ -70,6 +70,9 @@ ${LIBFT}:
 			@echo -ne "\033[33mlibft: compilation ...\033[0m"
 			@make --no-print-directory -C ./libs/libft/
 			@echo -e "\r\033[33mlibft: compiled!           \033[0m"
+
+screen_res_alert:
+		@echo -e $(shell [[ ${WIDTH} -ge 1920 && ${HEIGHT} -ge 1080 ]] && echo -e ${RES_OK} || echo -e ${RES_ALERT} )
 
 ${MLX}:
 			@echo -ne "\033[33mmlx: compilation ...\033[0m"
@@ -89,4 +92,4 @@ fclean:		clean
 
 re:			fclean all
 
-.PHONY:		all clean re
+.PHONY:		all clean re screen_res_alert

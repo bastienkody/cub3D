@@ -42,6 +42,10 @@ line:"
 # define MULTI_DEF "Multiple definition of the following identifier:"
 # define BAD_XPM "Only accepting xpm file for texture, not:"
 # define BAD_XPM_FILE "mlx_xpm_file_to_img returned null with path:"
+# define NO_FETCH_RES "Could not fetch screen resolution from system (the game \
+window is designed to be 1920x1080)"
+# define LOWER_RES "Screen resolution is lower than expected (1920x1080), you \
+might change hardware to fully enjoy the game :)"
 
 /*	generic errors */
 # define ALLOC_FAIL "Malloc error - cub3D exiting"
@@ -56,13 +60,9 @@ line:"
 
 /*	num const	*/
 # define TILE_S 64
+# define WIN_W 1920
+# define WIN_H 1010
 # define MENUBAR_H 70
-#ifndef WIN_W
-	# define WIN_W 1920
-#endif
-#ifndef WIN_H
-	# define WIN_H 1080
-#endif
 # define INTRO_COUNTER_MAC_INTEL 30
 # define INTRO_COUNTER_UBU 750
 
@@ -106,10 +106,10 @@ typedef struct s_info
 	t_img			*intro1;
 	t_img			*intro2;
 	t_img			*bg_default;
-	t_img			*N_text;
-	t_img			*S_text;
-	t_img			*W_text;
-	t_img			*E_text;
+	t_img			*n_text;
+	t_img			*s_text;
+	t_img			*w_text;
+	t_img			*e_text;
 }				t_info;
 
 /*	display	*/

@@ -18,4 +18,3 @@ double	rad(double ang_in_degrees)
 
 	return (ang_in_degrees * mod);
 }
-
