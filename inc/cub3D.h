@@ -51,7 +51,7 @@ might change hardware to fully enjoy the game :)"
 # define ALLOC_FAIL "Malloc error - cub3D exiting"
 # define BAD_INI "Mlx initialization failed. Perhaps check envp before retry"
 # define BAD_WIN "Mlx window creation failed"
-# define XPM_LOAD "A xpm file failed to load"
+# define XPM_LOAD "Failure for maximap image creation or an XPM image load"
 
 /*	alpha const	*/
 # define MAPCHAR "NSEW01 "
@@ -69,9 +69,16 @@ might change hardware to fully enjoy the game :)"
 /*	colors	*/
 # define WHITE 0x00FFFFFF
 # define BLACK 0x00000000
+#define GREY 0x00808080
 # define RED 0x00FF0000
 # define GREEN 0x0000FF00
 # define BLUE 0x000000FF
+
+/*	player path	*/
+# define PL_FACE 	"map/textures/perso2d/face64.xpm"
+# define PL_BACK 	"map/textures/perso2d/back64.xpm"
+# define PL_LEFT 	"map/textures/perso2d/left64.xpm"
+# define PL_RIGHT 	"map/textures/perso2d/right64.xpm"
 
 /*	typedef	*/
 typedef bool	t_bool;
@@ -103,6 +110,7 @@ typedef struct s_info
 	int				pdirx;
 	int				pdiry;
 	t_bool			is_intro;
+	t_bool			is_maximap;
 	t_img			*intro1;
 	t_img			*intro2;
 	t_img			*bg_default;
@@ -110,11 +118,14 @@ typedef struct s_info
 	t_img			*s_text;
 	t_img			*w_text;
 	t_img			*e_text;
+	t_img			*maximap;
+	t_img			*player[4];
 }				t_info;
 
 /*	display	*/
-void	game(t_info *info);
+void	run(t_info *info);
 int		init_display(t_info *info);
+void	maximap_display(t_info *info);
 
 /*	drawers	*/
 void	pixel_w(t_img *img, int x, int y, int color);

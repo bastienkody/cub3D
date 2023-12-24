@@ -14,6 +14,7 @@
 
 int	close_window(t_info *info)
 {
+	// disp une win qui propose de quitter
 	end_free(info);
 	return (1);
 }
@@ -36,6 +37,8 @@ int	key_inputs(int keycode, t_info *info)
 		close_window(info);
 	else if (keycode == XK_i)
 		print_info(info);
+	else if (keycode == XK_m)
+		maximap_display(info);
 	return (1);
 }
 

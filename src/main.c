@@ -38,6 +38,10 @@ void	end_free(t_info *info)
 		unload_texture(info->ptr, info->s_text);
 		unload_texture(info->ptr, info->w_text);
 		unload_texture(info->ptr, info->e_text);
+		unload_texture(info->ptr, info->player[0]);
+		unload_texture(info->ptr, info->player[1]);
+		unload_texture(info->ptr, info->player[2]);
+		unload_texture(info->ptr, info->player[3]);
 		if (info->win)
 			mlx_destroy_window(info->ptr, info->win);
 		mlx_destroy_display(info->ptr);
@@ -56,6 +60,6 @@ int	main(int argc, char **argv, __attribute__((unused)) char **envp)
 		return (1);
 	if (!map_checker(info))
 		return (end_free(info), 1);
-	game(info);
+	run(info);
 	return (end_free(info), 0);
 }

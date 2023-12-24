@@ -19,7 +19,8 @@ PRINT_NAME	=	error.c\
 DISP_NAME	=	init.c\
 				image_utils.c\
 				drawers.c\
-				hooks.c
+				hooks.c\
+				maximap.c
 RAY_NAME	=	utils.c\
 
 PARS_SRC	=	$(addprefix ${PARS_DIR}, ${PARS_NAME})
@@ -37,7 +38,7 @@ NAME		=	cub3D
 LIBFT		=	./libs/libft/libft.a
 MLX			=	./libs/mlx/libmlx.a
 XWIN		=	-lXext -lX11
-SHELL		=	/usr/bin/bash
+SHELL		=	/bin/bash
 CC			=	cc
 
 ###		SCREEN RES		###
