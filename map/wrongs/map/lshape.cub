@@ -1,0 +1,14 @@
+NO map/textures/blue_led_wall2.xpm
+SO map/textures/yellow_led_wall.xpm
+WE map/textures/blue_led_wall.xpm
+EA map/textures/blue_led_wall3.xpm
+
+F 10,226,40
+C 80,20,220
+
+11111111111111111111111111
+11111111111111111111111011
+10000000000000000000000001
+10111111111111111111111111
+10N1
+1111
