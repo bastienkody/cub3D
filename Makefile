@@ -73,7 +73,7 @@ ${LIBFT}:
 			@echo -e "\r\033[33mlibft: compiled!           \033[0m"
 
 screen_res_alert:
-		@echo -e $(shell [[ ${WIDTH} -ge 1920 && ${HEIGHT} -ge 1080 ]] && echo -e ${RES_OK} || echo -e ${RES_ALERT} )
+		@echo -e $(shell [[ ${WIDTH} -ge 1920 && ${HEIGHT} -ge 1080 ]] && echo -e ${RES_OK} || echo -e ${RES_ALERT} ) > /dev/stderr
 
 ${MLX}:
 			@echo -ne "\033[33mmlx: compilation ...\033[0m"

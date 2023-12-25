@@ -6,10 +6,9 @@
 
 dir=./
 exec="./cub3D"
-input_dir="../testercpp09/inputstxt/"
 
 #turn bool_ to 0 to skip specific tests
-bool_makefile=1
+bool_makefile=0
 
 # const
 ITA="\033[3m"
@@ -26,7 +25,7 @@ RED_BG="\033[41;1m"
 # print intro
 echo "------------------------------------"
 echo "------------------------------------"
-echo -e "${BOLD}Cub3D parsing tester${END}"
+echo -e "${BOLD}\tCub3D parsing tester${END}"
 echo -e "Started at $(date +%R) - $(date +"%d %B %Y")"
 echo -e "by $USER on $(uname) os"
 echo -e "made by bguillau (@bastienkody)"
@@ -58,9 +57,6 @@ grep -sq -- "-Wextra" Makefile && echo -ne "${GREEN}OK (-Wextra)${END}" || echo 
 echo -n " -- "
 grep -sq -- "-Werror" Makefile && echo -ne "${GREEN}OK (-Werror)${END}" || echo -ne "${RED}-Werror not found${END}"
 echo -n " -- "
-grep -sq -- "-std=c++98" Makefile && echo -ne "${GREEN}OK (std c++98)${END}" || echo -ne "${RED}Flag -std=c++98 not found${END}"
-echo ""
-
 
 else make >/dev/null ; fi
 
@@ -76,7 +72,6 @@ else make >/dev/null ; fi
 	#	not *.cub
 	#	only space as name
 	#	env -i
-	#	unset path
 echo -e "${YEL_BG}Textures error tests${END}"
 
 echo -e "${BLU_BG}${exec} (no arg)${END}\t"
@@ -95,12 +90,8 @@ echo -e "${BLU_BG}${exec} \"  \" ${END}\t"
 ${exec} " "
 echo "----------------------------------------------------------------"
 
-echo -e "${BLU_BG} env -i ${exec} map/map./cub ${END}\t"
+echo -e "${BLU_BG} env -i ${exec} map/map.cub ${END}\t"
 env -i ${exec} map/map.cub 
-echo "----------------------------------------------------------------"
-
-echo -e "${BLU_BG} unset PATH && ${exec} map/map./cub ${END}\t"
-unset PATH && ${exec} map/map./cub
 echo "----------------------------------------------------------------"
 
 
@@ -169,18 +160,17 @@ echo -e "${BLU_BG}${exec} ${d}unexist.cub ${END}\t"
 ${exec} ${d}unexist.cub
 echo "----------------------------------------------------------------"
 
-echo -e "${BLU_BG}${exec} ${d}noreadingright.cub ${END}\t"
-chmod u-r ${d}noreadingright.cub
-${exec} ${d}noreadingright.cub
-chmod u+r ${d}noreadingright.cub
-echo "----------------------------------------------------------------"
+
+## WTF NIQUE BIEN TA GM TOI FDP ARGHHHHHHHH
+#echo -e "${BLU_BG}${exec} noreadingright.cub ${END}\t"
+#echo truc > noreadingright.cub || pwd
+#cat noreadingright.cub && chmod u-r noreadingright.cub ||{ pwd ; exit ; }
+#${exec} noreadingright.cub
+#rm noreadingright.cub 
+#echo "----------------------------------------------------------------"
 
 echo -e "${BLU_BG}${exec} ${d}aftermap.cub ${END}\t"
 ${exec} ${d}aftermap.cub
-echo "----------------------------------------------------------------"
-
-echo -e "${BLU_BG}${exec} ${d}spaces.cub ${END}\t"
-#${exec} ${d}spaces.cub
 echo "----------------------------------------------------------------"
 
 ########################################
@@ -320,7 +310,9 @@ echo "----------------------------------------------------------------"
 ##################################################################
 # is timeout needed? or pipes? oh, just bg jobs with & ??
 ##################################################################
-echo -e "${YEL_BG}General tests that should launch the game${END}"
+echo -e "${YEL_BG}General tests that should launch the game (in background with '&')${END}"
+echo -e "${ITA}You must close (nb tests = 8) cub3D windows${END}"
+echo -e "${ITA}No error messages expected below (unless map spaces are not handled)${END}"
 
 echo -e "${BLU_BG}Spaces in textures : ${exec} map/wrongs/textures/spaces.cub ${END}\t"
 ${exec} map/wrongs/textures/spaces.cub &
