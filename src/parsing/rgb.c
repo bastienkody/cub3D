@@ -13,26 +13,26 @@
 #include "../../inc/cub3D.h"
 
 /*	protected against redefinition of colors	*/
-int	store_rgb(t_info *info, char **line_split, unsigned char rgb_tmp[3])
+int	store_rgb(t_parser *pars, char **line_split, unsigned char rgb_tmp[3])
 {
-	if (*line_split[0] == 'F' && !info->floor)
+	if (*line_split[0] == 'F' && !pars->floor)
 	{
-		info->floor_rgb = argb_hex(255, rgb_tmp[0], rgb_tmp[1], rgb_tmp[2]);
-		info->floor = true;
+		pars->floor_rgb = argb_hex(255, rgb_tmp[0], rgb_tmp[1], rgb_tmp[2]);
+		pars->floor = true;
 	}
-	else if (*line_split[0] == 'F' && info->floor)
+	else if (*line_split[0] == 'F' && pars->floor)
 		return (print_error(MULTI_DEF, line_split[0]), 0);
-	if (*line_split[0] == 'C' && !info->ceil)
+	if (*line_split[0] == 'C' && !pars->ceil)
 	{
-		info->ceil_rgb = argb_hex(255, rgb_tmp[0], rgb_tmp[1], rgb_tmp[2]);
-		info->ceil = true;
+		pars->ceil_rgb = argb_hex(255, rgb_tmp[0], rgb_tmp[1], rgb_tmp[2]);
+		pars->ceil = true;
 	}
-	else if (*line_split[0] == 'C' && !info->ceil)
+	else if (*line_split[0] == 'C' && !pars->ceil)
 		return (print_error(MULTI_DEF, line_split[0]), 0);
 	return (1);
 }
 
-int	check_rgb(t_info *info, char **rgb_split, char *line, char **line_split)
+int	check_rgb(t_parser *pars, char **rgb_split, char *line, char **line_split)
 {
 	int				i;
 	int				j;
@@ -52,12 +52,12 @@ int	check_rgb(t_info *info, char **rgb_split, char *line, char **line_split)
 			if (!ft_isdigit(rgb_split[i][j]))
 				return (print_error(BAD_NBR, line), free_charray(rgb_split), 0);
 	}
-	if (!store_rgb(info, line_split, rgb_tmp))
+	if (!store_rgb(pars, line_split, rgb_tmp))
 		return (free_charray(rgb_split), 0);
 	return (1);
 }
 
-int	get_rgb(char *line, char **split, t_info *info)
+int	get_rgb(char *line, char **split, t_parser *pars)
 {
 	char		*join;
 	char		**rgb_split;
@@ -70,7 +70,7 @@ int	get_rgb(char *line, char **split, t_info *info)
 		free(line), 0);
 	rgb_split = ft_split(join, ',');
 	free(join);
-	if (!check_rgb(info, rgb_split, line, split))
+	if (!check_rgb(pars, rgb_split, line, split))
 		return (free(*split), free(split), free(line), 0);
 	free_charray(rgb_split);
 	return (free(*split), free(split), free(line), 1);

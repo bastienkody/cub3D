@@ -60,10 +60,10 @@ int	is_rgb_line(char **split)
 	return (0);
 }
 
-/*	set map_on when config infos are all done	*/
-void	update_map_on(int *map_on, t_info *info)
+/*	set map_on when config pars are all done	*/
+void	update_map_on(int *map_on, t_parser *pars)
 {
-	if (!(*map_on) && info->no_path && info->so_path && info->we_path \
-		&& info->ea_path && info->floor && info->ceil)
+	if (!(*map_on) && pars->no_path && pars->so_path && pars->we_path \
+		&& pars->ea_path && pars->floor && pars->ceil)
 		*map_on = 1;
 }

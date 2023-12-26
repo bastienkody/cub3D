@@ -12,16 +12,16 @@
 
 #include "../../inc/cub3D.h"
 
-int	load_textures(t_info *info)
+int	load_textures(t_info *info, t_parser *pars)
 {
 	info->intro1 = create_xpm_image(info->ptr, \
 		"map/textures/intrologo/logo_pink_white_0.xpm", WIN_W, WIN_H);
 	info->intro2 = create_xpm_image(info->ptr, \
 		"map/textures/intrologo/logo_pink_white_1.xpm", WIN_W, WIN_H);
-	info->n_text = create_xpm_image(info->ptr, info->no_path, TILE_S, TILE_S);
-	info->s_text = create_xpm_image(info->ptr, info->so_path, TILE_S, TILE_S);
-	info->w_text = create_xpm_image(info->ptr, info->we_path, TILE_S, TILE_S);
-	info->e_text = create_xpm_image(info->ptr, info->ea_path, TILE_S, TILE_S);
+	info->n_text = create_xpm_image(info->ptr, pars->no_path, TILE_S, TILE_S);
+	info->s_text = create_xpm_image(info->ptr, pars->so_path, TILE_S, TILE_S);
+	info->w_text = create_xpm_image(info->ptr, pars->we_path, TILE_S, TILE_S);
+	info->e_text = create_xpm_image(info->ptr, pars->ea_path, TILE_S, TILE_S);
 	info->maximap = create_image(info->ptr, WIN_W, WIN_H);
 	if (!info->intro1 || !info->intro1->ptr || !info->intro2 || \
 		!info->intro2->ptr || !info->n_text || !info->n_text->ptr || \
@@ -47,7 +47,7 @@ int	load_player_textures(t_info *info, int size)
 	return (1);
 }
 
-int	init_display(t_info *info)
+int	init_display(t_info *info, t_parser *pars)
 {
 	info->ptr = mlx_init();
 	if (!info->ptr)
@@ -56,17 +56,8 @@ int	init_display(t_info *info)
 	if (!info->win)
 		return (print_error(BAD_WIN, NULL), 0);
 	info->is_intro = true;
-	if (!load_textures(info) || !load_player_textures(info, 64))
+	//	add function to calculate size of maximap player icon
+	if (!load_textures(info, pars) || !load_player_textures(info, 64))
 		return (0);
 	return (1);
-}
-
-void	run(t_info *info)
-{
-	if (!init_display(info))
-		return ;
-	mlx_key_hook(info->win, &key_inputs, info);
-	mlx_hook(info->win, 17, 0, &close_window, info);
-	mlx_loop_hook(info->ptr, &disp_intro, info);
-	mlx_loop(info->ptr);
 }

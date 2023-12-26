@@ -28,7 +28,7 @@ PRINT_SRC	=	$(addprefix ${PRINT_DIR}, ${PRINT_NAME})
 DISP_SRC	=	$(addprefix ${DISP_DIR}, ${DISP_NAME})
 RAY_SRC		=	$(addprefix ${RAY_DIR}, ${RAY_NAME})
 
-SRCS_NAME 	=	main.c ${PARS_SRC} ${PRINT_SRC} ${DISP_SRC} ${RAY_SRC}
+SRCS_NAME 	=	main.c endfree.c ${PARS_SRC} ${PRINT_SRC} ${DISP_SRC} ${RAY_SRC}
 
 SRCS		=	$(addprefix ${SRC_DIR}, ${SRCS_NAME})
 OBJS		=	${SRCS:%.c=$(BUILD_DIR)/%.o}

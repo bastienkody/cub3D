@@ -59,6 +59,7 @@ might change hardware to fully enjoy the game :)"
 # define TRUC ""
 
 /*	num const	*/
+# define ALLOR 3
 # define TILE_S 64
 # define WIN_W 1920
 # define WIN_H 1010
@@ -92,10 +93,8 @@ typedef struct s_img
 	int		endian;
 }				t_img;
 
-typedef struct s_info
+typedef struct s_parser
 {
-	void			*ptr;
-	void			*win;
 	char			**map;
 	char			*no_path;
 	char			*so_path;
@@ -105,6 +104,19 @@ typedef struct s_info
 	t_bool			ceil;
 	unsigned int	ceil_rgb;
 	t_bool			floor;
+	int				pposx;
+	int				pposy;
+	int				pdirx;
+	int				pdiry;
+}				t_parser;
+
+typedef struct s_info
+{
+	void			*ptr;
+	void			*win;
+	char			**map;
+	unsigned int	floor;
+	unsigned int	ceil;
 	int				pposx;
 	int				pposy;
 	int				pdirx;
@@ -124,28 +136,28 @@ typedef struct s_info
 
 /*	display	*/
 void	run(t_info *info);
-int		init_display(t_info *info);
+int		init_display(t_info *info, t_parser *pars);
 void	maximap_display(t_info *info);
-
-/*	drawers	*/
-void	pixel_w(t_img *img, int x, int y, int color);
-void	line_w(t_img *img, int a[2], int b[2], int color);
-void	draw_rect(t_img *img, int og[2], int dim[2], int color);
 
 /*	hooks	*/
 int		close_window(t_info *info);
 int		key_inputs(int keycode, t_info *info);
 int		disp_intro(t_info *info);
 
+/*	drawers	*/
+void	pixel_w(t_img *img, int x, int y, int color);
+void	line_w(t_img *img, int a[2], int b[2], int color);
+void	draw_rect(t_img *img, int og[2], int dim[2], int color);
+
 /*	img	*/
 t_img	*create_image(void *mlx_ptr, int w, int h);
 t_img	*create_xpm_image(void *mlx_ptr, char *path, int w, int h);
 
 /*	parsing	*/
-t_info	*main_parser(int argc, char **argv);
-int		get_texture(char *line, char **split, t_info *info);
-int		get_rgb(char *line, char **split, t_info *info);
-int		map_checker(t_info *info);
+t_parser	*main_parser(int argc, char **argv);
+int		get_texture(char *line, char **split, t_parser *pars);
+int		get_rgb(char *line, char **split, t_parser *pars);
+int		map_checker(t_parser *pars);
 
 /*	parsing utils	*/
 int		tab_len(char **tab);
@@ -153,7 +165,7 @@ int		longest_line(char **map);
 int		is_str_only(char *str, char *valid);
 int		is_texture_line(char **split);
 int		is_rgb_line(char **split);
-void	update_map_on(int *map_on, t_info *info);
+void	update_map_on(int *map_on, t_parser *pars);
 int		count_c_in_str(char *str, char c);
 int		argb_hex(unsigned char a, unsigned char r, unsigned char g, \
 				unsigned char b);
@@ -164,5 +176,6 @@ void	print_info(t_info *info);
 
 /*	free	*/
 void	end_free(t_info *info);
+void	end_parser(t_parser *pars);
 
 #endif

@@ -12,54 +12,45 @@
 
 #include "../inc/cub3D.h"
 
-void	unload_texture(void *mlx_ptr, t_img *img)
+t_info	*pars_to_info(t_parser *pars)
 {
-	if (img && img->ptr)
-	{
-		mlx_destroy_image(mlx_ptr, img->ptr);
-		free(img);
-	}
+	t_info	*info;
+
+	if (!map_checker(pars))
+		return (NULL);
+	info = calloc(1, sizeof(t_info));
+	info->pposx = pars->pposx;
+	info->pposy = pars->pposy;
+	info->pdirx = pars->pdirx;
+	info->pdiry = pars->pdiry;
+	info->floor = pars->floor_rgb;
+	info->ceil = pars->ceil_rgb;
+	info->map = pars->map;
+	pars->map = NULL;
+	if (!info || !init_display(info, pars))
+		return (NULL);
+	return (end_parser(pars), info);
 }
 
-void	end_free(t_info *info)
+void	run(t_info *info)
 {
-	if (info->map)
-		free_charray(info->map);
-	free(info->no_path);
-	free(info->so_path);
-	free(info->we_path);
-	free(info->ea_path);
-	if (info->ptr)
-	{
-		unload_texture(info->ptr, info->intro1);
-		unload_texture(info->ptr, info->intro2);
-		unload_texture(info->ptr, info->bg_default);
-		unload_texture(info->ptr, info->n_text);
-		unload_texture(info->ptr, info->s_text);
-		unload_texture(info->ptr, info->w_text);
-		unload_texture(info->ptr, info->e_text);
-		unload_texture(info->ptr, info->player[0]);
-		unload_texture(info->ptr, info->player[1]);
-		unload_texture(info->ptr, info->player[2]);
-		unload_texture(info->ptr, info->player[3]);
-		if (info->win)
-			mlx_destroy_window(info->ptr, info->win);
-		mlx_destroy_display(info->ptr);
-		free(info->ptr);
-	}
-	free(info);
-	exit(EXIT_SUCCESS);
+	mlx_key_hook(info->win, &key_inputs, info);
+	mlx_hook(info->win, 17, 0, &close_window, info);
+	mlx_loop_hook(info->ptr, &disp_intro, info);
+	mlx_loop(info->ptr);
 }
 
 int	main(int argc, char **argv, __attribute__((unused)) char **envp)
 {
-	t_info	*info;
+	t_parser	*pars;	
+	t_info		*info;
 
-	info = main_parser(argc, argv);
-	if (!info)
+	pars = main_parser(argc, argv); // fetch config file
+	if (!pars)
 		return (1);
-	if (!map_checker(info))
-		return (end_free(info), 1);
+	info = pars_to_info(pars); // checkmap + allocinfo + initdisplay (ptr, xpmload)
+	if (!info)
+		return (end_parser(pars), end_free(info), 1);
 	run(info);
 	return (end_free(info), 0);
 }

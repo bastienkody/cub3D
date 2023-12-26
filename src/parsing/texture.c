@@ -12,22 +12,22 @@
 
 #include "../../inc/cub3D.h"
 
-int	store_texture(char *path, char *id, t_info *info)
+int	store_texture(char *path, char *id, t_parser *pars)
 {
 	if (!path)
 		return (print_error(ALLOC_FAIL, NULL), 0);
-	if ((!ft_strcmp(id, "NO") && info->no_path) || (!ft_strcmp(id, "SO") && \
-		info->so_path) || (!ft_strcmp(id, "WE") && info->we_path) || \
-		(!ft_strcmp(id, "EA") && info->ea_path))
+	if ((!ft_strcmp(id, "NO") && pars->no_path) || (!ft_strcmp(id, "SO") && \
+		pars->so_path) || (!ft_strcmp(id, "WE") && pars->we_path) || \
+		(!ft_strcmp(id, "EA") && pars->ea_path))
 		return (print_error(MULTI_DEF, id), free(path), 0);
-	if (!ft_strcmp(id, "NO") && !info->no_path)
-		info->no_path = path;
-	else if (!ft_strcmp(id, "SO") && !info->so_path)
-		info->so_path = path;
-	else if (!ft_strcmp(id, "WE") && !info->we_path)
-		info->we_path = path;
-	else if (!ft_strcmp(id, "EA") && !info->ea_path)
-		info->ea_path = path;
+	if (!ft_strcmp(id, "NO") && !pars->no_path)
+		pars->no_path = path;
+	else if (!ft_strcmp(id, "SO") && !pars->so_path)
+		pars->so_path = path;
+	else if (!ft_strcmp(id, "WE") && !pars->we_path)
+		pars->we_path = path;
+	else if (!ft_strcmp(id, "EA") && !pars->ea_path)
+		pars->ea_path = path;
 	return (1);
 }
 
@@ -52,7 +52,7 @@ char	*rm_peer_quotes(char *str)
 }
 
 /*	filename bc mlx ptr not yet generated but needed for xpm_to_img	*/
-int	get_texture(char *line, char **split, t_info *info)
+int	get_texture(char *line, char **split, t_parser *pars)
 {
 	int		fd;
 	char	*path;
@@ -73,6 +73,6 @@ int	get_texture(char *line, char **split, t_info *info)
 		return (free_charray(split), free(line), free(path), fd);
 	}
 	close(fd);
-	fd = store_texture(path, split[0], info);
+	fd = store_texture(path, split[0], pars);
 	return (free_charray(split), free(line), fd);
 }

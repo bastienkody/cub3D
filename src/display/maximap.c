@@ -45,7 +45,8 @@ void	maximap_display(t_info *info)
 	int			x;
 	const int	colorz[3] = {WHITE, GREY, BLACK};
 
-
+	if (info->is_intro)
+		return ;
 	info->is_maximap = !info->is_maximap;
 	if (!info->is_maximap)
 		return ((void)mlx_put_image_to_window(info->ptr, info->win, \

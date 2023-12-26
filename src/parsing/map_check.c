@@ -62,30 +62,30 @@ int	normalize_map(char **map)
 	return (1);
 }
 
-void	store_p_pos(t_info *info)
+void	store_p_pos(t_parser *pars)
 {
 	int	i;
 	int	j;
 
 	i = -1;
-	while (info->map[++i])
+	while (pars->map[++i])
 	{
 		j = -1;
-		while (info->map[i][++j])
+		while (pars->map[i][++j])
 		{
-			if (ft_strchr(NSEW, info->map[i][j]))
+			if (ft_strchr(NSEW, pars->map[i][j]))
 			{
-				info->pposx = j;
-				info->pposy = i;
-				if (info->map[i][j] == 'N')
-					info->pdiry = -1;
-				if (info->map[i][j] == 'S')
-					info->pdiry = 1;
-				if (info->map[i][j] == 'W')
-					info->pdirx = -1;
-				if (info->map[i][j] == 'E')
-					info->pdirx = 1;
-				info->map[i][j] = '0';
+				pars->pposx = j;
+				pars->pposy = i;
+				if (pars->map[i][j] == 'N')
+					pars->pdiry = -1;
+				if (pars->map[i][j] == 'S')
+					pars->pdiry = 1;
+				if (pars->map[i][j] == 'W')
+					pars->pdirx = -1;
+				if (pars->map[i][j] == 'E')
+					pars->pdirx = 1;
+				pars->map[i][j] = '0';
 			}
 		}
 	}
@@ -102,29 +102,29 @@ int	check_bad_char_map(char **map)
 	return (1);
 }
 
-int	map_checker(t_info *info)
+int	map_checker(t_parser *pars)
 {
 	static int	p_pos = 0;
 	int			i;
 	int			j;
 
-	if (!check_bad_char_map(info->map) || !normalize_map(info->map))
+	if (!check_bad_char_map(pars->map) || !normalize_map(pars->map))
 		return (0);
-	if (tab_len(info->map) < 3 || ft_strlen(info->map[0]) < 3)
+	if (tab_len(pars->map) < 3 || ft_strlen(pars->map[0]) < 3)
 		return (print_error(TOO_SMALL, NULL), 0);
 	i = -1;
-	while (info->map[++i])
+	while (pars->map[++i])
 	{
 		j = -1;
-		while (info->map[i][++j])
+		while (pars->map[i][++j])
 		{
-			if (!is_this_edge_a_wall(info->map, i, j))
+			if (!is_this_edge_a_wall(pars->map, i, j))
 				return (0);
-			if (ft_strchr(NSEW, info->map[i][j]))
+			if (ft_strchr(NSEW, pars->map[i][j]))
 				p_pos += 1;
 		}
 	}
 	if (p_pos != 1)
-		return (print_error(BAD_PPOS, info->map[i]), 0);
-	return (store_p_pos(info), 1);
+		return (print_error(BAD_PPOS, pars->map[i]), 0);
+	return (store_p_pos(pars), 1);
 }
