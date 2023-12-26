@@ -20,6 +20,8 @@ t_img	*create_image(void *mlx_ptr, int w, int h)
 	if (!img)
 		return (NULL);
 	img->ptr = mlx_new_image(mlx_ptr, w, h);
+	if (!img->ptr)
+		return (print_error(IMAGE_FAIL, NULL), NULL);
 	img->addr = mlx_get_data_addr(img->ptr, &img->bpp, &img->line_len, \
 	&img->endian);
 	return (img);

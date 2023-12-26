@@ -28,7 +28,7 @@ int	load_textures(t_info *info)
 		!info->s_text || !info->s_text->ptr ||!info->w_text || \
 		!info->w_text->ptr || !info->e_text || !info->e_text->ptr || \
 		!info->maximap || !info->maximap->ptr)
-		return (print_error(XPM_LOAD, NULL), 0);
+		return (0);
 	return (1);
 }
 
@@ -43,7 +43,7 @@ int	load_player_textures(t_info *info, int size)
 	i = -1;
 	while (++i < 4)
 		if (!info->player[i] || !info->player[i]->ptr)
-			return (print_error(XPM_LOAD, NULL), 0);
+			return (0);
 	return (1);
 }
 

@@ -48,7 +48,7 @@ int	check_rgb(t_info *info, char **rgb_split, char *line, char **line_split)
 		if (!ft_atouc_novf(rgb_split[i], &rgb_tmp[i]))
 			return (print_error(BAD_NBR, line), free_charray(rgb_split), 0);
 		j = -1;
-		while (++j < 3 && rgb_split[i][j])
+		while (rgb_split[i][++j])
 			if (!ft_isdigit(rgb_split[i][j]))
 				return (print_error(BAD_NBR, line), free_charray(rgb_split), 0);
 	}

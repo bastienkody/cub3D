@@ -51,7 +51,7 @@ might change hardware to fully enjoy the game :)"
 # define ALLOC_FAIL "Malloc error - cub3D exiting"
 # define BAD_INI "Mlx initialization failed. Perhaps check envp before retry"
 # define BAD_WIN "Mlx window creation failed"
-# define XPM_LOAD "Failure for maximap image creation or an XPM image load"
+# define IMAGE_FAIL "Creation of an image failed - cub3D exiting"
 
 /*	alpha const	*/
 # define MAPCHAR "NSEW01 "
