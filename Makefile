@@ -48,6 +48,13 @@ HEIGHT		:=	$(shell echo ${DIM} | cut -d'x' -f2 | grep -o "[0-9]*")
 RES_ALERT	:=	"\033[31mScreen res is lower than 1920x1080. You might not enjoy the game, please change hardware.\033[m"
 RES_OK		:=	"\033[32mScreen display set to 1920x1080. Launch game with: \033[4\;36\;1m\.\/cub3D \<map\.cub\>\033[m"
 
+###		COUNTERS DEF		###
+OS				=	$(shell uname -s)
+INTROMACINTEL	=	60
+INTROUBUNTU		=	750
+INTRO			=	$(shell [[ ${OS} = "Darwin" ]] && echo ${INTROMACINTEL} || echo ${INTROUBUNTU} )
+COUNTER_DEFINE	=	"-D INTRO_COUNTER=${INTRO}"
+
 ###		OPTIONS		##
 CFLAGS		=	-Wall -Wextra -Werror -g3
 LDFLAGS		=	${LIBFT} ${MLX} ${XWIN}
@@ -57,7 +64,7 @@ REDIRVOID	=	>/dev/null 2>&1
 $(BUILD_DIR)/%.o: %.c ${HEADER}
 			@mkdir -p $(dir $@)
 			@echo -e "\033[32m\c"
-			${CC} ${CFLAGS} -c $< -o $@
+			${CC} ${CFLAGS} ${COUNTER_DEFINE} -c $< -o $@
 			@echo -e "\033[0m\c"
 
 all:		${NAME} screen_res_alert

@@ -56,7 +56,7 @@ int	init_display(t_info *info, t_parser *pars)
 	if (!info->win)
 		return (print_error(BAD_WIN, NULL), 0);
 	info->is_intro = true;
-	//	add function to calculate size of maximap player icon
+	//	cant resize player icon so we'll use a rect to display position on maximap
 	if (!load_textures(info, pars) || !load_player_textures(info, 64))
 		return (0);
 	return (1);

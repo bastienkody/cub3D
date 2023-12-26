@@ -64,8 +64,11 @@ might change hardware to fully enjoy the game :)"
 # define WIN_W 1920
 # define WIN_H 1010
 # define MENUBAR_H 70
-# define INTRO_COUNTER_MAC_INTEL 30
-# define INTRO_COUNTER_UBU 750
+
+/*	counter	*/
+# ifndef INTRO_COUNTER
+#	define INTRO_COUNTER 750
+# endif
 
 /*	colors	*/
 # define WHITE 0x00FFFFFF

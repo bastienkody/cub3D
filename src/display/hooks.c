@@ -45,17 +45,13 @@ int	key_inputs(int keycode, t_info *info)
 int	disp_intro(t_info *info)
 {
 	static int	counter = 0;
-	static int	flag = -1;
 
 	if (!info->is_intro)
 		return (1);
 	counter++;
-	if (counter > INTRO_COUNTER_UBU)
-	{
+	if (counter > INTRO_COUNTER)
 		counter = 0;
-		flag *= -1;
-	}
-	if (flag < 0)
+	if (counter <= INTRO_COUNTER / 2)
 		mlx_put_image_to_window(info->ptr, info->win, info->intro1->ptr, 0, 0);
 	else
 		mlx_put_image_to_window(info->ptr, info->win, info->intro2->ptr, 0, 0);

@@ -326,23 +326,23 @@ echo -e "${BLU_BG}Empty lines between rgb : ${exec} map/wrongs/rgb/lineempty.cub
 ${exec} map/wrongs/rgb/lineempty.cub &
 echo "----------------------------------------------------------------"
 
-echo -e "${BLU_BG}${exec}Spaces on map : map/wrongs/map/goodspaces.cub ${END}\t"
+echo -e "${BLU_BG}Spaces on map : ${exec} map/wrongs/map/goodspaces.cub ${END}\t"
 ${exec} map/wrongs/map/goodspaces.cub &
 echo "----------------------------------------------------------------"
 
-echo -e "${BLU_BG}${exec}Lshape map : map/wrongs/map/lshape.cub ${END}\t"
+echo -e "${BLU_BG}Lshape map : ${exec} map/wrongs/map/lshape.cub ${END}\t"
 ${exec} map/wrongs/map/lshape.cub &
 echo "----------------------------------------------------------------"
 
-echo -e "${BLU_BG}${exec}Little island in map : map/wrongs/map/island.cub ${END}\t"
+echo -e "${BLU_BG}Little island in map : ${exec} map/wrongs/map/island.cub ${END}\t"
 ${exec} map/wrongs/map/island.cub &
 echo "----------------------------------------------------------------"
 
-echo -e "${BLU_BG}${exec}Big island in map : map/wrongs/map/sololand.cub ${END}\t"
+echo -e "${BLU_BG}Big island in map : ${exec} map/wrongs/map/sololand.cub ${END}\t"
 ${exec} map/wrongs/map/sololand.cub &
 echo "----------------------------------------------------------------"
 
-echo -e "${BLU_BG}${exec}Lshape map : map/wrongs/map/lshape.cub ${END}\t"
+echo -e "${BLU_BG}Lshape map : ${exec} map/wrongs/map/lshape.cub ${END}\t"
 ${exec} map/wrongs/map/lshape.cub &
 echo "----------------------------------------------------------------"
 
