@@ -32,21 +32,6 @@ int	load_textures(t_info *info, t_parser *pars)
 	return (1);
 }
 
-int	load_player_textures(t_info *info, int size)
-{
-	int	i;
-
-	info->player[0] = create_xpm_image(info->ptr, PL_FACE, size, size);
-	info->player[1] = create_xpm_image(info->ptr, PL_BACK, size, size);
-	info->player[2] = create_xpm_image(info->ptr, PL_LEFT, size, size);
-	info->player[3] = create_xpm_image(info->ptr, PL_RIGHT, size, size);
-	i = -1;
-	while (++i < 4)
-		if (!info->player[i] || !info->player[i]->ptr)
-			return (0);
-	return (1);
-}
-
 int	init_display(t_info *info, t_parser *pars)
 {
 	info->ptr = mlx_init();
@@ -57,7 +42,7 @@ int	init_display(t_info *info, t_parser *pars)
 		return (print_error(BAD_WIN, NULL), 0);
 	info->is_intro = true;
 	//	cant resize player icon so we'll use a rect to display position on maximap
-	if (!load_textures(info, pars) || !load_player_textures(info, 64))
+	if (!load_textures(info, pars))
 		return (0);
 	return (1);
 }

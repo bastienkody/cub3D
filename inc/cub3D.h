@@ -134,7 +134,6 @@ typedef struct s_info
 	t_img			*w_text;
 	t_img			*e_text;
 	t_img			*maximap;
-	t_img			*player[4];
 }				t_info;
 
 /*	display	*/

@@ -24,19 +24,14 @@
 */
 void	draw_player_icon(t_info *info, int size)
 {
-	t_img		*choosen;
-	const int	xpos = info->pposx * size;
-	const int	ypos = info->pposy * size;
+	const int	xpos = info->pposx * size + size / 2;
+	const int	ypos = info->pposy * size + size / 2;
 
-	choosen = info->player[0];
-	if (info->pdiry == -1)
-		choosen = info->player[1];
-	else if (info->pdirx == -1)
-		choosen = info->player[2];
-	else if (info->pdirx == 1)
-		choosen = info->player[3];
+	//if (info->pdiry == -1)
+	//else if (info->pdirx == -1)
+	//else if (info->pdirx == 1)
 	ft_fprintf(2, "about to draw player in x:%i, y:%i\n", xpos, ypos);
-	mlx_put_image_to_window(info->ptr, info->win, choosen->ptr, xpos, ypos);
+	pixel_w(info->maximap, xpos, ypos, RED);
 }
 
 void	maximap_display(t_info *info)
@@ -63,6 +58,6 @@ void	maximap_display(t_info *info)
 			ft_fprintf(1, "maxirect in x=%i, y=%i, colorz=%i\n", x, y, colorz[(int)info->map[y][x] - '0']);
 		}
 	}
-	mlx_put_image_to_window(info->ptr, info->win, info->maximap->ptr, 0, 0);
 	draw_player_icon(info, 64);
+	mlx_put_image_to_window(info->ptr, info->win, info->maximap->ptr, 0, 0);
 }

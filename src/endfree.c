@@ -52,10 +52,6 @@ void	end_free(t_info *info)
 		unload_texture(info->ptr, info->s_text);
 		unload_texture(info->ptr, info->w_text);
 		unload_texture(info->ptr, info->e_text);
-		unload_texture(info->ptr, info->player[0]);
-		unload_texture(info->ptr, info->player[1]);
-		unload_texture(info->ptr, info->player[2]);
-		unload_texture(info->ptr, info->player[3]);
 		if (info->win)
 			mlx_destroy_window(info->ptr, info->win);
 		mlx_destroy_display(info->ptr);
