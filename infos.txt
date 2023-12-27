@@ -51,3 +51,36 @@ BONUS :
 		- minimap
 		- [c] for crouching (s'accroupir) + flying and laying ? 
 		- zoom in/out
+
+---------
+MAXIMAP :
+---------
+		- sizing : 
+			- 1920 = 29 * 64 + 64
+			- 1056 = 15 * 64 + 64
+			-> de base en 64 on peut afficher du 29 par 15 avec une bordure
+			- on pourrait travailler en 2^ : 64 - 32 - 16 - 8 - 4
+			mais on aurait des gros delta pour pas grand chose genre un 30 * 15 serait
+			en 32 avec du coup une enorme bordure. on va plutot faire un calcul precis 
+			- on garde une taille en CARRE pour eviter d'avoir des formes chelou sur les maps
+			genre line shape : on aura donc possiblement une grosse bordure en x ou en y 
+			- il faudra calculer une taille de bordure en x et une autre en y
+	- soit y le nb de ligne
+	- soit x la largeur de ligne
+	- soit WIN_H la hauteur max : 1056
+	- soit WIN_W la largeur max : 1920
+	- soit TILE la taille d'un rect avec TILE = x_rect = y_rect
+	- on cherche TILE connaissant W et H x et y
+	- en laissant au moins un TILE en x et un en y pour la bordure (un demi tile de chaque cote)
+	- TILE sera la plus petit trouve entre x et y 
+- en x : TILEx = WIN_W / (x+1)
+- en y : TILEy = WIN_H / (y+1)
+- res = min(TILEx, TILEy)
+	- on cherche ensuite la taille de la bordure en x et en y
+- bordurex = WIN_W - (TILEx * x)
+- bordurey = WIN_H - (TILEy * y)
+	- en decoule pos de depart pour mlx put image to win
+- xpos = bordurex / 2
+- ypos = bordurey / 2
+				- il faudrqait sensuite adapter la taille de joueur sur la mmap :
+				pour l'instant c un carre de 8 pixel

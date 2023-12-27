@@ -12,52 +12,78 @@
 
 #include "../../inc/cub3D.h"
 
-// wall : black 1
-// floor : white 0
-// space : grey  2
+/*	on maximap, left clic to teleport. out of range err handled	*/
+void	maximap_teleport(int but, unsigned int x, unsigned int y, t_info *info)
+{
+	const unsigned int	xb = info->mmap_bordx / 2 + 1;
+	const unsigned int	yb = info->mmap_bordy / 2 + 1;
+	const int			newx = (x - xb) / info->mmap_tile_s;
+	const int			newy = (y - yb) / info->mmap_tile_s;
 
+	if (but != 1)
+		return ;
+	if (newx >= 0 && newx < (int)ft_strlen(*info->map) && newy >= 0 && \
+		newy < tab_len(info->map))
+	{
+		if (info->map[newy][newx] != '0')
+			return ((void)ft_fprintf(2, "%s%i,y%i%s\n", T_W, newx, newy, T_WB));
+		info->pposx = newx;
+		info->pposy = newy;
+		info->pdirx = 0;
+		info->pdiry = -1;
+		ft_fprintf(1, "teleported in x%i, y%i\n", newx, newy);
+		info->is_maximap = !info->is_maximap;	// keep on maximap display
+		maximap_display(info);					// upgrade maximap with newpos
+	}
+	else
+		ft_fprintf(1, "%sx%i,y%i%s\n", T_OUT, newx, newy, T_OUTB);
+}
 
-/*	need to be upgrading : 
-		with precise angle
-		x vs y intensity to choose S vs W for if diagonale dir
-		Resize pour whole map fits within screen
-*/
+/*	upgrade with a circle + fov rays	*/
 void	draw_player_icon(t_info *info, int size)
 {
 	const int	xpos = info->pposx * size + size / 2;
 	const int	ypos = info->pposy * size + size / 2;
+	int			i;
+	int			j;
 
-	//if (info->pdiry == -1)
-	//else if (info->pdirx == -1)
-	//else if (info->pdirx == 1)
-	ft_fprintf(2, "about to draw player in x:%i, y:%i\n", xpos, ypos);
+	i = -4;
+	while (i < 4)
+	{
+		j = -4;
+		while (j < 4)
+		{
+			pixel_w(info->maximap, xpos + i, ypos + j, RED);
+			++j;
+		}
+		++i;
+	}
 	pixel_w(info->maximap, xpos, ypos, RED);
 }
 
+/*	need to be upgrading with precise angle	*/
 void	maximap_display(t_info *info)
 {
 	int			y;
 	int			x;
 	const int	colorz[3] = {WHITE, GREY, BLACK};
 
-	if (info->is_intro)
-		return ;
 	info->is_maximap = !info->is_maximap;
 	if (!info->is_maximap)
 		return ((void)mlx_put_image_to_window(info->ptr, info->win, \
 		info->bg_default->ptr, 0, 0));
 	y = -1;
-	while (++y * TILE_S < WIN_H && info->map[y] != NULL)
+	while (++y * info->mmap_tile_s < WIN_H && info->map[y] != NULL)
 	{
 		x = -1;
-		while (++x * TILE_S < WIN_W && info->map[y][x] != '\0')
+		while (++x * info->mmap_tile_s < WIN_W && info->map[y][x] != '\0')
 		{
-			draw_rect(info->maximap, (int []){x * TILE_S, y * TILE_S}, \
-			(int []){TILE_S, TILE_S}, \
-			colorz[(int)info->map[y][x] - '0']);
-			ft_fprintf(1, "maxirect in x=%i, y=%i, colorz=%i\n", x, y, colorz[(int)info->map[y][x] - '0']);
+			draw_rect_w_border(info->maximap, (int []){x * info->mmap_tile_s, \
+			y * info->mmap_tile_s}, (int []){info->mmap_tile_s, \
+			info->mmap_tile_s}, colorz[(int)info->map[y][x] - '0']);
 		}
 	}
-	draw_player_icon(info, 64);
-	mlx_put_image_to_window(info->ptr, info->win, info->maximap->ptr, 0, 0);
+	draw_player_icon(info, info->mmap_tile_s);
+	mlx_put_image_to_window(info->ptr, info->win, info->maximap->ptr, \
+	(info->mmap_bordx / 2), (info->mmap_bordy / 2));
 }

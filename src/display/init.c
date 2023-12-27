@@ -32,6 +32,24 @@ int	load_textures(t_info *info, t_parser *pars)
 	return (1);
 }
 
+void	get_maximap_size(t_info *info)
+{
+	const int	ylen = tab_len(info->map);
+	const int	xlen = ft_strlen(*info->map);
+	const int	tiley = WIN_H / (ylen + 1);
+	const int	tilex = WIN_W / (xlen + 1);
+
+	info->mmap_tile_s = tilex;
+	info->mmap_bordy = WIN_H - (tilex * ylen);
+	info->mmap_bordx = WIN_W - (tilex * xlen);
+	if (tiley < tilex)
+	{
+		info->mmap_tile_s = tiley;
+		info->mmap_bordy = WIN_H - (tiley * ylen);
+		info->mmap_bordx = WIN_W - (tiley * xlen);
+	}
+}
+
 int	init_display(t_info *info, t_parser *pars)
 {
 	info->ptr = mlx_init();
@@ -41,7 +59,7 @@ int	init_display(t_info *info, t_parser *pars)
 	if (!info->win)
 		return (print_error(BAD_WIN, NULL), 0);
 	info->is_intro = true;
-	//	cant resize player icon so we'll use a rect to display position on maximap
+	get_maximap_size(info);
 	if (!load_textures(info, pars))
 		return (0);
 	return (1);

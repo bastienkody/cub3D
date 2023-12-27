@@ -23,13 +23,13 @@
 # include <math.h>
 # include <X11/keysym.h>
 
-/*	error parsing msg	*/
+/*	parsing error	*/
 # define BAD_ARG_NB "Bad number of argument"
 # define BAD_CONFIG_NAME "Bad config file name (*.cub expected)"
 # define BADLINE "Following line format is not acceptable:"
 # define NOTCONF "Texture/rgb config is not completed yet but the \
 following line does not comply with config format:"
-# define LACK_INFO "Not all infos collected while EOF found in"
+# define LACK_FO "Not all infos collected while EOF found in"
 # define BAD_NBR "Overflow or non digit detected in rgb values within the \
 following line:"
 # define EMPTY "Empty line within or after the map info is not acceptable"
@@ -52,6 +52,12 @@ might change hardware to fully enjoy the game :)"
 # define BAD_INI "Mlx initialization failed. Perhaps check envp before retry"
 # define BAD_WIN "Mlx window creation failed"
 # define IMAGE_FAIL "Creation of an image failed - cub3D exiting"
+
+/*	teleport errors */
+# define T_W "You can't teleport to wall or void (in x"
+# define T_WB "). Please aim walkable floor"
+# define T_OUT "Out of range teleportation (in "
+# define T_OUTB "). Aim walkable floor"
 
 /*	alpha const	*/
 # define MAPCHAR "NSEW01 "
@@ -126,6 +132,9 @@ typedef struct s_info
 	int				pdiry;
 	t_bool			is_intro;
 	t_bool			is_maximap;
+	int				mmap_tile_s;
+	int				mmap_bordx;
+	int				mmap_bordy;
 	t_img			*intro1;
 	t_img			*intro2;
 	t_img			*bg_default;
@@ -140,16 +149,18 @@ typedef struct s_info
 void	run(t_info *info);
 int		init_display(t_info *info, t_parser *pars);
 void	maximap_display(t_info *info);
+void	maximap_teleport(int but, unsigned int x, unsigned int y, t_info *info);
 
 /*	hooks	*/
 int		close_window(t_info *info);
+int		mouse_inputs(int button, int x, int y, t_info *info);
 int		key_inputs(int keycode, t_info *info);
 int		disp_intro(t_info *info);
 
 /*	drawers	*/
 void	pixel_w(t_img *img, int x, int y, int color);
 void	line_w(t_img *img, int a[2], int b[2], int color);
-void	draw_rect(t_img *img, int og[2], int dim[2], int color);
+void	draw_rect_w_border(t_img *img, int og[2], int dim[2], int color);
 
 /*	img	*/
 t_img	*create_image(void *mlx_ptr, int w, int h);

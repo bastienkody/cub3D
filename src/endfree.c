@@ -24,7 +24,7 @@ void	unload_texture(void *mlx_ptr, t_img *img)
 void	end_parser(t_parser *pars)
 {
 	if (!pars)
-		return;
+		return ;
 	if (pars->map)
 		free_charray(pars->map);
 	if (pars->no_path)
@@ -40,7 +40,7 @@ void	end_parser(t_parser *pars)
 void	end_free(t_info *info)
 {
 	if (!info)
-		return;
+		return ;
 	if (info->map)
 		free_charray(info->map);
 	if (info->ptr)
@@ -52,6 +52,7 @@ void	end_free(t_info *info)
 		unload_texture(info->ptr, info->s_text);
 		unload_texture(info->ptr, info->w_text);
 		unload_texture(info->ptr, info->e_text);
+		unload_texture(info->ptr, info->maximap);
 		if (info->win)
 			mlx_destroy_window(info->ptr, info->win);
 		mlx_destroy_display(info->ptr);

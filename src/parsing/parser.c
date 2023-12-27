@@ -96,7 +96,6 @@ t_parser	*main_parser(int argc, char **av)
 	if (fd < 0)
 		return (NULL);
 	pars = ft_calloc(1, sizeof(t_info));
-	//ft_memset(pars, 0, sizeof(t_info)); // needed ??
 	if (!pars)
 		return (print_error(ALLOC_FAIL, NULL), NULL);
 	while (1)
@@ -110,6 +109,6 @@ t_parser	*main_parser(int argc, char **av)
 			return (end_parser(pars), close(fd), NULL);
 	}
 	if (!is_config_full(pars))
-		return (print_error(LACK_INFO, av[1]), end_parser(pars), close(fd), NULL);
+		return (print_error(LACK_FO, av[1]), end_parser(pars), close(fd), NULL);
 	return (close(fd), pars);
 }

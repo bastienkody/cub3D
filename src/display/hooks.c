@@ -12,9 +12,9 @@
 
 #include "../../inc/cub3D.h"
 
+	// disp une win qui propose de quitter
 int	close_window(t_info *info)
 {
-	// disp une win qui propose de quitter
 	end_free(info);
 	return (1);
 }
@@ -27,9 +27,15 @@ void	stop_intro(t_info *info)
 	mlx_put_image_to_window(info->ptr, info->win, info->bg_default->ptr, 0, 0);
 }
 
+int	mouse_inputs(int button, int x, int y, t_info *info)
+{
+	if (info->is_maximap)
+		maximap_teleport(button, x, y, info);
+	return (1);
+}
+
 int	key_inputs(int keycode, t_info *info)
 {
-	ft_fprintf(1, "keycode:%i %s\n", keycode, TRUC);
 	if (info->is_intro)
 		if (keycode == 65293)
 			stop_intro(info);
@@ -37,7 +43,7 @@ int	key_inputs(int keycode, t_info *info)
 		close_window(info);
 	else if (keycode == XK_i)
 		print_info(info);
-	else if (keycode == XK_m)
+	else if (keycode == XK_m && !info->is_intro)
 		maximap_display(info);
 	return (1);
 }
