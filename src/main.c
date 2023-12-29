@@ -36,7 +36,7 @@ void	run(t_info *info)
 {
 	mlx_key_hook(info->win, &key_inputs, info);
 	mlx_mouse_hook(info->win, &mouse_inputs, info);
-	mlx_hook(info->win, 17, 0, &close_window, info);
+	mlx_hook(info->win, 17, 0, &end_free, info);
 	mlx_loop_hook(info->ptr, &disp_intro, info);
 	mlx_loop(info->ptr);
 }

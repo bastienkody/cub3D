@@ -132,12 +132,14 @@ typedef struct s_info
 	int				pdirx;
 	int				pdiry;
 	t_bool			is_intro;
+	t_bool			is_outro;
 	t_bool			is_maximap;
 	int				mmap_tile_s;
 	int				mmap_bordx;
 	int				mmap_bordy;
 	t_img			*intro1;
 	t_img			*intro2;
+	t_img			*outro;
 	t_img			*bg_default;
 	t_img			*n_text;
 	t_img			*s_text;
@@ -151,10 +153,11 @@ void	run(t_info *info);
 int		init_display(t_info *info, t_parser *pars);
 void	maximap_display(t_info *info);
 void	maximap_teleport(int but, unsigned int x, unsigned int y, t_info *info);
+int		outro(t_info *info);
 
 /*	hooks	*/
-int		close_window(t_info *info);
 int		mouse_inputs(int button, int x, int y, t_info *info);
+int		outro_key_inputs(int keycode, t_info *info);
 int		key_inputs(int keycode, t_info *info);
 int		disp_intro(t_info *info);
 
@@ -190,7 +193,7 @@ void	print_error(char *str1, char *str2);
 void	print_info(t_info *info);
 
 /*	free	*/
-void	end_free(t_info *info);
+int		end_free(t_info *info);
 void	end_parser(t_parser *pars);
 
 #endif

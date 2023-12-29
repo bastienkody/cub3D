@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   endfree.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bguillau <bguillau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/13 16:23:33 by bguillau          #+#    #+#             */
-/*   Updated: 2023/10/13 16:25:19 by bguillau         ###   ########.fr       */
+/*   Created: 2023/12/29 13:26:31 by bguillau          #+#    #+#             */
+/*   Updated: 2023/12/29 13:26:34 by bguillau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ void	end_parser(t_parser *pars)
 	free(pars);
 }
 
-void	end_free(t_info *info)
+int	end_free(t_info *info)
 {
 	if (!info)
-		return ;
+		return (0);
 	if (info->map)
 		free_charray(info->map);
 	if (info->ptr)
@@ -54,11 +54,12 @@ void	end_free(t_info *info)
 		unload_texture(info->ptr, info->w_text);
 		unload_texture(info->ptr, info->e_text);
 		unload_texture(info->ptr, info->maximap);
+		unload_texture(info->ptr, info->outro);
 		if (info->win)
 			mlx_destroy_window(info->ptr, info->win);
 		mlx_destroy_display(info->ptr);
 		free(info->ptr);
 	}
 	free(info);
-	exit(EXIT_SUCCESS);
+	return (exit(EXIT_SUCCESS), 1);
 }

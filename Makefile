@@ -20,7 +20,8 @@ DISP_NAME	=	init.c\
 				image_utils.c\
 				drawers.c\
 				hooks.c\
-				maximap.c
+				maximap.c\
+				outro.c
 RAY_NAME	=	utils.c\
 
 PARS_SRC	=	$(addprefix ${PARS_DIR}, ${PARS_NAME})
