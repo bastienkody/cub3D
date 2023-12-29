@@ -15,7 +15,7 @@
 /*	display an outro window with two rects : go back to game or quit
 	press excape to go back to game
 	press Enter to ocnfirm leave
-	if outro call from maximap
+	if outro call from maximap : get back to mmap
 */
 int	outro(t_info *info)
 {
@@ -26,7 +26,7 @@ int	outro(t_info *info)
 
 int	outro_key_inputs(int keycode, t_info *info)
 {
-	if (keycode == 65293)
+	if (keycode == 65293 || keycode == XK_q)
 		end_free(info);
 	if (keycode == XK_Escape)
 	{
