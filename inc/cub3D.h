@@ -70,6 +70,7 @@ might change hardware to fully enjoy the game :)"
 # define WIN_W 1920
 # define WIN_H 1010
 # define MENUBAR_H 70
+# define PLAYER_ICON_TO_MMAP_TILE_RATIO 3
 
 /*	counter	*/
 # ifndef INTRO_COUNTER
@@ -160,6 +161,7 @@ int		disp_intro(t_info *info);
 /*	drawers	*/
 void	pixel_w(t_img *img, int x, int y, int color);
 void	line_w(t_img *img, int a[2], int b[2], int color);
+void	draw_rect(t_img *img, int og[2], int dim[2], int color);
 void	draw_rect_w_border(t_img *img, int og[2], int dim[2], int color);
 
 /*	img	*/

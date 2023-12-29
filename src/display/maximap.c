@@ -33,32 +33,32 @@ void	maximap_teleport(int but, unsigned int x, unsigned int y, t_info *info)
 		info->pdiry = -1;
 		ft_fprintf(1, "teleported in x%i, y%i\n", newx, newy);
 		info->is_maximap = !info->is_maximap;	// keep on maximap display
-		maximap_display(info);					// upgrade maximap with newpos
+		maximap_display(info);					// update maximap with newpos
 	}
 	else
 		ft_fprintf(1, "%sx%i,y%i%s\n", T_OUT, newx, newy, T_OUTB);
 }
 
-/*	upgrade with a circle + fov rays	*/
-void	draw_player_icon(t_info *info, int size)
+/*	for now :	player icon is a rect of size tile_s / 4
+				if huuuuge map : just 1 pixel, no need to rect
+				if huge map : no border (if not the red is almost unseen)
+	upgrade with a circle + fov rays
+*/
+void	draw_player_icon(t_info *info)
 {
-	const int	xpos = info->pposx * size + size / 2;
-	const int	ypos = info->pposy * size + size / 2;
-	int			i;
-	int			j;
+	const int	xpos = info->pposx * info->mmap_tile_s + info->mmap_tile_s / 2;
+	const int	ypos = info->pposy * info->mmap_tile_s + info->mmap_tile_s / 2;
+	const int	size = info->mmap_tile_s / PLAYER_ICON_TO_MMAP_TILE_RATIO;
 
-	i = -4;
-	while (i < 4)
-	{
-		j = -4;
-		while (j < 4)
-		{
-			pixel_w(info->maximap, xpos + i, ypos + j, RED);
-			++j;
-		}
-		++i;
-	}
-	pixel_w(info->maximap, xpos, ypos, RED);
+	ft_fprintf(1, "size:%i\n", size);
+	if (size <= 1)
+		pixel_w(info->maximap, xpos, ypos, RED);
+	else if (size < 4)
+		draw_rect(info->maximap, (int[]){xpos - size / 2, ypos - size / 2}, \
+		(int[]){size, size}, RED);
+	else
+		draw_rect_w_border(info->maximap, (int[]){xpos - size / 2, ypos - size \
+		/ 2}, (int[]){size, size}, RED);
 }
 
 /*	need to be upgrading with precise angle	*/
@@ -83,7 +83,7 @@ void	maximap_display(t_info *info)
 			info->mmap_tile_s}, colorz[(int)info->map[y][x] - '0']);
 		}
 	}
-	draw_player_icon(info, info->mmap_tile_s);
+	draw_player_icon(info);
 	mlx_put_image_to_window(info->ptr, info->win, info->maximap->ptr, \
 	(info->mmap_bordx / 2), (info->mmap_bordy / 2));
 }

@@ -51,7 +51,7 @@ void	line_w(t_img *img, int a[2], int b[2], int color)
 }
 
 /*	og[0] = xpos	dim[0] = w
-	og[1] = ypos 	dim[1] = h
+	og[1] = ypos 	dim[1] = h	*/
 void	draw_rect(t_img *img, int og[2], int dim[2], int color)
 {
 	int	x;
@@ -64,7 +64,7 @@ void	draw_rect(t_img *img, int og[2], int dim[2], int color)
 		while (++y <= og[1] + dim[1])
 			pixel_w(img, x, y, color);
 	}
-} */
+}
 
 void	draw_border(t_img *img, int og[2], int dim[2], int color)
 {

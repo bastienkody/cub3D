@@ -35,6 +35,7 @@ void	end_parser(t_parser *pars)
 		free(pars->we_path);
 	if (pars->ea_path)
 		free(pars->ea_path);
+	free(pars);
 }
 
 void	end_free(t_info *info)
