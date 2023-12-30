@@ -19,6 +19,7 @@ PRINT_NAME	=	error.c\
 DISP_NAME	=	init.c\
 				image_utils.c\
 				drawers.c\
+				movements.c\
 				hooks.c\
 				maximap.c\
 				outro.c
@@ -56,10 +57,18 @@ INTROUBUNTU		=	750
 INTRO			=	$(shell [[ ${OS} = "Darwin" ]] && echo ${INTROMACINTEL} || echo ${INTROUBUNTU} )
 COUNTER_DEFINE	=	"-D INTRO_COUNTER=${INTRO}"
 
-###		OPTIONS		##
+###		OPTIONS		###
 CFLAGS		=	-Wall -Wextra -Werror -g3
 LDFLAGS		=	${LIBFT} ${MLX} ${XWIN}
 REDIRVOID	=	>/dev/null 2>&1
+
+###		COMMANDS DISP	###
+WASD		=	"[WASD]\\t\\t: move around in game\\n"
+ARROWS		=	"[Left/Right]\\t: turn in game\\n"
+QUIT		=	"[Q]\\t\\t: quit game, red cross left click also works"
+OUTRO		=	"[ESC]\\t\\t: pause game\\n"
+MAP			=	"[M]\\t\\t: on/off full map view where you can move around with [WASD] \
+				or you can leftclick to teleport\\n"
 
 ###		RULES		###
 $(BUILD_DIR)/%.o: %.c ${HEADER}
@@ -68,7 +77,7 @@ $(BUILD_DIR)/%.o: %.c ${HEADER}
 			${CC} ${CFLAGS} ${COUNTER_DEFINE} -c $< -o $@
 			@echo -e "\033[0m\c"
 
-all:		${NAME} screen_res_alert
+all:		${NAME} screen_res_alert print_cmds
 
 ${NAME}:	${LIBFT} ${MLX} ${OBJS} ${HEADER}
 			@echo -e "\033[32m\c"
@@ -82,6 +91,11 @@ ${LIBFT}:
 
 screen_res_alert:
 		@echo -e $(shell [[ ${WIDTH} -ge 1920 && ${HEIGHT} -ge 1080 ]] && echo -e ${RES_OK} || echo -e ${RES_ALERT} ) > /dev/stderr
+
+print_cmds:
+		@echo -e "\033[36;1mCOMMANDS :\033[0m"
+		@echo -e "\033[36m${WASD}${ARROWS}${MAP}${OUTRO}${QUIT}\033[0m"
+
 
 ${MLX}:
 			@echo -ne "\033[33mmlx: compilation ...\033[0m"

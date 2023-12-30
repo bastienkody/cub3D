@@ -12,6 +12,7 @@
 
 #include "../inc/cub3D.h"
 
+// checkmap + allocinfo + initdisplay (ptr, xpmload)
 t_info	*pars_to_info(t_parser *pars)
 {
 	t_info	*info;
@@ -19,6 +20,8 @@ t_info	*pars_to_info(t_parser *pars)
 	if (!map_checker(pars))
 		return (NULL);
 	info = calloc(1, sizeof(t_info));
+	if (!info)
+		return (print_error(ALLOC_FAIL, NULL), NULL);
 	info->pposx = pars->pposx;
 	info->pposy = pars->pposy;
 	info->pdirx = pars->pdirx;
@@ -27,15 +30,22 @@ t_info	*pars_to_info(t_parser *pars)
 	info->ceil = pars->ceil_rgb;
 	info->map = pars->map;
 	pars->map = NULL;
-	if (!info || !init_display(info, pars))
+	if (!init_display(info, pars))
 		return (NULL);
 	return (end_parser(pars), info);
 }
 
+int	key_up(int keycode, t_info *info)
+{
+	ft_fprintf(1, "key up found with code %i\n", keycode);
+	(void)info;
+	return (1);
+}
+
 void	run(t_info *info)
 {
-	mlx_key_hook(info->win, &key_inputs, info);
 	mlx_mouse_hook(info->win, &mouse_inputs, info);
+	mlx_hook(info->win, 2, 1L<<0, &key_inputs, info);
 	mlx_hook(info->win, 17, 0, &end_free, info);
 	mlx_loop_hook(info->ptr, &disp_intro, info);
 	mlx_loop(info->ptr);
@@ -49,7 +59,7 @@ int	main(int argc, char **argv, __attribute__((unused)) char **envp)
 	pars = main_parser(argc, argv); // fetch config file
 	if (!pars)
 		return (1);
-	info = pars_to_info(pars); // checkmap + allocinfo + initdisplay (ptr, xpmload)
+	info = pars_to_info(pars); 
 	if (!info)
 		return (end_parser(pars), end_free(info), 1);
 	run(info);

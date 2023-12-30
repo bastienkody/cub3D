@@ -32,8 +32,8 @@ void	maximap_teleport(int but, unsigned int x, unsigned int y, t_info *info)
 		info->pdirx = 0;
 		info->pdiry = -1;
 		ft_fprintf(1, "teleported in x%i, y%i\n", newx, newy);
-		info->is_maximap = !info->is_maximap;	// keep on maximap display
-		maximap_display(info);					// update maximap with newpos
+		info->is_maximap = !info->is_maximap;
+		maximap_display(info);
 	}
 	else
 		ft_fprintf(1, "%sx%i,y%i%s\n", T_OUT, newx, newy, T_OUTB);
@@ -54,11 +54,11 @@ void	draw_player_icon(t_info *info)
 	if (size <= 1)
 		pixel_w(info->maximap, xpos, ypos, RED);
 	else if (size < 4)
-		draw_rect(info->maximap, (int[]){xpos - size / 2, ypos - size / 2}, \
-		(int[]){size, size}, RED);
+		draw_rect(info->maximap, (int []){xpos - size / 2, ypos - size / 2}, \
+		(int []){size, size}, RED);
 	else
-		draw_rect_w_border(info->maximap, (int[]){xpos - size / 2, ypos - size \
-		/ 2}, (int[]){size, size}, RED);
+		draw_rect_w_border(info->maximap, (int []){xpos - size / 2, ypos - size \
+		/ 2}, (int []){size, size}, RED);
 }
 
 /*	need to be upgrading with precise angle	*/

@@ -77,6 +77,13 @@ might change hardware to fully enjoy the game :)"
 #	define INTRO_COUNTER 750
 # endif
 
+/*	outro menu position	*/
+# define X 730
+# define X_S 1181
+# define Y 511
+# define Y_S 563
+# define Y_OFST 79
+
 /*	colors	*/
 # define WHITE 0x00FFFFFF
 # define BLACK 0x00000000
@@ -139,7 +146,7 @@ typedef struct s_info
 	int				mmap_bordy;
 	t_img			*intro1;
 	t_img			*intro2;
-	t_img			*outro;
+	t_img			*outro[3];
 	t_img			*bg_default;
 	t_img			*n_text;
 	t_img			*s_text;
@@ -155,7 +162,11 @@ void	maximap_display(t_info *info);
 void	maximap_teleport(int but, unsigned int x, unsigned int y, t_info *info);
 int		outro(t_info *info);
 
+/*	actions / movements	*/
+void	maximap_key_movement(int keycode, t_info *info);
+
 /*	hooks	*/
+int		outro_mouse_inputs(int but, int x, int y, t_info *info);
 int		mouse_inputs(int button, int x, int y, t_info *info);
 int		outro_key_inputs(int keycode, t_info *info);
 int		key_inputs(int keycode, t_info *info);
