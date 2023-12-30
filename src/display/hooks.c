@@ -32,17 +32,9 @@ int	mouse_inputs(int button, int x, int y, t_info *info)
 int	is_input_key_cmds(int keycode)
 {
 	return ((keycode == XK_w || keycode == XK_a || keycode == XK_s || \
-	keycode == XK_d || keycode == XK_Up || keycode == XK_Left || \
-	keycode == XK_Down || keycode == XK_Right ));
+	keycode == XK_d || keycode == XK_Up || keycode == XK_Left));
 }
 
-/*	
-	- launch game with enter (esc or q directly leaves during intro)
-	- get exit window with escape : 
-		-> click resume or press esc to resume
-		-> click quit or press enter or q to quit
-	- exits directly with red cross or via pressing q, fro; anywhere
-*/
 int	key_inputs(int keycode, t_info *info)
 {
 	if (info->is_intro)

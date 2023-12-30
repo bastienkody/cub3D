@@ -84,3 +84,8 @@ MAXIMAP :
 - ypos = bordurey / 2
 				- il faudrqait sensuite adapter la taille de joueur sur la mmap :
 				pour l'instant c un carre de 8 pixel
+
+---------------
+GAME COMMANDS : 
+---------------
+	Displayed in Makefile via rule make all (even is up to date)

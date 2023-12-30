@@ -31,12 +31,9 @@ void	maximap_teleport(int but, unsigned int x, unsigned int y, t_info *info)
 		info->pposy = newy;
 		info->pdirx = 0;
 		info->pdiry = -1;
-		ft_fprintf(1, "teleported in x%i, y%i\n", newx, newy);
 		info->is_maximap = !info->is_maximap;
 		maximap_display(info);
 	}
-	else
-		ft_fprintf(1, "%sx%i,y%i%s\n", T_OUT, newx, newy, T_OUTB);
 }
 
 /*	for now :	player icon is a rect of size tile_s / 4
@@ -50,7 +47,6 @@ void	draw_player_icon(t_info *info)
 	const int	ypos = info->pposy * info->mmap_tile_s + info->mmap_tile_s / 2;
 	const int	size = info->mmap_tile_s / PLAYER_ICON_TO_MMAP_TILE_RATIO;
 
-	ft_fprintf(1, "size:%i\n", size);
 	if (size <= 1)
 		pixel_w(info->maximap, xpos, ypos, RED);
 	else if (size < 4)

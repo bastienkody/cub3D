@@ -35,13 +35,6 @@ t_info	*pars_to_info(t_parser *pars)
 	return (end_parser(pars), info);
 }
 
-int	key_up(int keycode, t_info *info)
-{
-	ft_fprintf(1, "key up found with code %i\n", keycode);
-	(void)info;
-	return (1);
-}
-
 void	run(t_info *info)
 {
 	mlx_mouse_hook(info->win, &mouse_inputs, info);
