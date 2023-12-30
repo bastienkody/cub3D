@@ -40,5 +40,6 @@ void	print_info(t_info *info)
 	ft_fprintf(1, "Player pos\t: x=%i, y=%i\n", info->pposx, info->pposy);
 	ft_fprintf(1, "Player dir\t: x=%i, y=%i\n", info->pdirx, info->pdiry);
 	print_map(info);
+	ft_fprintf(1, "is_outro\t: =%i, y=%i\n", info->is_outro);
 	ft_fprintf(1, "------------------------------------\n");
 }

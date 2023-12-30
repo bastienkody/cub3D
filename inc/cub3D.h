@@ -72,6 +72,11 @@ might change hardware to fully enjoy the game :)"
 # define MENUBAR_H 70
 # define PLAYER_ICON_TO_MMAP_TILE_RATIO 3
 
+/*	minimap	*/
+# define MNAP_TS 16
+# define MNAP_W 200
+# define MNAP_H 200
+
 /*	counter	*/
 # ifndef INTRO_COUNTER
 #	define INTRO_COUNTER 750
@@ -92,14 +97,11 @@ might change hardware to fully enjoy the game :)"
 # define GREEN 0x0000FF00
 # define BLUE 0x000000FF
 
-/*	player path	*/
-# define PL_FACE 	"map/textures/perso2d/face64.xpm"
-# define PL_BACK 	"map/textures/perso2d/back64.xpm"
-# define PL_LEFT 	"map/textures/perso2d/left64.xpm"
-# define PL_RIGHT 	"map/textures/perso2d/right64.xpm"
 
 /*	typedef	*/
 typedef bool	t_bool;
+
+typedef unsigned int	uint;
 
 typedef struct s_img
 {
@@ -152,15 +154,19 @@ typedef struct s_info
 	t_img			*s_text;
 	t_img			*w_text;
 	t_img			*e_text;
+	t_img			*fminimap;
+	t_img			*minimap;
 	t_img			*maximap;
 }				t_info;
 
 /*	display	*/
 void	run(t_info *info);
 int		init_display(t_info *info, t_parser *pars);
+int		display_manager(t_info *info);
 void	maximap_display(t_info *info);
 void	maximap_teleport(int but, unsigned int x, unsigned int y, t_info *info);
-int		outro(t_info *info);
+void	draw_minimap(t_info *info);
+int		outro(t_info *info, int x, int y);
 
 /*	actions / movements	*/
 void	maximap_key_movement(int keycode, t_info *info);
@@ -174,6 +180,8 @@ int		disp_intro(t_info *info);
 
 /*	drawers	*/
 void	pixel_w(t_img *img, int x, int y, int color);
+uint	get_color(t_img *img, int x, int y);
+void	img_to_img(t_img *src, t_img *dst, int og[2], int dim[2]);
 void	line_w(t_img *img, int a[2], int b[2], int color);
 void	draw_rect(t_img *img, int og[2], int dim[2], int color);
 void	draw_rect_w_border(t_img *img, int og[2], int dim[2], int color);

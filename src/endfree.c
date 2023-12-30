@@ -54,6 +54,8 @@ int	end_free(t_info *info)
 		unload_texture(info->ptr, info->w_text);
 		unload_texture(info->ptr, info->e_text);
 		unload_texture(info->ptr, info->maximap);
+		unload_texture(info->ptr, info->minimap);
+		unload_texture(info->ptr, info->fminimap);
 		unload_texture(info->ptr, info->outro[0]);
 		unload_texture(info->ptr, info->outro[1]);
 		unload_texture(info->ptr, info->outro[2]);

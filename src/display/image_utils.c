@@ -12,6 +12,51 @@
 
 #include "../../inc/cub3D.h"
 
+/*	write a pixel in a given color to an img	*/
+void	pixel_w(t_img *img, int x, int y, int color)
+{
+	char	*dst;
+
+	dst = img->addr + (y * img->line_len + x * (img->bpp / 8));
+	*(unsigned int *)dst = color;
+}
+
+/*	fetch pixel color at specific pos from an img	
+
+	HUGE BUG : properly work onkly if I pixel_w something before. if not, seems
+	like it is returned a position (iterate on x make the color to grow, x=0 color =0,
+	x=1, color = 4, x=2 color=8 etc)
+	CF MINIMAP FOR BUGGG
+	
+	*/
+unsigned int	get_color(t_img *img, int x, int y)
+{
+	return (*(unsigned int *)img->addr + (y * img->line_len + x * (img->bpp / 8)));
+}
+
+/*	copy dim pixels starting at og, from src img into dst img
+	og, dim, img sizes not checked : user responsability	*/
+void	img_to_img(t_img *src, t_img *dst, int og[2], int dim[2])
+{
+	int				x;
+	int				y;
+	unsigned int	color;
+	const int		end[2] = {og[0] + dim[0], og[1] + dim[1]};
+
+	x = og[0] - 1;
+	while (++x <= end[0])
+	{
+		y = og[1] - 1;
+		while (++y <= end[1])
+		{
+			color = get_color(src, x, y);
+			if (x == 0)
+				ft_fprintf(1, "x:%i, y:%i, pixel : %x\n", x, y, color);
+			pixel_w(dst, x, y, color);
+		}
+	}
+}
+
 t_img	*create_image(void *mlx_ptr, int w, int h)
 {
 	t_img	*img;

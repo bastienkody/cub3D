@@ -66,8 +66,8 @@ void	maximap_display(t_info *info)
 
 	info->is_maximap = !info->is_maximap;
 	if (!info->is_maximap)
-		return ((void)mlx_put_image_to_window(info->ptr, info->win, \
-		info->bg_default->ptr, 0, 0));
+		return (mlx_put_image_to_window(info->ptr, info->win, \
+		info->bg_default->ptr, 0, 0), draw_minimap(info));
 	y = -1;
 	while (++y * info->mmap_tile_s < WIN_H && info->map[y] != NULL)
 	{

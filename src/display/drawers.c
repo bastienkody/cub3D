@@ -12,14 +12,6 @@
 
 #include "../../inc/cub3D.h"
 
-void	pixel_w(t_img *img, int x, int y, int color)
-{
-	char	*dst;
-
-	dst = img->addr + (y * img->line_len + x * (img->bpp / 8));
-	*(unsigned int *)dst = color;
-}
-
 /*	bresenham algo w/ a[0]=x, a[1]=y	*/
 void	line_w(t_img *img, int a[2], int b[2], int color)
 {

@@ -22,6 +22,7 @@ DISP_NAME	=	init.c\
 				movements.c\
 				hooks.c\
 				maximap.c\
+				minimap.c\
 				outro.c
 RAY_NAME	=	utils.c\
 

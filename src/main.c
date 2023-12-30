@@ -40,7 +40,7 @@ void	run(t_info *info)
 	mlx_mouse_hook(info->win, &mouse_inputs, info);
 	mlx_hook(info->win, 2, 1L<<0, &key_inputs, info);
 	mlx_hook(info->win, 17, 0, &end_free, info);
-	mlx_loop_hook(info->ptr, &disp_intro, info);
+	mlx_loop_hook(info->ptr, &display_manager, info);
 	mlx_loop(info->ptr);
 }
 
