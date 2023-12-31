@@ -1,22 +1,23 @@
 ###		DIRECTORY		###
 HEADER		=	./inc/cub3D.h
-BUILD_DIR	=	./build
-SRC_DIR 	=	src/
-PARS_DIR	=	parsing/
-PRINT_DIR	=	printer/
-DISP_DIR	=	display/
-RAY_DIR		=	raycast/
+BUILD_D		=	./build
+SRC_D 		=	src/
+PARS_D		=	${SRC_D}parsing/
+PRINT_D		=	${SRC_D}printer/
+DISP_D		=	${SRC_D}display/
+RAY_D		=	${SRC_D}raycast/
+vpath %.c src ${PARS_D} ${PRINT_D} ${DISP_D} ${RAY_D}
 
 ###		SOURCE FILES		###
-PARS_NAME	=	parser.c\
+PARS_FILES	=	parser.c\
 				parser_utils.c\
 				texture.c\
 				rgb.c\
 				misc_utils.c\
 				map_check.c
-PRINT_NAME	=	error.c\
+PRINT_FILES	=	error.c\
 				dataprint.c
-DISP_NAME	=	init.c\
+DISP_FILES	=	init.c\
 				image_utils.c\
 				drawers.c\
 				movements.c\
@@ -24,17 +25,11 @@ DISP_NAME	=	init.c\
 				maximap.c\
 				minimap.c\
 				outro.c
-RAY_NAME	=	utils.c\
+RAY_FILES	=	utils.c
+MAIN_FILES	=	main.c endfree.c
 
-PARS_SRC	=	$(addprefix ${PARS_DIR}, ${PARS_NAME})
-PRINT_SRC	=	$(addprefix ${PRINT_DIR}, ${PRINT_NAME})
-DISP_SRC	=	$(addprefix ${DISP_DIR}, ${DISP_NAME})
-RAY_SRC		=	$(addprefix ${RAY_DIR}, ${RAY_NAME})
-
-SRCS_NAME 	=	main.c endfree.c ${PARS_SRC} ${PRINT_SRC} ${DISP_SRC} ${RAY_SRC}
-
-SRCS		=	$(addprefix ${SRC_DIR}, ${SRCS_NAME})
-OBJS		=	${SRCS:%.c=$(BUILD_DIR)/%.o}
+SRCS 		=	${MAIN_FILES} ${PARS_FILES} ${PRINT_FILES} ${DISP_FILES} ${RAY_FILES}
+OBJS		=	${SRCS:%.c=$(BUILD_D)/%.o}
 
 ###		DEFINITIONS		###
 NAME		=	cub3D
@@ -72,7 +67,7 @@ MAP			=	"[M]\\t\\t: on/off full map view where you can move around with [WASD] \
 				or you can leftclick to teleport\\n"
 
 ###		RULES		###
-$(BUILD_DIR)/%.o: %.c ${HEADER}
+$(BUILD_D)/%.o: %.c ${HEADER}
 			@mkdir -p $(dir $@)
 			@echo -e "\033[32m\c"
 			${CC} ${CFLAGS} ${COUNTER_DEFINE} -c $< -o $@
@@ -106,7 +101,7 @@ ${MLX}:
 clean:
 			@make --no-print-directory clean -C ./libs/libft/ >/dev/null 2>&1
 			@make --no-print-directory clean -C ./libs/mlx/ >/dev/null 2>&1
-			@rm -rf ${BUILD_DIR}
+			@rm -rf ${BUILD_D}
 			@echo -e "\033[32m${NAME} obj cleaned"
 
 fclean:		clean
