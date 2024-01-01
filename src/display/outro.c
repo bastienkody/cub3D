@@ -12,7 +12,7 @@
 
 #include "../../inc/cub3D.h"
 
-/*	calls outro only if mouse has moved	*/
+/*	if mouse has moved : outro redraw	*/
 int	outro_update(t_info *info)
 {
 	static int	prev_out_x = 0;
