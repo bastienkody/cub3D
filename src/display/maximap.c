@@ -36,11 +36,29 @@ void	maximap_teleport(int but, unsigned int x, unsigned int y, t_info *info)
 	}
 }
 
+/*	single tile size relative to map w/h + x/y borders	*/
+void	get_maximap_size(t_info *info)
+{
+	const int	ylen = tab_len(info->map);
+	const int	xlen = ft_strlen(*info->map);
+	const int	tiley = WIN_H / (ylen + 1);
+	const int	tilex = WIN_W / (xlen + 1);
+
+	info->mmap_tile_s = tilex;
+	info->mmap_bordy = WIN_H - (tilex * ylen);
+	info->mmap_bordx = WIN_W - (tilex * xlen);
+	if (tiley < tilex)
+	{
+		info->mmap_tile_s = tiley;
+		info->mmap_bordy = WIN_H - (tiley * ylen);
+		info->mmap_bordx = WIN_W - (tiley * xlen);
+	}
+}
+
 /*	for now :	player icon is a rect of size tile_s / 4
 				if huuuuge map : just 1 pixel, no need to rect
 				if huge map : no border (if not the red is almost unseen)
-	upgrade with a circle + fov rays
-*/
+	upgrade with a circle + fov rays	*/
 void	draw_player_icon(t_info *info)
 {
 	const int	xpos = info->pposx * info->mmap_tile_s + info->mmap_tile_s / 2;
@@ -57,17 +75,14 @@ void	draw_player_icon(t_info *info)
 		/ 2}, (int []){size, size}, RED);
 }
 
-/*	need to be upgrading with precise angle	*/
-void	maximap_display(t_info *info)
+/*	only used once, by init. draw mmap floor/wall/void	*/
+void	draw_first_maximap(t_info *info)
 {
 	int			y;
 	int			x;
 	const int	colorz[3] = {WHITE, GREY, BLACK};
 
-	info->is_maximap = !info->is_maximap;
-	if (!info->is_maximap)
-		return (mlx_put_image_to_window(info->ptr, info->win, \
-		info->bg_default->ptr, 0, 0), draw_minimap(info));
+	get_maximap_size(info);
 	y = -1;
 	while (++y * info->mmap_tile_s < WIN_H && info->map[y] != NULL)
 	{
@@ -79,7 +94,28 @@ void	maximap_display(t_info *info)
 			info->mmap_tile_s}, colorz[(int)info->map[y][x] - '0']);
 		}
 	}
-	draw_player_icon(info);
+}
+
+/*	redraw (update ppos) + disp. can be separated in two functions	*/
+void	maximap_display(t_info *info)
+{
+	static int	oldx = -1;
+	static int	oldy = -1;
+	const int	s = info->mmap_tile_s;
+	const int	clr[3] = {WHITE, GREY, BLACK};
+
+	info->is_maximap = !info->is_maximap;
+	if (!info->is_maximap)
+		return ((void)mlx_put_image_to_window(info->ptr, info->win, \
+		info->bg_default->ptr, 0, 0));
+	if (info->pposx != oldx || info->pposy != oldy)
+	{
+		draw_rect_w_border(info->maximap, (int []){oldx * s, oldy * s}, \
+		(int []){s, s}, clr[info->map[info->pposy][info->pposx] - '0']);
+		draw_player_icon(info);
+	}
+	oldx = info->pposx;
+	oldy = info->pposy;
 	mlx_put_image_to_window(info->ptr, info->win, info->maximap->ptr, \
 	(info->mmap_bordx / 2), (info->mmap_bordy / 2));
 }
