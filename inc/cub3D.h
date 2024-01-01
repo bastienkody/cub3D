@@ -72,10 +72,10 @@ might change hardware to fully enjoy the game :)"
 # define MENUBAR_H 70
 # define PLAYER_ICON_TO_MMAP_TILE_RATIO 3
 
-/*	minimap	*/
+/*	minimap : 12x12 rects of tile 16x16	*/
 # define MNAP_TS 16
-# define MNAP_W 200
-# define MNAP_H 200
+# define MNAP_W 192
+# define MNAP_H 192
 
 /*	counter	*/
 # ifndef INTRO_COUNTER
@@ -154,7 +154,6 @@ typedef struct s_info
 	t_img			*s_text;
 	t_img			*w_text;
 	t_img			*e_text;
-	t_img			*fminimap;
 	t_img			*minimap;
 	t_img			*maximap;
 }				t_info;
@@ -170,6 +169,7 @@ int		outro(t_info *info, int x, int y);
 int		outro_update(t_info *info);
 
 /*	maximap	*/
+void	draw_player_icon(t_info *info, t_img *img_map, int tile_s);
 void	draw_first_maximap(t_info *info);
 void	maximap_display(t_info *info);
 void	maximap_teleport(int but, unsigned int x, unsigned int y, t_info *info);

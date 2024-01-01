@@ -55,23 +55,24 @@ void	get_maximap_size(t_info *info)
 	}
 }
 
-/*	for now :	player icon is a rect of size tile_s / 4
+/*	used by mini and maxi maps
+	for now :	player icon is a rect of size tile_s / 4
 				if huuuuge map : just 1 pixel, no need to rect
 				if huge map : no border (if not the red is almost unseen)
 	upgrade with a circle + fov rays	*/
-void	draw_player_icon(t_info *info)
+void	draw_player_icon(t_info *info, t_img *img_map, int tile_s)
 {
-	const int	xpos = info->pposx * info->mmap_tile_s + info->mmap_tile_s / 2;
-	const int	ypos = info->pposy * info->mmap_tile_s + info->mmap_tile_s / 2;
-	const int	size = info->mmap_tile_s / PLAYER_ICON_TO_MMAP_TILE_RATIO;
+	const int	xpos = info->pposx * tile_s + tile_s / 2;
+	const int	ypos = info->pposy * tile_s + tile_s / 2;
+	const int	size = tile_s / PLAYER_ICON_TO_MMAP_TILE_RATIO;
 
 	if (size <= 1)
-		pixel_w(info->maximap, xpos, ypos, RED);
+		pixel_w(img_map, xpos, ypos, RED);
 	else if (size < 4)
-		draw_rect(info->maximap, (int []){xpos - size / 2, ypos - size / 2}, \
+		draw_rect(img_map, (int []){xpos - size / 2, ypos - size / 2}, \
 		(int []){size, size}, RED);
 	else
-		draw_rect_w_border(info->maximap, (int []){xpos - size / 2, ypos - size \
+		draw_rect_w_border(img_map, (int []){xpos - size / 2, ypos - size \
 		/ 2}, (int []){size, size}, RED);
 }
 
@@ -107,15 +108,16 @@ void	maximap_display(t_info *info)
 	info->is_maximap = !info->is_maximap;
 	if (!info->is_maximap)
 		return ((void)mlx_put_image_to_window(info->ptr, info->win, \
-		info->bg_default->ptr, 0, 0));
+		info->bg_default->ptr, 0, 0), draw_minimap(info));
 	if (info->pposx != oldx || info->pposy != oldy)
 	{
 		draw_rect_w_border(info->maximap, (int []){oldx * s, oldy * s}, \
 		(int []){s, s}, clr[info->map[info->pposy][info->pposx] - '0']);
-		draw_player_icon(info);
+		draw_player_icon(info, info->maximap, info->mmap_tile_s);
 	}
 	oldx = info->pposx;
 	oldy = info->pposy;
 	mlx_put_image_to_window(info->ptr, info->win, info->maximap->ptr, \
 	(info->mmap_bordx / 2), (info->mmap_bordy / 2));
+	draw_minimap(info);
 }

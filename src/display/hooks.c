@@ -63,8 +63,8 @@ int	display_manager(t_info *info)
 	{
 		info->bg_default = create_image(info->ptr, WIN_W, WIN_H);
 		info->is_intro = false;
-		line_w(info->bg_default, (int []){0, 0}, (int []){WIN_W, WIN_H}, WHITE);
-		mlx_put_image_to_window(info->ptr, info->win, info->bg_default->ptr, 0, 0);
+		//line_w(info->bg_default, (int []){0, 0}, (int []){WIN_W, WIN_H}, WHITE);
+		//mlx_put_image_to_window(info->ptr, info->win, info->bg_default->ptr, 0, 0);
 		//draw_minimap(info);
 	}
 	return (0);

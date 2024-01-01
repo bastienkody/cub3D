@@ -12,48 +12,45 @@
 
 #include "../../inc/cub3D.h"
 
-/*	
-	fminimap is an image of the full map
-	minimap : fminimap rounded to 200x200 with player centered !
-*/
-
-void	draw_f_minimap(t_info *info, int *oldx, int *oldy)
+/*	200x200 ppos centered pixel_w on win at 20,20
+	- draw black bg
+	- draw floor pixel : checks needed (>0 && inside map)
+	- draw player icon
+	- draw blue border
+	- mlxput	*/
+void	draw_minimap(t_info *info)
 {
-	int			y;
+	const int	m_h = tab_len(info->map);
+	const int	m_w = ft_strlen(*info->map);
 	int			x;
-	const int	psize = MNAP_TS / 2;
-	const int	colorz[3] = {WHITE, GREY, BLACK}; 
-
-	y = -1;
-	while (++y > -1 && info->map[y] != NULL)
+	int			y;
+	const int	clr[3] = {WHITE, GREY, BLACK};
+	int			mapval_x = 0;
+	int			mapval_y = 0;
+	
+	draw_rect(info->minimap, (int []){0, 0}, (int []){199, 199}, BLACK);
+	x = 0;
+	while (x * MNAP_TS < MNAP_W -1)
 	{
-		x = -1;
-		while (++x > -1 && info->map[y][x] != '\0')
+		y = 0;
+		while (y *MNAP_TS < MNAP_H - 1)
 		{
-			draw_rect_w_border(info->fminimap, (int []){x * MNAP_TS, y * \
-			MNAP_TS}, (int []){MNAP_TS, MNAP_TS}, colorz[info->map[y][x] - '0']);
+			// pb de signe ? 
+			mapval_x = x - (5 - info->pposx);
+			mapval_y = y - (5 - info->pposy);
+			if (mapval_x > -1 && mapval_x < m_w && mapval_y > -1 && y + mapval_y < m_h)
+			{
+				//ft_fprintf(1, "new rect in anchor x%i y%i, looking for clr in map y%i x%i\n", x, y, y - info->pposy, x - info->pposx);
+				draw_rect_w_border(info->minimap, (int []){x * MNAP_TS, y * MNAP_TS}, (int []) \
+				{MNAP_TS, MNAP_TS}, clr[info->map[mapval_y][mapval_x] - 48]);
+			}
+			y++;
 		}
+		x++;
 	}
-	draw_rect(info->fminimap, (int []){info->pposx * MNAP_TS + psize / 2, \
-	info->pposy * MNAP_TS + psize / 2}, (int []){psize, psize}, RED);
-	*oldx = info->pposx;
-	*oldy = info->pposy;
-	//mlx_put_image_to_window(info->ptr, info->win, info->fminimap->ptr, 0, 0);
-}
-
-/*	fetch 200x200 of fminimap with ppos centered*/
-void	draw_minimap(__attribute__((unused)) t_info *info)
-{
-	static int	oldx = -1;
-	static int	oldy = -1;
-	//const int	x = info->pposx * MNAP_TS - MNAP_TS / 2;
-	//const int	y = info->pposy * MNAP_TS - MNAP_TS / 2;
-
-	if (info->pposx != oldx || info->pposy != oldy)
-		draw_f_minimap(info, &oldx, &oldy);
-	draw_rect(info->minimap, (int []){0, 0}, (int []){199,199}, BLACK);
-	img_to_img(info->fminimap, info->minimap, (int []){0,0}, (int []){200, 200});
-	draw_border(info->minimap, (int []){0, 0}, (int []){199,199}, BLUE);
+	draw_rect(info->minimap, (int []){5 * MNAP_TS + MNAP_TS / 3, 5 * MNAP_TS + MNAP_TS / 3}, (int []){MNAP_TS /3, MNAP_TS /3}, RED);
+	//draw_player_icon(info, info->minimap, MNAP_TS);
+	draw_border(info->minimap, (int []){0, 0}, (int []){MNAP_W - 1, MNAP_H - 1}, BLUE);
 	mlx_put_image_to_window(info->ptr, info->win, info->minimap->ptr, 20, 20);
 }
 
