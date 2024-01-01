@@ -31,7 +31,7 @@ void	pixel_w(t_img *img, int x, int y, int color)
 	*/
 unsigned int	get_color(t_img *img, int x, int y)
 {
-	return (*(unsigned int *)img->addr + (y * img->line_len + x * (img->bpp / 8)));
+	return (*(unsigned int*)(img->addr + (y * img->line_len + x * (img->bpp / 8))));
 }
 
 /*	copy dim pixels starting at og, from src img into dst img
@@ -50,8 +50,6 @@ void	img_to_img(t_img *src, t_img *dst, int og[2], int dim[2])
 		while (++y <= end[1])
 		{
 			color = get_color(src, x, y);
-			if (x == 0)
-				ft_fprintf(1, "x:%i, y:%i, pixel : %x\n", x, y, color);
 			pixel_w(dst, x, y, color);
 		}
 	}

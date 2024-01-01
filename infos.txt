@@ -84,8 +84,49 @@ MAXIMAP :
 - ypos = bordurey / 2
 				- il faudrqait sensuite adapter la taille de joueur sur la mmap :
 				pour l'instant c un carre de 8 pixel
+PLUS OPTI : 
+	- deux fonctions : 
+		-> maximap_first_draw : draw toute la map tel quel
+		-> maximap_redraw : juste remettre le bon rect at oldx, oldy et 
+		draw_player_icon at nwx, newy
 
 ---------------
 GAME COMMANDS : 
 ---------------
-	Displayed in Makefile via rule make all (even is up to date)
+[WASD]			:	move around in game
+[Left/Right]	:	turn in game
+[Q]				:	directly quit game with no msg (==red cross left click)
+[M]				:	on/off full map view where you can move around with [WASD],
+					or you can leftclick to teleport (collisions managed)
+[ESC]			:	on/off pause menu. leftclik ; or press enter to leave, esc
+					to resume game
+
+---------
+MINIMAP :
+---------
+(dessiner player sur minimap direct pour ne jamais avoir a redraw fminimap ????)
+			- fminimap : an image that represent the whole map (big size)
+			- minimap : an image of 200x200 cropped from fminimap with player centered
+			- actualization must be managed not to redraw to much 
+Centering minimap (segflt pb if pos is top left ; idem pour x et y) : 
+	- minimap background in black (draw_rect 200x200)
+	- two pos are needed for img_to_img : fminimap anchor relative to player pos,
+		and minimap anchor according to fminimap anchor
+	-> fminimap anchor = pposx * tile_size - tile_size / 2 (- icon size / 2)
+		pos du player * le pas - une moitie de pas pour bien centrer (et prendre
+		en compte la taille de player icon?)
+	-> minimap anchor = 100 - fminimap anchor. if < 0: 0.
+		si le player est top left : le centrer sur minimap demande a coller
+		du negatif de fminimap, du coup on check ca : si c le cas on decale
+		l'anchor de minimap vers la droite (on a deja un blackbg), sinon on peut
+		centrer normal en collant l'anchor de fminimap en 0 de minimap.
+PLUS OPTI :
+	- draw at 20,20 a black rect of 200x200
+	- draw rect border in blue at 20,20 of 200x200
+	- juste faire du pixel_w a partir de player pos. 
+	-> checker si dans la map
+		-> mettre un rect en bonne pos puis draw player icon. 
+		-> neg x y from player pos wont be drawn 
+		-> pos x y from player but outside la map wont be drawn neither
+	-> les potentielles vides de la minimap seront sur le blackbg 
+	-> il faudra redraw tout a chaque movement / update , mais c que du 200x200

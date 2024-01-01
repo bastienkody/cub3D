@@ -53,6 +53,8 @@ int	key_inputs(int keycode, t_info *info)
 
 /*	lauch by mlx_loop. calls intro at start 
 	then redraw outro if mouse moved (mouse check in here)	*/
+	
+	// ramener les check de outro dans outro pour lighten display manager 
 int	display_manager(t_info *info)
 {
 	static int	prev_out_x = 0;
@@ -76,7 +78,7 @@ int	display_manager(t_info *info)
 		info->is_intro = false;
 		line_w(info->bg_default, (int []){0, 0}, (int []){WIN_W, WIN_H}, WHITE);
 		mlx_put_image_to_window(info->ptr, info->win, info->bg_default->ptr, 0, 0);
-		draw_minimap(info);
+		//draw_minimap(info);
 	}
 	return (0);
 }

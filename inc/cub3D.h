@@ -163,10 +163,13 @@ typedef struct s_info
 void	run(t_info *info);
 int		init_display(t_info *info, t_parser *pars);
 int		display_manager(t_info *info);
-void	maximap_display(t_info *info);
-void	maximap_teleport(int but, unsigned int x, unsigned int y, t_info *info);
 void	draw_minimap(t_info *info);
 int		outro(t_info *info, int x, int y);
+
+/*	maximap	*/
+void	draw_first_maximap(t_info *info);
+void	maximap_display(t_info *info);
+void	maximap_teleport(int but, unsigned int x, unsigned int y, t_info *info);
 
 /*	actions / movements	*/
 void	maximap_key_movement(int keycode, t_info *info);
@@ -184,6 +187,7 @@ uint	get_color(t_img *img, int x, int y);
 void	img_to_img(t_img *src, t_img *dst, int og[2], int dim[2]);
 void	line_w(t_img *img, int a[2], int b[2], int color);
 void	draw_rect(t_img *img, int og[2], int dim[2], int color);
+void	draw_border(t_img *img, int og[2], int dim[2], int color);
 void	draw_rect_w_border(t_img *img, int og[2], int dim[2], int color);
 
 /*	img	*/
