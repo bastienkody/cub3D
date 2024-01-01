@@ -12,12 +12,29 @@
 
 #include "../../inc/cub3D.h"
 
+/*	calls outro only if mouse has moved	*/
+int	outro_update(t_info *info)
+{
+	static int	prev_out_x = 0;
+	static int	prev_out_y = 0;
+	static int	x_out = -1;
+	static int	y_out = -1;
+
+	mlx_mouse_get_pos(info->ptr, info->win, &x_out, &y_out);
+	if (info->is_outro && (x_out != prev_out_x || y_out != prev_out_y))
+	{
+		prev_out_x = x_out;
+		prev_out_y = y_out;
+		return (outro(info, x_out, y_out));
+	}
+	return (0);
+}
+
 /*	RESUME vs QUIT buttons positions :
 	see cub3D.h defines
 	-> RESUME pos = X, Y, with size X_S, Y_S
 	-> QUIT pos = resume + y offset
 */
-
 int	outro(t_info *info, int x, int y)
 {
 	info->is_outro = true;

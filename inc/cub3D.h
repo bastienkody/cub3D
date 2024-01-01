@@ -164,7 +164,10 @@ void	run(t_info *info);
 int		init_display(t_info *info, t_parser *pars);
 int		display_manager(t_info *info);
 void	draw_minimap(t_info *info);
+
+/*	outro - pause */
 int		outro(t_info *info, int x, int y);
+int		outro_update(t_info *info);
 
 /*	maximap	*/
 void	draw_first_maximap(t_info *info);

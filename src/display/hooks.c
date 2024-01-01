@@ -53,25 +53,12 @@ int	key_inputs(int keycode, t_info *info)
 
 /*	lauch by mlx_loop. calls intro at start 
 	then redraw outro if mouse moved (mouse check in here)	*/
-	
-	// ramener les check de outro dans outro pour lighten display manager 
 int	display_manager(t_info *info)
 {
-	static int	prev_out_x = 0;
-	static int	prev_out_y = 0;
-	static int	x_out = -1;
-	static int	y_out = -1;
-
 	if (info->is_intro)
 		return (disp_intro(info));
-	mlx_mouse_get_pos(info->ptr, info->win, &x_out, &y_out);
-	if (info->is_outro && (x_out != prev_out_x || y_out != prev_out_y))
-	{
-		prev_out_x = x_out;
-		prev_out_y = y_out;
-		info->is_outro = !info->is_outro;
-		return (outro(info, x_out, y_out), 1);
-	}
+	if (info->is_outro)
+		return (outro_update(info));
 	if (!info->is_intro && !info->is_outro && !info->is_maximap)
 	{
 		info->bg_default = create_image(info->ptr, WIN_W, WIN_H);
