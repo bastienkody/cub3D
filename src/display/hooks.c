@@ -50,38 +50,3 @@ int	key_inputs(int keycode, t_info *info)
 		maximap_key_movement(keycode, info);
 	return (1);
 }
-
-/*	lauch by mlx_loop. calls intro at start 
-	then redraw outro if mouse moved (mouse check in here)	*/
-int	display_manager(t_info *info)
-{
-	if (info->is_intro)
-		return (disp_intro(info));
-	if (info->is_outro)
-		return (outro_update(info));
-	if (!info->is_intro && !info->is_outro && !info->is_maximap)
-	{
-		// tel quel redraw en continu ; a changer trop lourd
-		line_w(info->bg_default, (int []){0, 0}, (int []){WIN_W, WIN_H}, WHITE);
-		mlx_put_image_to_window(info->ptr, info->win, info->bg_default->ptr, \
-		0, 0);
-		//draw_minimap(info);
-	}
-	return (0);
-}
-
-int	disp_intro(t_info *info)
-{
-	static int	counter = 0;
-
-	if (!info->is_intro)
-		return (1);
-	counter++;
-	if (counter > INTRO_COUNTER)
-		counter = 0;
-	if (counter <= INTRO_COUNTER / 2)
-		mlx_put_image_to_window(info->ptr, info->win, info->intro1->ptr, 0, 0);
-	else
-		mlx_put_image_to_window(info->ptr, info->win, info->intro2->ptr, 0, 0);
-	return (0);
-}

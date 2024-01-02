@@ -22,6 +22,7 @@ DISP_FILES	=	init.c\
 				drawers.c\
 				movements.c\
 				hooks.c\
+				displayer.c\
 				maximap.c\
 				minimap.c\
 				outro.c

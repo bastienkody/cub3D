@@ -29,12 +29,19 @@ void	print_map(t_info *info)
 		ft_fprintf(1, "%s\n", info->map[i]);
 }
 
+
+
 void	print_info(t_info *info)
 {
+	static int	x;
+	static int	y;
+
+	mlx_get_screen_size(info->ptr, &x, &y);
 	if (!info)
 		return ((void)ft_fprintf(1, "info addr is NULL\n"));
 	ft_fprintf(1, "------------------------------------\n");
 	ft_fprintf(1, "\t\033[1mPRINT_INFO\033[m\n");
+	ft_fprintf(1, "Screen size x%i, y%i", x, y);
 	ft_fprintf(1, "floor color\t: %x\n", info->floor);
 	ft_fprintf(1, "ceiling color\t: %x\n", info->ceil);
 	ft_fprintf(1, "Player pos\t: x=%i, y=%i\n", info->pposx, info->pposy);

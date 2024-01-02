@@ -16,8 +16,8 @@
 	- draw black bg
 	- draw floor rect (16x16)
 	- draw player icon (1/3 de rect)
-	- draw blue border (second line needed)
-	- mlxputimgtowin
+	- draw blue border (double lined)
+	- mlx_put_img_to_win
 */
 void	draw_minimap(t_info *info)
 {

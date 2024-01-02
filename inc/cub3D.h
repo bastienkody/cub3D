@@ -183,7 +183,6 @@ int		outro_mouse_inputs(int but, int x, int y, t_info *info);
 int		mouse_inputs(int button, int x, int y, t_info *info);
 int		outro_key_inputs(int keycode, t_info *info);
 int		key_inputs(int keycode, t_info *info);
-int		disp_intro(t_info *info);
 
 /*	drawers	*/
 void	pixel_w(t_img *img, int x, int y, int color);
