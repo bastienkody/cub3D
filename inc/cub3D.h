@@ -97,7 +97,6 @@ might change hardware to fully enjoy the game :)"
 # define GREEN 0x0000FF00
 # define BLUE 0x000000FF
 
-
 /*	typedef	*/
 typedef bool	t_bool;
 
@@ -134,6 +133,8 @@ typedef struct s_info
 	void			*ptr;
 	void			*win;
 	char			**map;
+	int				mh;
+	int				mw;
 	unsigned int	floor;
 	unsigned int	ceil;
 	int				pposx;

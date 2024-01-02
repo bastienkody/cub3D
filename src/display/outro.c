@@ -39,11 +39,14 @@ int	outro(t_info *info, int x, int y)
 {
 	info->is_outro = true;
 	if (x >= X && x <= X_S && y >= Y && y <= Y_S)
-		mlx_put_image_to_window(info->ptr, info->win, info->outro[1]->ptr, 0, 0);
+		mlx_put_image_to_window(info->ptr, info->win, info->outro[1]->ptr, \
+		0, 0);
 	else if (x >= X && x <= X_S && y >= Y + Y_OFST && y <= Y_S + Y_OFST)
-		mlx_put_image_to_window(info->ptr, info->win, info->outro[2]->ptr, 0, 0);
+		mlx_put_image_to_window(info->ptr, info->win, info->outro[2]->ptr, \
+		0, 0);
 	else
-		mlx_put_image_to_window(info->ptr, info->win, info->outro[0]->ptr, 0, 0);
+		mlx_put_image_to_window(info->ptr, info->win, info->outro[0]->ptr, \
+		0, 0);
 	return (1);
 }
 
@@ -54,8 +57,9 @@ int	outro_key_inputs(int keycode, t_info *info)
 	if (keycode == XK_Escape)
 	{
 		info->is_outro = false;
-		mlx_put_image_to_window(info->ptr, info->win, info->bg_default->ptr, 0, 0);
-		//draw_minimap(info);
+		mlx_put_image_to_window(info->ptr, info->win, info->bg_default->ptr, \
+		0, 0);
+		draw_minimap(info);
 		if (info->is_maximap)
 		{
 			info->is_maximap = false;
@@ -72,8 +76,9 @@ int	outro_mouse_inputs(int but, int x, int y, t_info *info)
 	if (x >= X && x <= X_S && y >= Y && y <= Y_S)
 	{
 		info->is_outro = false;
-		mlx_put_image_to_window(info->ptr, info->win, info->bg_default->ptr, 0, 0);
-		//draw_minimap(info);
+		mlx_put_image_to_window(info->ptr, info->win, info->bg_default->ptr, \
+		0, 0);
+		draw_minimap(info);
 		if (info->is_maximap)
 		{
 			info->is_maximap = false;

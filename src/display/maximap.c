@@ -22,8 +22,7 @@ void	maximap_teleport(int but, unsigned int x, unsigned int y, t_info *info)
 
 	if (but != 1)
 		return ;
-	if (newx >= 0 && newx < (int)ft_strlen(*info->map) && newy >= 0 && \
-		newy < tab_len(info->map))
+	if (newx >= 0 && newx < info->mw && newy >= 0 && newy < info->mh)
 	{
 		if (info->map[newy][newx] != '0')
 			return ((void)ft_fprintf(2, "%s%i,y%i%s\n", T_W, newx, newy, T_WB));
@@ -39,8 +38,8 @@ void	maximap_teleport(int but, unsigned int x, unsigned int y, t_info *info)
 /*	single tile size relative to map w/h + x/y borders	*/
 void	get_maximap_size(t_info *info)
 {
-	const int	ylen = tab_len(info->map);
-	const int	xlen = ft_strlen(*info->map);
+	const int	ylen = info->mh;
+	const int	xlen = info->mw;
 	const int	tiley = WIN_H / (ylen + 1);
 	const int	tilex = WIN_W / (xlen + 1);
 

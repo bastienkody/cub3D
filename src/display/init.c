@@ -18,8 +18,8 @@ int	load_textures(t_info *info, t_parser *pars)
 		"map/textures/intrologo/logo_pink_green_0.xpm", WIN_W, WIN_H);
 	info->intro2 = create_xpm_image(info->ptr, \
 		"map/textures/intrologo/logo_pink_green_1.xpm", WIN_W, WIN_H);
-	info->outro[0] = create_xpm_image(info->ptr, "map/textures/outro/outro3.xpm", \
-		WIN_W, WIN_H);
+	info->outro[0] = create_xpm_image(info->ptr, "map/textures/outro/outro3.\
+xpm", WIN_W, WIN_H);
 	info->outro[1] = create_xpm_image(info->ptr, "map/textures/outro/outro3_r.\
 xpm", WIN_W, WIN_H);
 	info->outro[2] = create_xpm_image(info->ptr, "map/textures/outro/outro3_q.\
@@ -28,15 +28,17 @@ xpm", WIN_W, WIN_H);
 	info->s_text = create_xpm_image(info->ptr, pars->so_path, TILE_S, TILE_S);
 	info->w_text = create_xpm_image(info->ptr, pars->we_path, TILE_S, TILE_S);
 	info->e_text = create_xpm_image(info->ptr, pars->ea_path, TILE_S, TILE_S);
+	info->bg_default = create_image(info->ptr, WIN_W, WIN_H);
 	info->maximap = create_image(info->ptr, WIN_W, WIN_H);
 	info->minimap = create_image(info->ptr, MNAP_W, MNAP_H);
-	if (!info->intro1 || !info->intro1->ptr || !info->intro2 || !info->outro[0]\
-		 || !info->outro[0]->ptr || !info->outro[1] || !info->outro[1]->ptr || \
+	if (!info->intro1 || !info->intro1->ptr || !info->intro2 || \
+		!info->outro[0] \
+		|| !info->outro[0]->ptr || !info->outro[1] || !info->outro[1]->ptr || \
 		!info->outro[2] || !info->outro[2]->ptr ||!info->intro2->ptr || \
 		!info->n_text || !info->n_text->ptr || !info->s_text || \
 		!info->s_text->ptr || !info->w_text || !info->w_text->ptr || \
-		!info->e_text || !info->e_text->ptr || !info->minimap\
-		 || !info->minimap->ptr || !info->maximap || !info->maximap->ptr )
+		!info->e_text || !info->e_text->ptr || !info->minimap || \
+		!info->minimap->ptr || !info->maximap || !info->maximap->ptr)
 		return (0);
 	return (1);
 }

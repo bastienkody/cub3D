@@ -17,22 +17,21 @@ int	is_floor(int x_ofst, int y_ofst, t_info *info)
 	return ((info->map[info->pposy + y_ofst][info->pposx + x_ofst] == '0'));
 }
 
-void maximap_key_movement(int keycode, t_info *info)
+void	maximap_key_movement(int keycode, t_info *info)
 {
-	const int	xmax = tab_len(info->map) - 1;
-	const int	ymax = (int)ft_strlen(*info->map) - 1;
+	const int	xmax = info->mw - 1;
+	const int	ymax = info->mh - 1;
 
 	if (keycode == XK_w && info->pposy - 1 >= 0 && is_floor(0, -1, info))
 		info->pposy -= 1;
-	else if (keycode == XK_s && info->pposy + 1 <= xmax && is_floor(0, 1, info))
+	else if (keycode == XK_s && info->pposy + 1 <= ymax && is_floor(0, 1, info))
 		info->pposy += 1;
 	else if (keycode == XK_a && info->pposx - 1 >= 0 && is_floor(-1, 0, info))
 		info->pposx -= 1;
-	else if (keycode == XK_d && info->pposx + 1 <= ymax && is_floor(1, 0, info))
+	else if (keycode == XK_d && info->pposx + 1 <= xmax && is_floor(1, 0, info))
 		info->pposx += 1;
 	else
 		return ;
 	info->is_maximap = !info->is_maximap;
-	maximap_display(info);	
+	maximap_display(info);
 }
-

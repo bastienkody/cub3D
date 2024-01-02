@@ -29,6 +29,8 @@ t_info	*pars_to_info(t_parser *pars)
 	info->floor = pars->floor_rgb;
 	info->ceil = pars->ceil_rgb;
 	info->map = pars->map;
+	info->mh = tab_len(info->map);
+	info->mw = ft_strlen(*info->map);
 	pars->map = NULL;
 	if (!init_display(info, pars))
 		return (NULL);
@@ -38,7 +40,7 @@ t_info	*pars_to_info(t_parser *pars)
 void	run(t_info *info)
 {
 	mlx_mouse_hook(info->win, &mouse_inputs, info);
-	mlx_hook(info->win, 2, 1L<<0, &key_inputs, info);
+	mlx_hook(info->win, 2, 1L << 0, &key_inputs, info);
 	mlx_hook(info->win, 17, 0, &end_free, info);
 	mlx_loop_hook(info->ptr, &display_manager, info);
 	mlx_loop(info->ptr);
@@ -52,7 +54,7 @@ int	main(int argc, char **argv, __attribute__((unused)) char **envp)
 	pars = main_parser(argc, argv); // fetch config file
 	if (!pars)
 		return (1);
-	info = pars_to_info(pars); 
+	info = pars_to_info(pars);
 	if (!info)
 		return (end_parser(pars), end_free(info), 1);
 	run(info);

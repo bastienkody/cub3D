@@ -47,7 +47,7 @@ int	key_inputs(int keycode, t_info *info)
 	else if (!info->is_intro && keycode == XK_m)
 		maximap_display(info);
 	else if (is_input_key_cmds(keycode) && info->is_maximap)
-		maximap_key_movement(keycode, info);	
+		maximap_key_movement(keycode, info);
 	return (1);
 }
 
@@ -61,10 +61,10 @@ int	display_manager(t_info *info)
 		return (outro_update(info));
 	if (!info->is_intro && !info->is_outro && !info->is_maximap)
 	{
-		info->bg_default = create_image(info->ptr, WIN_W, WIN_H);
-		info->is_intro = false;
-		//line_w(info->bg_default, (int []){0, 0}, (int []){WIN_W, WIN_H}, WHITE);
-		//mlx_put_image_to_window(info->ptr, info->win, info->bg_default->ptr, 0, 0);
+		// tel quel redraw en continu ; a changer trop lourd
+		line_w(info->bg_default, (int []){0, 0}, (int []){WIN_W, WIN_H}, WHITE);
+		mlx_put_image_to_window(info->ptr, info->win, info->bg_default->ptr, \
+		0, 0);
 		//draw_minimap(info);
 	}
 	return (0);
