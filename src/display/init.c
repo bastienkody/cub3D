@@ -28,7 +28,7 @@ xpm", WIN_W, WIN_H);
 	info->s_text = create_xpm_image(info->ptr, pars->so_path, TILE_S, TILE_S);
 	info->w_text = create_xpm_image(info->ptr, pars->we_path, TILE_S, TILE_S);
 	info->e_text = create_xpm_image(info->ptr, pars->ea_path, TILE_S, TILE_S);
-	info->bg_default = create_image(info->ptr, WIN_W, 2000);
+	info->bg_default = create_image(info->ptr, WIN_W, WIN_H);
 	info->maximap = create_image(info->ptr, WIN_W, WIN_H);
 	info->minimap = create_image(info->ptr, MNAP_W, MNAP_H);
 	if (!info->intro1 || !info->intro1->ptr || !info->intro2 || \

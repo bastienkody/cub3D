@@ -106,13 +106,11 @@ void	maximap_display(t_info *info)
 
 	info->is_maximap = !info->is_maximap;
 	if (!info->is_maximap)
-		return ; // ((void)mlx_put_image_to_window(info->ptr, info->win, info->bg_default->ptr, 0, 0), draw_minimap(info))
-	if (info->pposx != oldx || info->pposy != oldy)
-	{
+		return ;
+	if (oldx > -1 && oldy > -1 && (info->pposx != oldx || info->pposy != oldy))
 		draw_rect_w_border(info->maximap, (int []){oldx * s, oldy * s}, \
 		(int []){s, s}, clr[info->map[info->pposy][info->pposx] - '0']);
-		draw_player_icon(info, info->maximap, info->mmap_tile_s);
-	}
+	draw_player_icon(info, info->maximap, info->mmap_tile_s);
 	oldx = info->pposx;
 	oldy = info->pposy;
 	mlx_put_image_to_window(info->ptr, info->win, info->maximap->ptr, \
