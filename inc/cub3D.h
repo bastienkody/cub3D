@@ -101,7 +101,21 @@ might change hardware to fully enjoy the game :)"
 typedef bool			t_bool;
 typedef unsigned int	uint;
 
-enum e_scene {INTRO, OUTRO, MAXIMAP, STD};
+typedef struct s_raycast
+{
+	int		mapx;
+	int		mapy;
+	int		stepx;
+	int		stepy;
+	int		side;
+	double	raydirx;
+	double	raydiry;
+	double	sidex;
+	double	sidey;
+	double	deltax;
+	double	deltay;
+	double	perpwalldist;
+}				t_raycast;
 
 typedef struct s_img
 {
@@ -142,6 +156,8 @@ typedef struct s_info
 	double			posy;
 	double			dirx;
 	double			diry;
+	double			planex;
+	double			planey;
 	t_bool			is_intro;
 	t_bool			is_outro;
 	t_bool			is_maximap;
@@ -165,6 +181,11 @@ void	run(t_info *info);
 int		init_display(t_info *info, t_parser *pars);
 int		display_manager(t_info *info);
 void	draw_minimap(t_info *info);
+
+/*	raycast - dda	*/
+void	dda(t_raycast *rc, char **map);
+void	dda_prep(t_raycast *rc, int posx, int posy);
+
 
 /*	outro - pause */
 void	outro(t_info *info);
