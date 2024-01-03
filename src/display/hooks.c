@@ -12,7 +12,7 @@
 
 #include "../../inc/cub3D.h"
 
-int mouse_inputs(int button, int x, int y, t_info *info)
+int	mouse_inputs(int button, int x, int y, t_info *info)
 {
 	if (info->is_maximap)
 		maximap_teleport(button, x, y, info);
@@ -21,13 +21,13 @@ int mouse_inputs(int button, int x, int y, t_info *info)
 	return (1);
 }
 
-int is_input_key_cmds(int keycode)
+int	is_input_key_cmds(int keycode)
 {
-	return ((keycode == XK_w || keycode == XK_a || keycode == XK_s ||
-			 keycode == XK_d || keycode == XK_Up || keycode == XK_Left));
+	return ((keycode == XK_w || keycode == XK_a || keycode == XK_s || \
+			keycode == XK_d || keycode == XK_Right || keycode == XK_Left));
 }
 
-int key_inputs(int keycode, t_info *info)
+int	key_inputs(int keycode, t_info *info)
 {
 	if (keycode == XK_i)
 		print_info(info);
@@ -41,7 +41,7 @@ int key_inputs(int keycode, t_info *info)
 			end_free(info);
 	}
 	else if (keycode == XK_Escape)
-		return (info->is_outro = !info->is_outro, outro(info, 0, 0));
+		return (info->is_outro = !info->is_outro, 1);
 	else if (!info->is_intro && keycode == XK_m)
 		maximap_display(info);
 	else if (is_input_key_cmds(keycode) && info->is_maximap)

@@ -24,6 +24,9 @@
 	A more generalistic way might be more interesting, especially for 
 	std/minimap coverage. All display changes must be done into display_manager.
 	
+	Mouais en fait. J'ai des lenteurs lorsque le redraw depend de display manager
+	et que je lance des commandes au claiver : outro on/off et maximap on/off vs
+	le on/off d'outro quand la maximap est on (ca repasse plus par display manager)
 */
 
 void	disp_intro(t_info *info)
@@ -58,9 +61,11 @@ int	display_manager(t_info *info)
 	if (info->is_intro)
 		return (disp_intro(info), 1);
 	if (info->is_outro)
-		return (outro_update(info));
+		return (outro(info));
+	if (info->is_maximap)
+		return (info->is_maximap = !info->is_maximap, maximap_display(info), 1);
 	if (!info->is_intro && !info->is_outro && !info->is_maximap)
-		disp_standard(info);
+		return (disp_standard(info), 1);
 	return (0);
 }
 

@@ -98,9 +98,10 @@ might change hardware to fully enjoy the game :)"
 # define BLUE 0x000000FF
 
 /*	typedef	*/
-typedef bool	t_bool;
-
+typedef bool			t_bool;
 typedef unsigned int	uint;
+
+enum e_s {INTRO, OUTRO, MAXIMAP, STD};
 
 typedef struct s_img
 {
@@ -141,6 +142,7 @@ typedef struct s_info
 	int				pposy;
 	int				pdirx;
 	int				pdiry;
+	int				p_scene;
 	t_bool			is_intro;
 	t_bool			is_outro;
 	t_bool			is_maximap;
@@ -166,8 +168,8 @@ int		display_manager(t_info *info);
 void	draw_minimap(t_info *info);
 
 /*	outro - pause */
-int		outro(t_info *info, int x, int y);
-int		outro_update(t_info *info);
+int		outro(t_info *info);
+int		outro_update(int x, int y);
 
 /*	maximap	*/
 void	draw_player_icon(t_info *info, t_img *img_map, int tile_s);
