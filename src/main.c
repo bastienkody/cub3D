@@ -22,10 +22,10 @@ t_info	*pars_to_info(t_parser *pars)
 	info = calloc(1, sizeof(t_info));
 	if (!info)
 		return (print_error(ALLOC_FAIL, NULL), NULL);
-	info->pposx = pars->pposx;
-	info->pposy = pars->pposy;
-	info->pdirx = pars->pdirx;
-	info->pdiry = pars->pdiry;
+	info->posx = pars->pposx;
+	info->posy = pars->pposy;
+	info->dirx = pars->pdirx;
+	info->diry = pars->pdiry;
 	info->floor = pars->floor_rgb;
 	info->ceil = pars->ceil_rgb;
 	info->map = pars->map;

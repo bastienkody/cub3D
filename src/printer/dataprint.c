@@ -49,8 +49,8 @@ void	print_info(t_info *info)
 	ft_fprintf(1, "Screen size x%i, y%i", x, y);
 	ft_fprintf(1, "floor color\t: %x\n", info->floor);
 	ft_fprintf(1, "ceiling color\t: %x\n", info->ceil);
-	ft_fprintf(1, "Player pos\t: x=%i, y=%i\n", info->pposx, info->pposy);
-	ft_fprintf(1, "Player dir\t: x=%i, y=%i\n", info->pdirx, info->pdiry);
+	ft_fprintf(1, "Player pos\t: x=%i, y=%i\n", info->posx, info->posy);
+	ft_fprintf(1, "Player dir\t: x=%i, y=%i\n", info->dirx, info->diry);
 	print_map(info);
 	print_is(info);
 	ft_fprintf(1, "------------------------------------\n");

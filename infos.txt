@@ -121,12 +121,47 @@ Centering minimap (segflt pb if pos is top left ; idem pour x et y) :
 		l'anchor de minimap vers la droite (on a deja un blackbg), sinon on peut
 		centrer normal en collant l'anchor de fminimap en 0 de minimap.
 PLUS OPTI :
-	- draw at 20,20 a black rect of 200x200
-	- draw rect border in blue at 20,20 of 200x200
-	- juste faire du pixel_w a partir de player pos. 
+	- on cree une image de 192x192 (12 tile de 16 px)
+	- draw un blak bg sur cette img
+	- draw rect border in blue at 20,20 of 191x191 + 190x190 (doubled)
+	- juste faire du draw rect a partir de player pos, comme sur maximap
 	-> checker si dans la map
-		-> mettre un rect en bonne pos puis draw player icon. 
+		-> mettre un rect en bonne pos 
 		-> neg x y from player pos wont be drawn 
 		-> pos x y from player but outside la map wont be drawn neither
 	-> les potentielles vides de la minimap seront sur le blackbg 
-	-> il faudra redraw tout a chaque movement / update , mais c que du 200x200
+	-> on dessine un rect player toujours au centre
+	-> on mlx_pixel_put l'img a chaque redraw (necessaire anyway)
+
+---------
+RAYCAST : 
+---------
+	Variables : 
+		- pos x = player pos abscyce
+		- pos y = player pos ordonnees
+		--> vecteur pos. (=position du player sur la map)
+		- dir x = direction en abscyce
+		- dir y = direction en ordonnees
+		--> vecteur dir (=direction du player && direction vers laquelle dessiner le camera plane)
+		- plane x = camera plane abscyce
+		- plane y = camera plane ordonee 
+		-> vecteur plane : 
+			- camera plane du joueur 
+			- toujours perpendiculaire au vecteur dir
+			- le FOV est determine par le ratio dir / plane (cf. schema1_raycast)
+			- plus le dir est grand et le plane petit, plus le FOV est ferme (on dezoom)
+			- plus le dir est petit et le plane grand, plus le FOV est ovuert (zoom)
+			- un ratio acceptable est de 66degress
+			- plane represente la moitie droite du camera plane :
+				-> pos + dir + plane : moitie droite
+				-> pos + dir - plane : moitie gauche
+	Ray throwing : 
+		1 - calculate ray position and direction
+
+		for(int x = 0; x < WIN_W; ++x)
+		{
+			double cameraX = 2 * x / double(w) - 1; //x-coordinate in camera space
+			double rayDirX = dirX + planeX * cameraX;
+			double rayDirY = dirY + planeY * cameraX;
+		}
+

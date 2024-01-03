@@ -34,8 +34,8 @@ void	draw_minimap(t_info *info)
 		y = -1;
 		while (++y * MNAP_TS < MNAP_H - 1)
 		{
-			mapx = x - (5 - info->pposx);
-			mapy = y - (5 - info->pposy);
+			mapx = x - (5 - info->posx);
+			mapy = y - (5 - info->posy);
 			if (mapx > -1 && mapx < info->mw && mapy > -1 && mapy < info->mh)
 				draw_rect(info->minimap, (int []){x * MNAP_TS, y * MNAP_TS}, \
 				(int []){MNAP_TS, MNAP_TS}, clr[info->map[mapy][mapx] - 48]);

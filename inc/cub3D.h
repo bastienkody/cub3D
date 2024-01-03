@@ -101,7 +101,7 @@ might change hardware to fully enjoy the game :)"
 typedef bool			t_bool;
 typedef unsigned int	uint;
 
-enum e_s {INTRO, OUTRO, MAXIMAP, STD};
+enum e_scene {INTRO, OUTRO, MAXIMAP, STD};
 
 typedef struct s_img
 {
@@ -138,11 +138,10 @@ typedef struct s_info
 	int				mw;
 	unsigned int	floor;
 	unsigned int	ceil;
-	int				pposx;
-	int				pposy;
-	int				pdirx;
-	int				pdiry;
-	int				p_scene;
+	double			posx;
+	double			posy;
+	double			dirx;
+	double			diry;
 	t_bool			is_intro;
 	t_bool			is_outro;
 	t_bool			is_maximap;
@@ -168,8 +167,7 @@ int		display_manager(t_info *info);
 void	draw_minimap(t_info *info);
 
 /*	outro - pause */
-int		outro(t_info *info);
-int		outro_update(int x, int y);
+void	outro(t_info *info);
 
 /*	maximap	*/
 void	draw_player_icon(t_info *info, t_img *img_map, int tile_s);

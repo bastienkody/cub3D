@@ -26,11 +26,10 @@ void	maximap_teleport(int but, unsigned int x, unsigned int y, t_info *info)
 	{
 		if (info->map[newy][newx] != '0')
 			return ((void)ft_fprintf(2, "%s%i,y%i%s\n", T_W, newx, newy, T_WB));
-		info->pposx = newx;
-		info->pposy = newy;
-		info->pdirx = 0;
-		info->pdiry = -1;
-		info->is_maximap = !info->is_maximap;
+		info->posx = newx;
+		info->posy = newy;
+		info->dirx = 0;
+		info->diry = -1;
 		maximap_display(info);
 	}
 }
@@ -61,8 +60,8 @@ void	get_maximap_size(t_info *info)
 	upgrade with a circle + fov rays	*/
 void	draw_player_icon(t_info *info, t_img *img_map, int tile_s)
 {
-	const int	xpos = info->pposx * tile_s + tile_s / 2;
-	const int	ypos = info->pposy * tile_s + tile_s / 2;
+	const int	xpos = info->posx * tile_s + tile_s / 2;
+	const int	ypos = info->posy * tile_s + tile_s / 2;
 	const int	size = tile_s / PLAYER_ICON_TO_MMAP_TILE_RATIO;
 
 	if (size <= 1)
@@ -104,15 +103,14 @@ void	maximap_display(t_info *info)
 	const int	s = info->mmap_tile_s;
 	const int	clr[3] = {WHITE, GREY, BLACK};
 
-	info->is_maximap = !info->is_maximap;
 	if (!info->is_maximap)
 		return ;
-	if (oldx > -1 && oldy > -1 && (info->pposx != oldx || info->pposy != oldy))
-		draw_rect_w_border(info->maximap, (int []){oldx * s, oldy * s}, \
-		(int []){s, s}, clr[info->map[info->pposy][info->pposx] - '0']);
+	if (oldx > -1 && oldy > -1 && (info->posx != oldx || info->posy != oldy))
+		draw_rect_w_border(info->maximap, (int []){oldx * s, oldy * s}, (int []\
+	){s, s}, clr[info->map[(int)info->posy][(int)info->posx] - '0']);
 	draw_player_icon(info, info->maximap, info->mmap_tile_s);
-	oldx = info->pposx;
-	oldy = info->pposy;
+	oldx = info->posx;
+	oldy = info->posy;
 	mlx_put_image_to_window(info->ptr, info->win, info->maximap->ptr, \
 	(info->mmap_bordx / 2), (info->mmap_bordy / 2));
 	draw_minimap(info);

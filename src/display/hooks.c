@@ -42,8 +42,8 @@ int	key_inputs(int keycode, t_info *info)
 	}
 	else if (keycode == XK_Escape)
 		return (info->is_outro = !info->is_outro, 1);
-	else if (!info->is_intro && keycode == XK_m)
-		maximap_display(info);
+	else if (keycode == XK_m)
+		info->is_maximap = !info->is_maximap;
 	else if (is_input_key_cmds(keycode) && info->is_maximap)
 		maximap_key_movement(keycode, info);
 	return (1);

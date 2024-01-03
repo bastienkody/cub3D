@@ -61,9 +61,9 @@ int	display_manager(t_info *info)
 	if (info->is_intro)
 		return (disp_intro(info), 1);
 	if (info->is_outro)
-		return (outro(info));
+		return (outro(info), 1);
 	if (info->is_maximap)
-		return (info->is_maximap = !info->is_maximap, maximap_display(info), 1);
+		return (maximap_display(info), 1);
 	if (!info->is_intro && !info->is_outro && !info->is_maximap)
 		return (disp_standard(info), 1);
 	return (0);
