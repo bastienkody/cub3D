@@ -37,26 +37,8 @@ int	outro_update(t_info *info)
 */
 int	outro(t_info *info, int x, int y)
 {
-	info->is_outro = true;
-	if (x >= X && x <= X_S && y >= Y && y <= Y_S)
-		mlx_put_image_to_window(info->ptr, info->win, info->outro[1]->ptr, \
-		0, 0);
-	else if (x >= X && x <= X_S && y >= Y + Y_OFST && y <= Y_S + Y_OFST)
-		mlx_put_image_to_window(info->ptr, info->win, info->outro[2]->ptr, \
-		0, 0);
-	else
-		mlx_put_image_to_window(info->ptr, info->win, info->outro[0]->ptr, \
-		0, 0);
-	return (1);
-}
-
-int	outro_key_inputs(int keycode, t_info *info)
-{
-	if (keycode == 65293 || keycode == XK_q)
-		end_free(info);
-	if (keycode == XK_Escape)
+	if (info->is_outro == false)
 	{
-		info->is_outro = false;
 		mlx_put_image_to_window(info->ptr, info->win, info->bg_default->ptr, \
 		0, 0);
 		draw_minimap(info);
@@ -66,6 +48,15 @@ int	outro_key_inputs(int keycode, t_info *info)
 			return (maximap_display(info), 1);
 		}
 	}
+	if (x >= X && x <= X_S && y >= Y && y <= Y_S)
+		mlx_put_image_to_window(info->ptr, info->win, info->outro[1]->ptr, \
+		0, 0);
+	else if (x >= X && x <= X_S && y >= Y + Y_OFST && y <= Y_S + Y_OFST)
+		mlx_put_image_to_window(info->ptr, info->win, info->outro[2]->ptr, \
+		0, 0);
+	else
+		mlx_put_image_to_window(info->ptr, info->win, info->outro[0]->ptr, \
+		0, 0);
 	return (1);
 }
 

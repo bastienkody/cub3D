@@ -181,7 +181,6 @@ void	maximap_key_movement(int keycode, t_info *info);
 /*	hooks	*/
 int		outro_mouse_inputs(int but, int x, int y, t_info *info);
 int		mouse_inputs(int button, int x, int y, t_info *info);
-int		outro_key_inputs(int keycode, t_info *info);
 int		key_inputs(int keycode, t_info *info);
 
 /*	drawers	*/

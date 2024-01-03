@@ -29,7 +29,12 @@ void	print_map(t_info *info)
 		ft_fprintf(1, "%s\n", info->map[i]);
 }
 
-
+void	print_is(t_info *info)
+{
+	ft_fprintf(1, "is_intro\t: %i\n", info->is_intro);
+	ft_fprintf(1, "is_outro\t: %i\n", info->is_outro);
+	ft_fprintf(1, "is_maximap\t: %i\n", info->is_maximap);
+}
 
 void	print_info(t_info *info)
 {
@@ -47,6 +52,6 @@ void	print_info(t_info *info)
 	ft_fprintf(1, "Player pos\t: x=%i, y=%i\n", info->pposx, info->pposy);
 	ft_fprintf(1, "Player dir\t: x=%i, y=%i\n", info->pdirx, info->pdiry);
 	print_map(info);
-	ft_fprintf(1, "is_outro\t: =%i, y=%i\n", info->is_outro);
+	print_is(info);
 	ft_fprintf(1, "------------------------------------\n");
 }
