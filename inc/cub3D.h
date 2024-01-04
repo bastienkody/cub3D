@@ -236,6 +236,7 @@ int		argb_hex(unsigned char a, unsigned char r, unsigned char g, \
 
 /*	printers	*/
 void	print_error(char *str1, char *str2);
+void	print_raycast(t_raycast *rc);
 void	print_info(t_info *info);
 
 /*	free	*/

@@ -55,3 +55,17 @@ void	print_info(t_info *info)
 	print_is(info);
 	ft_fprintf(1, "------------------------------------\n");
 }
+
+void	print_raycast(t_raycast *rc)
+{
+	ft_fprintf(1, "------------------------------------\n");
+	ft_fprintf(1, "\t\033[1mPRINT_RAYCAST\033[m\n");
+	ft_fprintf(1, "mapx:%i, mapy:%i\n", rc->mapx, rc->mapy);
+	ft_fprintf(1, "raydirx:%i, raydiry:%i\n", rc->raydirx, rc->raydiry);
+	ft_fprintf(1, "stepx:%i, stepy:%i\n", rc->stepx, rc->stepy);
+	ft_fprintf(1, "deltax:%i, deltay:%i\n", rc->deltax, rc->deltay);
+	ft_fprintf(1, "sidex:%i, sidey:%i\n", rc->sidex, rc->sidey);
+	ft_fprintf(1, "side:%i\n", rc->side);
+	ft_fprintf(1, "perpwalldist:%i\n", rc->perpwalldist);
+	ft_fprintf(1, "------------------------------------\n");
+}
