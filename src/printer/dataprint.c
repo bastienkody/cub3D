@@ -66,6 +66,8 @@ void	print_raycast(t_raycast *rc)
 	ft_fprintf(1, "deltax:%i, deltay:%i\n", rc->deltax, rc->deltay);
 	ft_fprintf(1, "sidex:%i, sidey:%i\n", rc->sidex, rc->sidey);
 	ft_fprintf(1, "side:%i\n", rc->side);
-	ft_fprintf(1, "perpwalldist:%i\n", rc->perpwalldist);
+	ft_fprintf(1, "perpwalldist:%i\n", rc->pwall);
+	ft_fprintf(1, "lineh:%i, start%i, end%i\n", rc->lineh, rc->start, rc->end);
+	ft_fprintf(1, "whatext:%i, wallx%i, xtext%i\n", rc->whatext, rc->wallx, rc->xtext);
 	ft_fprintf(1, "------------------------------------\n");
 }

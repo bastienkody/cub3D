@@ -26,7 +26,9 @@ DISP_FILES	=	init.c\
 				maximap.c\
 				minimap.c\
 				outro.c
-RAY_FILES	=	utils.c
+RAY_FILES	=	raycaster.c\
+				dda.c\
+				utils.c
 MAIN_FILES	=	main.c endfree.c
 
 SRCS 		=	${MAIN_FILES} ${PARS_FILES} ${PRINT_FILES} ${DISP_FILES} ${RAY_FILES}
@@ -56,7 +58,7 @@ COUNTER_DEFINE	=	"-D INTRO_COUNTER=${INTRO}"
 
 ###		OPTIONS		###
 CFLAGS		=	-Wall -Wextra -Werror -g3
-LDFLAGS		=	${LIBFT} ${MLX} ${XWIN}
+LDFLAGS		=	-lm ${LIBFT} ${MLX} ${XWIN}
 REDIRVOID	=	>/dev/null 2>&1
 
 ###		COMMANDS DISP	###

@@ -50,6 +50,7 @@ void	disp_standard(t_info *info)
 	{
 		//line_w(info->bg_default, (int []){0, 0}, (int []){WIN_W, WIN_H}, WHITE);
 		mlx_put_image_to_window(info->ptr, info->win, info->bg_default->ptr, 0, 0);
+		raycast_launcher(info);
 		draw_minimap(info);
 	}
 }

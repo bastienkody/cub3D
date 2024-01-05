@@ -11,6 +11,8 @@
 #define texHeight 64
 #define mapWidth 24
 #define mapHeight 24
+#define w 1920
+#define h 1080
 
 Uint32 buffer[screenHeight][screenWidth];
 
@@ -124,6 +126,7 @@ int main(void)
       wallX -= floor((wallX));
 
       //x coordinate on the texture
+	  // textHeight == TILE_S == textWidth : only squared shape textures
       int texX = int(wallX * double(texWidth));
       if(side == 0 && rayDirX > 0) texX = texWidth - texX - 1;
       if(side == 1 && rayDirY < 0) texX = texWidth - texX - 1;

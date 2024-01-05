@@ -14,8 +14,8 @@
 
 void	dda_prep(t_raycast *rc, int posx, int posy)
 {
-	rc->deltax = abs(1 / rc->raydirx); // div 0 possible
-	rc->deltay = abs(1 / rc->raydiry); // div 0 possible
+	rc->deltax = fabs(1 / rc->raydirx); // div 0 possible
+	rc->deltay = fabs(1 / rc->raydiry); // div 0 possible
 
 	if(rc->raydirx < 0)
 	{
@@ -58,8 +58,8 @@ void	dda(t_raycast *rc, char **map)
 			rc->mapy += rc->stepy;
 			rc->side = 1;
 		}
-	if (map[rc->mapy][rc->mapx] > 0)
+	//ft_fprintf(1, "mapy%i mapx%i\n", rc->mapy, rc->mapy);
+	if (map[rc->mapy][rc->mapx] == '1')
 		hit = true;
 	}
-	// perpwall dist calculation here ?
 }

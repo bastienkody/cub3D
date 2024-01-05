@@ -72,6 +72,9 @@ might change hardware to fully enjoy the game :)"
 # define MENUBAR_H 70
 # define PLAYER_ICON_TO_MMAP_TILE_RATIO 3
 
+/*	raycast	*/
+# define PITCH 100
+
 /*	minimap : 12x12 rects of tile 16x16	*/
 # define MNAP_TS 16
 # define MNAP_W 192
@@ -114,7 +117,14 @@ typedef struct s_raycast
 	double	sidey;
 	double	deltax;
 	double	deltay;
-	double	perpwalldist;
+	double	pwall;
+	int		lineh;
+	int		start;
+	int		end;
+	int		whatext;
+	double	wallx;
+	int		xtext;
+
 }				t_raycast;
 
 typedef struct s_img
@@ -174,6 +184,8 @@ typedef struct s_info
 	t_img			*e_text;
 	t_img			*minimap;
 	t_img			*maximap;
+	t_img			*rc;
+	t_img			*rc_buf;
 }				t_info;
 
 /*	display	*/
@@ -185,6 +197,7 @@ void	draw_minimap(t_info *info);
 /*	raycast - dda	*/
 void	dda(t_raycast *rc, char **map);
 void	dda_prep(t_raycast *rc, int posx, int posy);
+int		raycast_launcher(t_info *info);
 
 
 /*	outro - pause */
