@@ -111,6 +111,7 @@ void	maximap_display(t_info *info)
 	draw_player_icon(info, info->maximap, info->mmap_tile_s);
 	oldx = info->posx;
 	oldy = info->posy;
+	mlx_put_image_to_window(info->ptr, info->win, info->bg_default->ptr, 0, 0);
 	mlx_put_image_to_window(info->ptr, info->win, info->maximap->ptr, \
 	(info->mmap_bordx / 2), (info->mmap_bordy / 2));
 	draw_minimap(info);

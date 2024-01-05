@@ -14,7 +14,7 @@
 
 int	mouse_inputs(int button, int x, int y, t_info *info)
 {
-	if (info->is_maximap)
+	if (info->is_maximap && !info->is_outro)
 		maximap_teleport(button, x, y, info);
 	if (info->is_outro)
 		outro_mouse_inputs(button, x, y, info);
