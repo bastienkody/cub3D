@@ -28,8 +28,8 @@ void	maximap_teleport(int but, unsigned int x, unsigned int y, t_info *info)
 			return ((void)ft_fprintf(2, "%s%i,y%i%s\n", T_W, newx, newy, T_WB));
 		info->posx = newx;
 		info->posy = newy;
-		info->dirx = 0;
-		info->diry = -1;
+		info->dirx = -1;
+		info->diry = 0;
 		maximap_display(info);
 	}
 }

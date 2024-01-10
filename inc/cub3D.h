@@ -72,6 +72,10 @@ might change hardware to fully enjoy the game :)"
 # define MENUBAR_H 70
 # define PLAYER_ICON_TO_MMAP_TILE_RATIO 3
 
+/*	player velocity	*/
+# define VELO_M 0.2
+# define VELO_R M_PI/24
+
 /*	raycast	*/
 # define PITCH 100
 
@@ -196,9 +200,8 @@ void	draw_minimap(t_info *info);
 
 /*	raycast - dda	*/
 void	dda(t_raycast *rc, char **map);
-void	dda_prep(t_raycast *rc, int posx, int posy);
+void	dda_prep(t_raycast *rc, double posx, double posy);
 int		raycast_launcher(t_info *info);
-
 
 /*	outro - pause */
 void	outro(t_info *info);
@@ -210,7 +213,8 @@ void	maximap_display(t_info *info);
 void	maximap_teleport(int but, unsigned int x, unsigned int y, t_info *info);
 
 /*	actions / movements	*/
-void	maximap_key_movement(int keycode, t_info *info);
+void 	key_movement(int keycode, t_info *info);
+void	rotate(int keycode, t_info *info);
 
 /*	hooks	*/
 int		outro_mouse_inputs(int but, int x, int y, t_info *info);
@@ -222,6 +226,7 @@ void	pixel_w(t_img *img, int x, int y, int color);
 uint	get_color(t_img *img, int x, int y);
 void	img_to_img(t_img *src, t_img *dst, int og[2], int dim[2]);
 void	line_w(t_img *img, int a[2], int b[2], int color);
+void	draw_vert_line(t_img *img, int x, int y[2], int color);
 void	draw_rect(t_img *img, int og[2], int dim[2], int color);
 void	draw_border(t_img *img, int og[2], int dim[2], int color);
 void	draw_rect_w_border(t_img *img, int og[2], int dim[2], int color);
@@ -251,6 +256,7 @@ int		argb_hex(unsigned char a, unsigned char r, unsigned char g, \
 void	print_error(char *str1, char *str2);
 void	print_raycast(t_raycast *rc);
 void	print_info(t_info *info);
+void	print_rc(t_raycast *rc);
 
 /*	free	*/
 int		end_free(t_info *info);

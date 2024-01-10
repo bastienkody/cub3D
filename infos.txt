@@ -96,8 +96,7 @@ GAME COMMANDS :
 [WASD]			:	move around in game
 [Left/Right]	:	turn in game
 [Q]				:	directly quit game with no msg (==red cross left click)
-[M]				:	on/off full map view where you can move around with [WASD],
-					or you can leftclick to teleport (collisions managed)
+[M]				:	on/off full map view where you can leftclick to teleport
 [ESC]			:	on/off pause menu. leftclik ; or press enter to leave, esc
 					to resume game
 
@@ -155,13 +154,3 @@ RAYCAST :
 			- plane represente la moitie droite du camera plane :
 				-> pos + dir + plane : moitie droite
 				-> pos + dir - plane : moitie gauche
-	Ray throwing : 
-		1 - calculate ray position and direction
-
-		for(int x = 0; x < WIN_W; ++x)
-		{
-			double cameraX = 2 * x / double(w) - 1; //x-coordinate in camera space
-			double rayDirX = dirX + planeX * cameraX;
-			double rayDirY = dirY + planeY * cameraX;
-		}
-

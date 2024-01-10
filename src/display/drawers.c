@@ -12,6 +12,13 @@
 
 #include "../../inc/cub3D.h"
 
+/*	draw a vertical colored line on img from (x, y[0]) to (x, y[1])	*/
+void	draw_vert_line(t_img *img, int x, int y[2], int color)
+{
+	while (++y[0] - 1 < y[1])
+		pixel_w(img, x, y[0], color);
+}
+
 /*	bresenham algo w/ a[0]=x, a[1]=y	*/
 void	line_w(t_img *img, int a[2], int b[2], int color)
 {

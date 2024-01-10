@@ -12,7 +12,7 @@
 
 #include "../../inc/cub3D.h"
 
-void	dda_prep(t_raycast *rc, int posx, int posy)
+void	dda_prep(t_raycast *rc, double posx, double posy)
 {
 	rc->deltax = fabs(1 / rc->raydirx); // div 0 possible
 	rc->deltay = fabs(1 / rc->raydiry); // div 0 possible
@@ -30,7 +30,7 @@ void	dda_prep(t_raycast *rc, int posx, int posy)
 	if(rc->raydiry < 0)
 	{
 		rc->stepy = -1;
-		rc->sidey = (posy - rc->mapx) * rc->deltay;
+		rc->sidey = (posy - rc->mapy) * rc->deltay;
 	}
 	else
 	{
@@ -58,8 +58,8 @@ void	dda(t_raycast *rc, char **map)
 			rc->mapy += rc->stepy;
 			rc->side = 1;
 		}
-	//ft_fprintf(1, "mapy%i mapx%i\n", rc->mapy, rc->mapy);
 	if (map[rc->mapy][rc->mapx] == '1')
 		hit = true;
 	}
+	printf("side%i, map:y%i,x%i | ", rc->side, rc->mapy, rc->mapy);
 }

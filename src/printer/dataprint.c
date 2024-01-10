@@ -49,8 +49,8 @@ void	print_info(t_info *info)
 	ft_fprintf(1, "Screen size x%i, y%i", x, y);
 	ft_fprintf(1, "floor color\t: %x\n", info->floor);
 	ft_fprintf(1, "ceiling color\t: %x\n", info->ceil);
-	ft_fprintf(1, "Player pos\t: x=%i, y=%i\n", info->posx, info->posy);
-	ft_fprintf(1, "Player dir\t: x=%i, y=%i\n", info->dirx, info->diry);
+	printf("Player pos\t: x=%f, y=%f\n", info->posx, info->posy);
+	printf("Player dir\t: x=%f, y=%f\n", info->dirx, info->diry);
 	print_map(info);
 	print_is(info);
 	ft_fprintf(1, "------------------------------------\n");
@@ -61,13 +61,21 @@ void	print_raycast(t_raycast *rc)
 	ft_fprintf(1, "------------------------------------\n");
 	ft_fprintf(1, "\t\033[1mPRINT_RAYCAST\033[m\n");
 	ft_fprintf(1, "mapx:%i, mapy:%i\n", rc->mapx, rc->mapy);
-	ft_fprintf(1, "raydirx:%i, raydiry:%i\n", rc->raydirx, rc->raydiry);
+	printf("raydirx:%f, raydiry:%f\n", rc->raydirx, rc->raydiry);
 	ft_fprintf(1, "stepx:%i, stepy:%i\n", rc->stepx, rc->stepy);
-	ft_fprintf(1, "deltax:%i, deltay:%i\n", rc->deltax, rc->deltay);
-	ft_fprintf(1, "sidex:%i, sidey:%i\n", rc->sidex, rc->sidey);
+	printf("deltax:%f, deltay:%f\n", rc->deltax, rc->deltay);
+	printf("sidex:%f, sidey:%f\n", rc->sidex, rc->sidey);
 	ft_fprintf(1, "side:%i\n", rc->side);
-	ft_fprintf(1, "perpwalldist:%i\n", rc->pwall);
+	printf("pwall:%f\n", rc->pwall);
 	ft_fprintf(1, "lineh:%i, start%i, end%i\n", rc->lineh, rc->start, rc->end);
-	ft_fprintf(1, "whatext:%i, wallx%i, xtext%i\n", rc->whatext, rc->wallx, rc->xtext);
+	printf("whatext:%i, wallx%f, xtext%i\n", rc->whatext, rc->wallx, rc->xtext);
 	ft_fprintf(1, "------------------------------------\n");
+}
+
+// shorter one lined output
+void	print_rc(t_raycast *rc)
+{
+	printf("ray:x:%.2f, y:%.2f | delta:x%.2f,y:%.2f | side:x%.2f,y:%.2f | \
+pwall:%.3f\n", rc->raydirx, rc->raydiry, rc->deltax, rc->deltay,\
+	rc->sidex, rc->sidey, rc->pwall);
 }

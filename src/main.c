@@ -31,6 +31,8 @@ t_info	*pars_to_info(t_parser *pars)
 	info->map = pars->map;
 	info->mh = tab_len(info->map);
 	info->mw = ft_strlen(*info->map);
+	info->planex = 0;
+	info->planey = 0.66;
 	pars->map = NULL;
 	if (!init_display(info, pars))
 		return (NULL);

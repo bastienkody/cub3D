@@ -46,12 +46,13 @@ void	disp_intro(t_info *info)
 
 void	disp_standard(t_info *info)
 {
+	(void)info;
 	if (true) // smthg has changed, need to redraw
 	{
 		//line_w(info->bg_default, (int []){0, 0}, (int []){WIN_W, WIN_H}, WHITE);
-		mlx_put_image_to_window(info->ptr, info->win, info->bg_default->ptr, 0, 0);
-		raycast_launcher(info);
-		draw_minimap(info);
+		//mlx_put_image_to_window(info->ptr, info->win, info->bg_default->ptr, 0, 0);
+		//raycast_launcher(info);
+		//draw_minimap(info);
 	}
 }
 

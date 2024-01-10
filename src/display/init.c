@@ -31,8 +31,8 @@ xpm", WIN_W, WIN_H);
 	info->bg_default = create_image(info->ptr, WIN_W, WIN_H);
 	info->maximap = create_image(info->ptr, WIN_W, WIN_H);
 	info->minimap = create_image(info->ptr, MNAP_W, MNAP_H);
-	info->rc = create_image(info->ptr, MNAP_W, MNAP_H);
-	info->rc_buf = create_image(info->ptr, MNAP_W, MNAP_H);
+	info->rc = create_image(info->ptr, WIN_W, WIN_H);
+	info->rc_buf = create_image(info->ptr, WIN_W, WIN_H);
 	if (!info->intro1 || !info->intro1->ptr || !info->intro2 || \
 		!info->outro[0] \
 		|| !info->outro[0]->ptr || !info->outro[1] || !info->outro[1]->ptr || \
@@ -40,7 +40,8 @@ xpm", WIN_W, WIN_H);
 		!info->n_text || !info->n_text->ptr || !info->s_text || \
 		!info->s_text->ptr || !info->w_text || !info->w_text->ptr || \
 		!info->e_text || !info->e_text->ptr || !info->minimap || \
-		!info->minimap->ptr || !info->maximap || !info->maximap->ptr)
+		!info->minimap->ptr || !info->maximap || !info->maximap->ptr || \
+		!info->rc || !info->rc->ptr || !info->rc_buf || !info->rc_buf->ptr)
 		return (0);
 	return (1);
 }

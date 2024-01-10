@@ -21,10 +21,15 @@ int	mouse_inputs(int button, int x, int y, t_info *info)
 	return (1);
 }
 
+int	is_input_rot_cmds(int keycode)
+{
+	return ((keycode == XK_Right || keycode == XK_Left));
+}
+
 int	is_input_key_cmds(int keycode)
 {
 	return ((keycode == XK_w || keycode == XK_a || keycode == XK_s || \
-			keycode == XK_d || keycode == XK_Right || keycode == XK_Left));
+			keycode == XK_d));
 }
 
 int	key_inputs(int keycode, t_info *info)
@@ -44,7 +49,14 @@ int	key_inputs(int keycode, t_info *info)
 		return (info->is_outro = !info->is_outro, 1);
 	else if (keycode == XK_m)
 		info->is_maximap = !info->is_maximap;
-	else if (is_input_key_cmds(keycode) && info->is_maximap)
-		maximap_key_movement(keycode, info);
+	else if (keycode == XK_r)
+	{
+		raycast_launcher(info);
+		draw_minimap(info);
+	}
+	else if (is_input_key_cmds(keycode) && !info->is_maximap && !info->is_outro)
+		key_movement(keycode, info);
+	else if (is_input_rot_cmds(keycode) && !info->is_maximap && !info->is_outro)
+		rotate(keycode, info);
 	return (1);
 }
