@@ -41,7 +41,7 @@ int	key_inputs(int keycode, t_info *info)
 	else if (info->is_intro)
 	{
 		if (keycode == 65293)
-			return (info->is_intro = false, 1);
+			return (info->is_intro = false, raycast_launcher(info), draw_minimap(info), 1);
 		else if (keycode == XK_Escape)
 			end_free(info);
 	}

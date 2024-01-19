@@ -81,8 +81,8 @@ int	raycast_launcher(t_info *info)
 		dda_prep(&rc, info->posx, info->posy);
 		dda(&rc, info->map);
 		post_dda_calculations(&rc, info);
-		printf("x:%i (xcam%f), lih:%i (start%i end%i) ", x, camerax, rc.lineh, rc.start, rc.end);
-		print_rc(&rc);
+		//printf("x:%i (xcam%f), lih:%i (start%i end%i) ", x, camerax, rc.lineh, rc.start, rc.end);
+		//print_rc(&rc);
 		draw_raycast(&rc, info, x);
 	}
 	mlx_put_image_to_window(info->ptr, info->win, info->rc->ptr, 0, 0);
