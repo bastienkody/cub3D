@@ -70,10 +70,10 @@ might change hardware to fully enjoy the game :)"
 # define WIN_W 1920
 # define WIN_H 1010
 # define MENUBAR_H 70
-# define PLAYER_ICON_TO_MMAP_TILE_RATIO 3
+# define PLAYER_ICON_TO_MMAP_TILE_RATIO 10
 
 /*	player velocity	*/
-# define VELO_M 0.1
+# define VELO_M 0.2
 # define VELO_R M_PI/24
 
 /*	raycast	*/

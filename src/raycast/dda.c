@@ -61,5 +61,5 @@ void	dda(t_raycast *rc, char **map)
 	if (map[rc->mapy][rc->mapx] == '1')
 		hit = true;
 	}
-	//printf("side%i, map:y%i,x%i | ", rc->side, rc->mapy, rc->mapy);
+	printf("side%i, map:y%i,x%i | ", rc->side, rc->mapy, rc->mapy);
 }

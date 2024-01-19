@@ -16,7 +16,7 @@
 void	draw_vert_line(t_img *img, int x, int y[2], int color)
 {
 	while (++y[0] - 1 < y[1])
-		pixel_w(img, x, y[0], color);
+		pixel_w(img, x, y[0] - 1, color);
 }
 
 /*	bresenham algo w/ a[0]=x, a[1]=y	*/
