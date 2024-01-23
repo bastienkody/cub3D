@@ -22,7 +22,7 @@ int	is_floor(double newx, double newy, t_info *info)
 		newy = ceil(newy);
 	else
 		newy = floor(newy);
-	//printf("is floor(map[%0.f][%0.f])=%i\n", newy, newx, info->map[(int)newy][(int)newx] - '0');
+	printf("is floor(map[%0.f][%0.f])=%i\n", newy, newx, info->map[(int)newy][(int)newx] - '0');
 	return ((info->map[(int)newy][(int)newx] == '0'));
 }
 
@@ -37,29 +37,41 @@ void key_movement(int keycode, t_info *info)
 	{
 		xofs = info->posx + info->dirx * VELO_M;
 		yofs = info->posy + info->diry * VELO_M;
-		//printf("new x%.3f (%0.f vs max %0.f), y%.3f (%0.f vs max %0.f)\n", xofs, round(xofs), xmax, yofs, round(yofs), ymax);
-		if (xofs >= 0 && xofs <= xmax && is_floor(xofs, info->posy, info))
+		if (xofs >= 0 && xofs <= xmax && yofs >= 0 && yofs <= ymax && is_floor(xofs, yofs, info))
+		{
 			info->posx = xofs;
-		if (yofs >= 0 && yofs <= ymax && is_floor(info->posx, yofs, info))
 			info->posy = yofs;
+		}
 	}
 	else if (keycode == XK_s)
 	{
 		xofs = info->posx - info->dirx * VELO_M;
 		yofs = info->posy - info->diry * VELO_M;
-		//printf("new x%.3f (%0.f vs max %0.f), y%.3f (%0.f vs max %0.f)\n", xofs, round(xofs), xmax, yofs, round(yofs), ymax);
-		if (xofs >= 0 && xofs < xmax && is_floor(xofs, info->posy, info))
+		if (xofs >= 0 && xofs < xmax && yofs >= 0 && yofs < ymax  && is_floor(xofs, yofs, info))
+		{
 			info->posx = xofs;
-		if (yofs >= 0 && yofs < ymax && is_floor(info->posx, yofs, info))
 			info->posy = yofs;
+		}
 	}
 	else if (keycode == XK_a)
 	{
-		info->posx -= VELO_M;
+		xofs = info->posx - info->planex * VELO_M;
+		yofs = info->posy - info->planey * VELO_M;
+		if (xofs >= 0 && xofs < xmax && yofs >= 0 && yofs < ymax && is_floor(xofs, yofs, info))
+		{
+			info->posx = xofs;
+			info->posy = yofs;
+		}
 	}
 	else if (keycode == XK_d)
 	{
-		info->posx += VELO_M;
+		xofs = info->posx + info->planex * VELO_M;
+		yofs = info->posy + info->planey * VELO_M;
+		if (xofs >= 0 && xofs < xmax && yofs >= 0 && yofs < ymax && is_floor(xofs, yofs, info))
+		{
+			info->posx = xofs;
+			info->posy = yofs;
+		}
 	}
 	else
 		return ;
