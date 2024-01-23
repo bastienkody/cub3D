@@ -26,13 +26,13 @@ t_info	*pars_to_info(t_parser *pars)
 	info->posy = pars->pposy;
 	info->dirx = pars->pdirx;
 	info->diry = pars->pdiry;
+	info->planex = pars->planex;
+	info->planey = pars->planey;
 	info->floor = pars->floor_rgb;
 	info->ceil = pars->ceil_rgb;
 	info->map = pars->map;
 	info->mh = tab_len(info->map);
 	info->mw = ft_strlen(*info->map);
-	info->planex = 0;
-	info->planey = 0.66;
 	pars->map = NULL;
 	if (!init_display(info, pars))
 		return (NULL);

@@ -51,6 +51,7 @@ void	print_info(t_info *info)
 	ft_fprintf(1, "ceiling color\t: %x\n", info->ceil);
 	printf("Player pos\t: x=%f, y=%f\n", info->posx, info->posy);
 	printf("Player dir\t: x=%f, y=%f\n", info->dirx, info->diry);
+	printf("Player plane\t: x=%f, y=%f\n", info->planex, info->planey);
 	print_map(info);
 	print_is(info);
 	ft_fprintf(1, "------------------------------------\n");

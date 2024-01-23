@@ -74,7 +74,7 @@ might change hardware to fully enjoy the game :)"
 
 /*	player velocity	*/
 # define VELO_M 0.2
-# define VELO_R M_PI/24
+# define VELO_R M_PI/48
 
 /*	raycast	*/
 # define PITCH 100
@@ -155,6 +155,8 @@ typedef struct s_parser
 	int				pposy;
 	int				pdirx;
 	int				pdiry;
+	double			planex;
+	double			planey;
 }				t_parser;
 
 typedef struct s_info
@@ -214,7 +216,6 @@ void	maximap_teleport(int but, unsigned int x, unsigned int y, t_info *info);
 
 /*	actions / movements	*/
 void 	key_movement(int keycode, t_info *info);
-void	rotate(int keycode, t_info *info);
 
 /*	hooks	*/
 int		outro_mouse_inputs(int but, int x, int y, t_info *info);

@@ -75,16 +75,28 @@ void	store_p_pos(t_parser *pars)
 		{
 			if (ft_strchr(NSEW, pars->map[i][j]))
 			{
-				pars->pposx = j;
-				pars->pposy = i;
+				pars->pposx = (double)j;
+				pars->pposy = (double)i;
 				if (pars->map[i][j] == 'N')
+				{
 					pars->pdiry = -1;
+					pars->planex = 0.66;
+				}
 				if (pars->map[i][j] == 'S')
+				{
 					pars->pdiry = 1;
+					pars->planex = -0.66;
+				}
 				if (pars->map[i][j] == 'W')
+				{
 					pars->pdirx = -1;
+					pars->planey = -0.66;
+				}
 				if (pars->map[i][j] == 'E')
+				{
 					pars->pdirx = 1;
+					pars->planey = 0.66;
+				}
 				pars->map[i][j] = '0';
 			}
 		}
