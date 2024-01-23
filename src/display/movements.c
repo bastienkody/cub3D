@@ -12,7 +12,24 @@
 
 #include "../../inc/cub3D.h"
 
-/*	mod via player dir	*/
+/*	always possible to rotate	*/
+int	rotate(__attribute__((unused)) int keycode, t_info *info)
+{
+	const double	oldir_x = info->dirx;
+	const double	oldplanex = info->planex;
+	double			ang;
+
+	ang = -VELO_R;
+	if (keycode == XK_Right)
+		ang = VELO_R;
+	info->dirx = info->dirx * cos(ang) - info->diry * sin(ang);
+	info->diry = oldir_x * sin(ang) + info->diry * cos(ang);
+	info->planex = info->planex * cos(ang) - info->planey * sin(ang);
+	info->planey = oldplanex * sin(ang) + info->planey *cos(ang);
+	return (1);
+}
+
+/*	back or forward via player dir vector	*/
 int	move_front_back_wards(int keycode, t_info *info)
 {
 	double	x_offset;
@@ -43,7 +60,7 @@ int	move_front_back_wards(int keycode, t_info *info)
 	return (0);
 }
 
-/*	mod via player plane (always perpendiculaire to player dir)	*/
+/*	side via player plane (always perpendiculaire to player dir)	*/
 int	move_sides(int keycode, t_info *info)
 {
 	double	x_offset;
@@ -74,7 +91,7 @@ int	move_sides(int keycode, t_info *info)
 	return (0);
 }
 
-/*	calls raycast only if player has moved	*/
+/*	redraw raycast only if player has moved/turned	*/
 void key_movement(int keycode, t_info *info)
 {
 	bool	redraw;
@@ -82,27 +99,12 @@ void key_movement(int keycode, t_info *info)
 	redraw = false;
 	if (keycode == XK_w || keycode == XK_s)
 		redraw = move_front_back_wards(keycode, info);
-	else
+	else if ((keycode == XK_a || keycode == XK_d))
 		redraw = move_sides(keycode, info);
+	else
+		redraw = rotate(keycode, info);
 	if (!redraw)
 		return ;
-	raycast_launcher(info);
-	draw_minimap(info);
-}
-
-void	rotate(int keycode, t_info *info)
-{
-	const double	oldir_x = info->dirx;
-	const double	oldplanex = info->planex;
-	double			ang;
-
-	ang = VELO_R;
-	if (keycode == XK_Right)
-		ang = -VELO_R;
-	info->dirx = info->dirx* cos(ang) - info->diry * sin(ang);
-	info->diry = oldir_x * sin(ang) + info->diry * cos(ang);
-	info->planex = info->planex * cos(ang) - info->planey * sin(ang);
-	info->planey = oldplanex * sin(ang) + info->planey *cos(ang);
 	raycast_launcher(info);
 	draw_minimap(info);
 }
