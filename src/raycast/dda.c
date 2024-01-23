@@ -41,7 +41,7 @@ void	dda_prep(t_raycast *rc, double posx, double posy)
 
 void	dda(t_raycast *rc, char **map)
 {
-	bool	hit; // no need of this bool if mapcheck in while ?
+	bool	hit;
 
 	hit = false;
 	while (!hit)
@@ -61,5 +61,5 @@ void	dda(t_raycast *rc, char **map)
 	if (map[rc->mapy][rc->mapx] == '1')
 		hit = true;
 	}
-	//printf("side%i, map:y%i,x%i | ", rc->side, rc->mapy, rc->mapy);
+	printf("side%i, map:y%i,x%i | ", rc->side, rc->mapy, rc->mapy);
 }

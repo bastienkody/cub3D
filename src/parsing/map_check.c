@@ -80,22 +80,22 @@ void	store_p_pos(t_parser *pars)
 				if (pars->map[i][j] == 'N')
 				{
 					pars->pdiry = -1;
-					pars->planex = 0.66;
+					pars->planex = PLANE_ANG_TO_DIR;
 				}
 				if (pars->map[i][j] == 'S')
 				{
 					pars->pdiry = 1;
-					pars->planex = -0.66;
+					pars->planex = -PLANE_ANG_TO_DIR;
 				}
 				if (pars->map[i][j] == 'W')
 				{
 					pars->pdirx = -1;
-					pars->planey = -0.66;
+					pars->planey = -PLANE_ANG_TO_DIR;
 				}
 				if (pars->map[i][j] == 'E')
 				{
 					pars->pdirx = 1;
-					pars->planey = 0.66;
+					pars->planey = PLANE_ANG_TO_DIR;
 				}
 				pars->map[i][j] = '0';
 			}

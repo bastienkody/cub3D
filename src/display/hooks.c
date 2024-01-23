@@ -51,5 +51,7 @@ int	key_inputs(int keycode, t_info *info)
 	}
 	else if (is_move_cmds(keycode) && !info->is_maximap && !info->is_outro)
 		key_movement(keycode, info);
+	else if (keycode == XK_c && !info->is_maximap && !info->is_outro)
+		crouch_uncrouch(info);
 	return (1);
 }

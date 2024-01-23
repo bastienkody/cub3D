@@ -108,3 +108,13 @@ void key_movement(int keycode, t_info *info)
 	raycast_launcher(info);
 	draw_minimap(info);
 }
+
+void	crouch_uncrouch(t_info *info)
+{
+	if (info->crouch)
+		info->crouch = 0;
+	else
+		info->crouch = CROUCH_VAL;
+	raycast_launcher(info);
+	draw_minimap(info);
+}

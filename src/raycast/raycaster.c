@@ -50,18 +50,22 @@ void draw_raycast(t_raycast *rc, t_info *info, int x)
 	int				y;
 
 	textpos = (double)(rc->start - PITCH - WIN_H / 2 + (double)rc->lineh / 2) * step;
-	y = rc->start - 1;
-	while (++y < rc->end)
+	y = rc->start - 1 - info->crouch;
+	while (++y < rc->end + info->crouch)
 	{
-		ytext = (int)textpos & (TILE_S - 1); // nsp necessaire ?
+		ytext = (int)textpos; // nsp necessaire ?
 		textpos += step;
 		//printf("textel x%i, y%i (texpos%f) | ", rc->xtext, ytext, textpos);
 		color = get_color(info->s_text, rc->xtext, ytext);
 		//printf("pixelw x%i, y%i, color %x\n", x, y, color);
 		pixel_w(info->rc, x, y, color);
 	}
-	draw_vert_line(info->rc, x, (int []){0, rc->start}, info->ceil);
-	draw_vert_line(info->rc, x, (int []){rc->end, WIN_H}, info->floor);
+	draw_vert_line(info->rc, x, (int []){0, rc->start - info->crouch}, info->ceil);
+	if (rc->end - info->crouch < WIN_H)
+	{
+		printf("rc->end - crouch:%i\n", rc->end - info->crouch);
+		draw_vert_line(info->rc, x, (int []){rc->end - info->crouch, WIN_H}, info->floor);
+	}
 }
 
 int	raycast_launcher(t_info *info)
@@ -83,8 +87,8 @@ int	raycast_launcher(t_info *info)
 		dda_prep(&rc, info->posx, info->posy);
 		dda(&rc, info->map);
 		post_dda_calculations(&rc, info);
-		//printf("x:%i (xcam%f), lih:%i (start%i end%i) ", x, camerax, rc.lineh, rc.start, rc.end);
-		//print_rc(&rc);
+		printf("x:%i (xcam%f), lih:%i (start%i end%i) ", x, camerax, rc.lineh, rc.start, rc.end);
+		print_rc(&rc);
 		draw_raycast(&rc, info, x);
 	}
 	mlx_put_image_to_window(info->ptr, info->win, info->rc->ptr, 0, 0);

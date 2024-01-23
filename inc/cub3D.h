@@ -77,7 +77,9 @@ might change hardware to fully enjoy the game :)"
 # define VELO_R M_PI/48
 
 /*	raycast	*/
-# define PITCH 100
+# define PITCH 0
+# define CROUCH_VAL 300
+# define PLANE_ANG_TO_DIR 0.72
 
 /*	minimap : 12x12 rects of tile 16x16	*/
 # define MNAP_TS 16
@@ -174,6 +176,7 @@ typedef struct s_info
 	double			diry;
 	double			planex;
 	double			planey;
+	int				crouch;
 	t_bool			is_intro;
 	t_bool			is_outro;
 	t_bool			is_maximap;
@@ -215,6 +218,7 @@ void	maximap_display(t_info *info);
 void	maximap_teleport(int but, unsigned int x, unsigned int y, t_info *info);
 
 /*	actions / movements	*/
+void	crouch_uncrouch(t_info *info);
 void 	key_movement(int keycode, t_info *info);
 
 /*	hooks	*/
