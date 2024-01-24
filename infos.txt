@@ -2,6 +2,19 @@
 | INFOS.TXT |
 -------------
 
+Post call du 24/01 : 
+- Malo revoit le raycasting sur branche malo
+- branche main reste intacte
+- Branche bastien : 
+	- maximap bugs : pos in double not int + player in walls
+	- minimap : ray vision
+	- redraw : a sortie de maximap et d'outro -> launch raycast + minimap
+	- key inputs : key_prewss + key_release -> enable multikey (rotate + walk)
+	- normer les dernieres modifs genre store ppos, raycast ? 
+	- a la limite finir le crouching
+	
+
+
 -------------
 Config file :
 -------------
