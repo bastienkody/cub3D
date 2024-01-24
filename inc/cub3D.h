@@ -105,6 +105,7 @@ might change hardware to fully enjoy the game :)"
 # define RED 0x00FF0000
 # define GREEN 0x0000FF00
 # define BLUE 0x000000FF
+# define YELLOW 0x00FFFF00
 
 /*	typedef	*/
 typedef bool			t_bool;
@@ -230,7 +231,7 @@ int		key_inputs(int keycode, t_info *info);
 void	pixel_w(t_img *img, int x, int y, int color);
 uint	get_color(t_img *img, int x, int y);
 void	img_to_img(t_img *src, t_img *dst, int og[2], int dim[2]);
-void	line_w(t_img *img, int a[2], int b[2], int color);
+void	draw_line(t_img *img, int a[2], int b[2], int color);
 void	draw_vert_line(t_img *img, int x, int y[2], int color);
 void	draw_rect(t_img *img, int og[2], int dim[2], int color);
 void	draw_border(t_img *img, int og[2], int dim[2], int color);

@@ -20,7 +20,7 @@ void	draw_vert_line(t_img *img, int x, int y[2], int color)
 }
 
 /*	bresenham algo w/ a[0]=x, a[1]=y	*/
-void	line_w(t_img *img, int a[2], int b[2], int color)
+void	draw_line(t_img *img, int a[2], int b[2], int color)
 {
 	const int	abs_dist[2] = {abs(b[0] - a[0]), abs(b[1] - a[1])};
 	int			dir[2];
