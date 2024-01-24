@@ -19,7 +19,7 @@ t_info	*pars_to_info(t_parser *pars)
 
 	if (!map_checker(pars))
 		return (NULL);
-	info = calloc(1, sizeof(t_info));
+	info = ft_calloc(1, sizeof(t_info));
 	if (!info)
 		return (print_error(ALLOC_FAIL, NULL), NULL);
 	info->posx = pars->pposx;
@@ -50,7 +50,7 @@ void	run(t_info *info)
 
 int	main(int argc, char **argv, __attribute__((unused)) char **envp)
 {
-	t_parser	*pars;	
+	t_parser	*pars;
 	t_info		*info;
 
 	pars = main_parser(argc, argv); // fetch config file

@@ -95,7 +95,7 @@ t_parser	*main_parser(int argc, char **av)
 	fd = open_config_file(argc, av);
 	if (fd < 0)
 		return (NULL);
-	pars = ft_calloc(1, sizeof(t_info));
+	pars = ft_calloc(1, sizeof(t_parser));
 	if (!pars)
 		return (print_error(ALLOC_FAIL, NULL), NULL);
 	while (1)
