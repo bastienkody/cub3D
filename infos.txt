@@ -1,6 +1,7 @@
 ------------
 | INFOS.TXT |
 -------------
+ mod pour nouvelle branche
 
 -------------
 Config file :
