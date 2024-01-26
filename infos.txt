@@ -15,7 +15,28 @@ Post call du 24/01 :
 	- a la limite finir le crouching
 	- segfault raycast
 	- textures to be choosen raycast
-	
+
+------
+KEYS :
+------
+	- there is a array of bool for all moves cmds (wasd-c-left-right)
+	- all key commands are recorder via mlx_hook(key_press)
+	- if its a move command : it just turn the bool to according key to true
+	- if its not a move cmd, it calls key_input that apply theright cmds (maximap, pause auit etc)
+	- release keys are handled via mlx_hook(key_release) : if its a move cmd, it
+	turns the bool to false from info->keys[]. 
+	- all moves functions are handled with loop_manager : it check info->keys[]
+	for any key that is on true, if so it calls according mvoe functions
+--> this offers : 
+		- can move forward and sideward or rotate at same time (not exactly but
+		feels so in the game). Avancer en diagonale est donc possible
+		- when severals keys are pressed abd only one is released : others still pressed
+		cam still activate according function 
+		- for non nmovement commands, if multiple are pressed and one is released,
+		nothing happens 
+--> problems : it goes very fast. Seeting a counter is not sexy, I ll just manage via
+		velocity which seems to be very effective
+
 
 
 -------------

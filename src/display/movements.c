@@ -12,6 +12,16 @@
 
 #include "../../inc/cub3D.h"
 
+void	crouch_uncrouch(t_info *info)
+{
+	if (info->crouch)
+		info->crouch = 0;
+	else
+		info->crouch = CROUCH_VAL;
+	raycast_launcher(info);
+	draw_minimap(info);
+}
+
 /*	always possible to rotate	*/
 int	rotate(__attribute__((unused)) int keycode, t_info *info)
 {
@@ -109,12 +119,4 @@ void key_movement(int keycode, t_info *info)
 	draw_minimap(info);
 }
 
-void	crouch_uncrouch(t_info *info)
-{
-	if (info->crouch)
-		info->crouch = 0;
-	else
-		info->crouch = CROUCH_VAL;
-	raycast_launcher(info);
-	draw_minimap(info);
-}
+

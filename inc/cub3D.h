@@ -73,8 +73,8 @@ might change hardware to fully enjoy the game :)"
 # define PLAYER_ICON_TO_MMAP_TILE_RATIO 10
 
 /*	player velocity	*/
-# define VELO_M 0.2
-# define VELO_R M_PI/48
+# define VELO_M 0.05
+# define VELO_R M_PI/48/2
 
 /*	raycast	*/
 # define PITCH 0
@@ -196,12 +196,22 @@ typedef struct s_info
 	t_img			*maximap;
 	t_img			*rc;
 	t_img			*rc_buf;
+	bool			keys[6];
 }				t_info;
+
+/* keys (bool array of 7) order
+	bool	w;
+	bool	s;
+	bool	a;
+	bool	d;
+	bool	left;
+	bool	right;
+*/
 
 /*	display	*/
 void	run(t_info *info);
 int		init_display(t_info *info, t_parser *pars);
-int		display_manager(t_info *info);
+int		loop_manager(t_info *info);
 void	draw_minimap(t_info *info);
 
 /*	raycast - dda	*/
@@ -221,6 +231,8 @@ void	maximap_teleport(int but, unsigned int x, unsigned int y, t_info *info);
 /*	actions / movements	*/
 void	crouch_uncrouch(t_info *info);
 void 	key_movement(int keycode, t_info *info);
+int		key_press(int keycode, t_info *info);
+int		key_release(int keycode, t_info *info);
 
 /*	hooks	*/
 int		outro_mouse_inputs(int but, int x, int y, t_info *info);

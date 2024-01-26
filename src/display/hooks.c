@@ -21,10 +21,29 @@ int	mouse_inputs(int button, int x, int y, t_info *info)
 	return (1);
 }
 
-int	is_move_cmds(int keycode)
+int	key_release(int keycode, t_info *info)
 {
-	return ((keycode == XK_w || keycode == XK_a || keycode == XK_s || \
-			keycode == XK_d) || (keycode == XK_Right || keycode == XK_Left));
+	static const int	keys[6] = {XK_w, XK_s, XK_a, XK_d, XK_Left, XK_Right};
+	int					i;
+
+	i = -1;
+	while (++i < 6)
+		if (keycode == keys[i])
+			return (info->keys[i] = false, 1);
+	return (0);
+}
+
+int	key_press(int keycode, t_info *info)
+{
+	static const int	keys[6] = {XK_w, XK_s, XK_a, XK_d, XK_Left, XK_Right};
+	int					i;
+
+	i = -1;
+	while (++i < 6 && !info->is_intro && !info->is_maximap && !info->is_outro)
+		if (keycode == keys[i])
+			return (info->keys[i] = true, 1);
+	key_inputs(keycode, info);
+	return (0);
 }
 
 int	key_inputs(int keycode, t_info *info)
@@ -41,17 +60,15 @@ int	key_inputs(int keycode, t_info *info)
 			end_free(info);
 	}
 	else if (keycode == XK_Escape)
-		return (info->is_outro = !info->is_outro, 1);
-	else if (keycode == XK_m)
-		info->is_maximap = !info->is_maximap;
+		return (info->is_outro = !info->is_outro, raycast_launcher(info), draw_minimap(info), 1);
+	else if (keycode == XK_m && !info->is_outro)
+		return (info->is_maximap = !info->is_maximap, raycast_launcher(info), draw_minimap(info), 1);
 	else if (keycode == XK_r)
 	{
 		raycast_launcher(info);
 		draw_minimap(info);
 	}
-	else if (is_move_cmds(keycode) && !info->is_maximap && !info->is_outro)
-		key_movement(keycode, info);
-	else if (keycode == XK_c && !info->is_maximap && !info->is_outro)
+	else if (keycode == XK_c)
 		crouch_uncrouch(info);
 	return (1);
 }
