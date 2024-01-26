@@ -125,4 +125,3 @@ void key_movement(int keycode, t_info *info)
 	draw_minimap(info);
 }
 
-
