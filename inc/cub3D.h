@@ -73,8 +73,9 @@ might change hardware to fully enjoy the game :)"
 # define PLAYER_ICON_TO_MMAP_TILE_RATIO 10
 
 /*	player velocity	*/
-# define VELO_M 0.05
-# define VELO_R M_PI/48/2
+# define VELO_MOVE 0.05
+# define VELO_SPRINT 0.15
+# define VELO_ROTATE M_PI/48/2
 
 /*	raycast	*/
 # define PITCH 0
@@ -196,7 +197,7 @@ typedef struct s_info
 	t_img			*maximap;
 	t_img			*rc;
 	t_img			*rc_buf;
-	bool			keys[6];
+	bool			keys[7];
 }				t_info;
 
 /* keys (bool array of 7) order

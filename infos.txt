@@ -5,16 +5,14 @@
 Post call du 24/01 : 
 - Malo revoit le raycasting sur branche malo
 - branche main reste intacte
-- Branche bastien : 
+- Branche bastien :
 	- maximap bugs : pos in double not int + player in walls
-	- display manager to get rid of
 	- minimap : ray vision
-	- redraw : a sortie de maximap et d'outro -> launch raycast + minimap
-	- key inputs : key_prewss + key_release -> enable multikey (rotate + walk)
-	- normer les dernieres modifs genre store ppos, raycast ? 
+	- normer les dernieres modifs genre store ppos, raycast ?
 	- a la limite finir le crouching
 	- segfault raycast
 	- textures to be choosen raycast
+	- add sprint to keys, only sprint forward !!
 
 ------
 KEYS :
@@ -132,6 +130,8 @@ GAME COMMANDS :
 ---------------
 [WASD]			:	move around in game
 [Left/Right]	:	turn in game
+[C]				:	crouch/uncrouch
+[SHIFT]			: 	sprint (only with forward movemnent W, not back or sides neither rotation)
 [Q]				:	directly quit game with no msg (==red cross left click)
 [M]				:	on/off full map view where you can leftclick to teleport
 [ESC]			:	on/off pause menu. leftclik ; or press enter to leave, esc

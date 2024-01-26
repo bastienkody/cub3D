@@ -29,9 +29,9 @@ int	rotate(__attribute__((unused)) int keycode, t_info *info)
 	const double	oldplanex = info->planex;
 	double			ang;
 
-	ang = -VELO_R;
+	ang = -VELO_ROTATE;
 	if (keycode == XK_Right)
-		ang = VELO_R;
+		ang = VELO_ROTATE;
 	info->dirx = info->dirx * cos(ang) - info->diry * sin(ang);
 	info->diry = oldir_x * sin(ang) + info->diry * cos(ang);
 	info->planex = info->planex * cos(ang) - info->planey * sin(ang);
@@ -39,7 +39,8 @@ int	rotate(__attribute__((unused)) int keycode, t_info *info)
 	return (1);
 }
 
-/*	back or forward via player dir vector	*/
+/*	back or forward via player dir vector
+	sprint only in forwrd movement	*/
 int	move_front_back_wards(int keycode, t_info *info)
 {
 	double	x_offset;
@@ -47,8 +48,13 @@ int	move_front_back_wards(int keycode, t_info *info)
 
 	if (keycode == XK_w)
 	{
-		x_offset = info->posx + info->dirx * VELO_M;
-		y_offset = info->posy + info->diry * VELO_M;
+		x_offset = info->posx + info->dirx * VELO_MOVE;
+		y_offset = info->posy + info->diry * VELO_MOVE;
+		if (info->keys[6])
+		{
+			x_offset = info->posx + info->dirx * VELO_SPRINT;
+			y_offset = info->posy + info->diry * VELO_SPRINT;
+		}
 		if (info->map[(int)floor(y_offset)][(int)floor(x_offset)] == '0')
 		{
 			info->posx = x_offset;
@@ -58,8 +64,8 @@ int	move_front_back_wards(int keycode, t_info *info)
 	}
 	else if (keycode == XK_s)
 	{
-		x_offset = info->posx - info->dirx * VELO_M;
-		y_offset = info->posy - info->diry * VELO_M;
+		x_offset = info->posx - info->dirx * VELO_MOVE;
+		y_offset = info->posy - info->diry * VELO_MOVE;
 		if (info->map[(int)floor(y_offset)][(int)floor(x_offset)] == '0')
 		{
 			info->posx = x_offset;
@@ -78,8 +84,8 @@ int	move_sides(int keycode, t_info *info)
 
 	if (keycode == XK_a)
 	{
-		x_offset = info->posx - info->planex * VELO_M;
-		y_offset = info->posy - info->planey * VELO_M;
+		x_offset = info->posx - info->planex * VELO_MOVE;
+		y_offset = info->posy - info->planey * VELO_MOVE;
 		if (info->map[(int)floor(y_offset)][(int)floor(x_offset)] == '0')
 		{
 			info->posx = x_offset;
@@ -89,8 +95,8 @@ int	move_sides(int keycode, t_info *info)
 	}
 	else if (keycode == XK_d)
 	{
-		x_offset = info->posx + info->planex * VELO_M;
-		y_offset = info->posy + info->planey * VELO_M;
+		x_offset = info->posx + info->planex * VELO_MOVE;
+		y_offset = info->posy + info->planey * VELO_MOVE;
 		if (info->map[(int)floor(y_offset)][(int)floor(x_offset)] == '0')
 		{
 			info->posx = x_offset;
