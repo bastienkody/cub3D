@@ -29,7 +29,20 @@ void	post_dda_calculations(t_raycast *rc, t_info *info)
 	if (rc->end >= WIN_H)
 		rc->end = WIN_H ;
 	// what texture ? change to nsew selection ?
-	rc->whatext = info->map[rc->mapy][rc->mapx] - 1;
+	if (rc->side == 0)
+	{
+		if (rc->raydirx < 0)
+			rc->whatext = info->w_text;
+		else
+			rc->whatext = info->e_text;
+	}
+	else
+	{
+		if (rc->raydiry < 0)
+			rc->whatext = info->n_text;
+		else
+			rc->whatext = info->s_text;
+	}
 	// where on the texture exactly
 	rc->wallx = info->posx + rc->pwall *rc->raydirx;
 	if (rc->side == 0)
@@ -56,7 +69,7 @@ void draw_raycast(t_raycast *rc, t_info *info, int x)
 		ytext = (int)textpos; // nsp necessaire ?
 		textpos += step;
 		//printf("textel x%i, y%i (texpos%f) | ", rc->xtext, ytext, textpos);
-		color = get_color(info->s_text, rc->xtext, ytext);
+		color = get_color(rc->whatext, rc->xtext, ytext);
 		//printf("pixelw x%i, y%i, color %x\n", x, y, color);
 		pixel_w(info->rc, x, y, color);
 	}

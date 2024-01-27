@@ -112,29 +112,6 @@ might change hardware to fully enjoy the game :)"
 typedef bool			t_bool;
 typedef unsigned int	uint;
 
-typedef struct s_raycast
-{
-	int		mapx;
-	int		mapy;
-	int		stepx;
-	int		stepy;
-	int		side;
-	double	raydirx;
-	double	raydiry;
-	double	sidex;
-	double	sidey;
-	double	deltax;
-	double	deltay;
-	double	pwall;
-	int		lineh;
-	int		start;
-	int		end;
-	int		whatext;
-	double	wallx;
-	int		xtext;
-
-}				t_raycast;
-
 typedef struct s_img
 {
 	void	*ptr;
@@ -162,6 +139,29 @@ typedef struct s_parser
 	double			planex;
 	double			planey;
 }				t_parser;
+
+typedef struct s_raycast
+{
+	int		mapx;
+	int		mapy;
+	int		stepx;
+	int		stepy;
+	int		side;
+	double	raydirx;
+	double	raydiry;
+	double	sidex;
+	double	sidey;
+	double	deltax;
+	double	deltay;
+	double	pwall;
+	int		lineh;
+	int		start;
+	int		end;
+	t_img	*whatext;
+	double	wallx;
+	int		xtext;
+
+}				t_raycast;
 
 typedef struct s_info
 {
