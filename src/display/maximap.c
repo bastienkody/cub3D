@@ -63,9 +63,9 @@ void	draw_player_icon(t_info *info, t_img *img_map, int tile_s)
 	const int		size = tile_s / PLAYER_ICON_TO_MMAP_TILE_RATIO;
 
 	if (xpos + size >= floor(info->posx) * tile_s + tile_s)
-		xpos -= size, printf("xpos -= size\n");
+		xpos -= size;
 	if (ypos + size >= floor(info->posy) * tile_s + tile_s)
-		ypos -= size, printf("ypos -=size\n");
+		ypos -= size;
 	if (size <= 1)
 		pixel_w(img_map, (int)round(xpos), (int)round(ypos), RED);
 	else if (size < 4)

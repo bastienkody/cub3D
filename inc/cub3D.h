@@ -66,21 +66,21 @@ might change hardware to fully enjoy the game :)"
 
 /*	num const	*/
 # define ALLOR 3
-# define TILE_S 64
+# define TILE_S 1000
 # define WIN_W 1920
 # define WIN_H 1010
 # define MENUBAR_H 70
 # define PLAYER_ICON_TO_MMAP_TILE_RATIO 10
 
 /*	player velocity	*/
-# define VELO_MOVE 0.05
-# define VELO_SPRINT 0.15
-# define VELO_ROTATE M_PI/48/2
+# define VELO_MOVE 0.1
+# define VELO_SPRINT 0.3
+# define VELO_ROTATE M_PI/48
 
 /*	raycast	*/
 # define PITCH 0
 # define CROUCH_VAL 300
-# define PLANE_ANG_TO_DIR 0.72
+# define PLANE_ANG_TO_DIR 0.66
 
 /*	minimap : 12x12 rects of tile 16x16	*/
 # define MNAP_TS 16

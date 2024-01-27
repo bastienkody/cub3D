@@ -41,13 +41,12 @@ int	outro_mouse_inputs(int but, int x, int y, t_info *info)
 	if (x >= X && x <= X_S && y >= Y && y <= Y_S)
 	{
 		info->is_outro = false;
-		mlx_put_image_to_window(info->ptr, info->win, info->bg_default->ptr, 0, 0);
-		/*draw_minimap(info);
 		if (info->is_maximap)
-		{
-			info->is_maximap = false;
 			return (maximap_display(info), 1);
-		}*/
+		//mlx_put_image_to_window(info->ptr, info->win, info->bg_default->ptr, 0, 0);
+		raycast_launcher(info);
+		draw_minimap(info);
+
 	}
 	else if (x >= X && x <= X_S && y >= Y + Y_OFST && y <= Y_S + Y_OFST)
 		return (end_free(info), 1);
