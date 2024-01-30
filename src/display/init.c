@@ -12,7 +12,7 @@
 
 #include "../../inc/cub3D.h"
 
-int	load_textures(t_info *info, t_parser *pars)
+void	load_textures(t_info *info, t_parser *pars)
 {
 	info->intro1 = create_xpm_image(info->ptr, \
 		"map/textures/intrologo/logo_pink_green_0.xpm", WIN_W, WIN_H);
@@ -33,6 +33,10 @@ xpm", WIN_W, WIN_H);
 	info->minimap = create_image(info->ptr, MNAP_W, MNAP_H);
 	info->rc = create_image(info->ptr, WIN_W, WIN_H);
 	info->rc_buf = create_image(info->ptr, WIN_W, WIN_H);
+}
+
+int	check_textures_load(t_info *info)
+{
 	if (!info->intro1 || !info->intro1->ptr || !info->intro2 || \
 		!info->outro[0] \
 		|| !info->outro[0]->ptr || !info->outro[1] || !info->outro[1]->ptr || \
@@ -55,7 +59,8 @@ int	init_display(t_info *info, t_parser *pars)
 	if (!info->win)
 		return (print_error(BAD_WIN, NULL), 0);
 	info->is_intro = true;
-	if (!load_textures(info, pars))
+	load_textures(info, pars);
+	if (!check_textures_load(info))
 		return (0);
 	draw_first_maximap(info);
 	return (1);

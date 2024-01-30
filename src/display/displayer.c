@@ -27,14 +27,14 @@ void	disp_intro(t_info *info)
 		mlx_put_image_to_window(info->ptr, info->win, info->intro2->ptr, 0, 0);
 }
 
-/*	search for any move key being pressed and call key_movement with keycode	*/
+/*	search for any move key being pressed and call key_movement with kcode	*/
 void	moves_standard(t_info *info)
 {
 	static const int	keys[6] = {XK_w, XK_s, XK_a, XK_d, XK_Left, XK_Right};
-	int	i;
+	int					i;
 
 	i = -1;
-	while(++i < 6)
+	while (++i < 6)
 	{
 		if (info->keys[i])
 			key_movement(keys[i], info);
@@ -56,4 +56,3 @@ int	loop_manager(t_info *info)
 		return (moves_standard(info), 1);
 	return (0);
 }
-

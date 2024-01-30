@@ -63,8 +63,8 @@ void draw_raycast(t_raycast *rc, t_info *info, int x)
 	int				y;
 
 	textpos = (double)(rc->start - PITCH - WIN_H / 2 + (double)rc->lineh / 2) * step;
-	y = rc->start - 1 - info->crouch;
-	while (++y < rc->end + info->crouch)
+	y = rc->start - 1;
+	while (++y < rc->end)
 	{
 		ytext = (int)textpos; // nsp necessaire ?
 		textpos += step;
@@ -73,11 +73,11 @@ void draw_raycast(t_raycast *rc, t_info *info, int x)
 		//printf("pixelw x%i, y%i, color %x\n", x, y, color);
 		pixel_w(info->rc, x, y, color);
 	}
-	draw_vert_line(info->rc, x, (int []){0, rc->start - info->crouch}, info->ceil);
-	if (rc->end - info->crouch < WIN_H)
+	draw_vert_line(info->rc, x, (int []){0, rc->start}, info->ceil);
+	if (rc->end < WIN_H)
 	{
 		//printf("rc->end - crouch:%i\n", rc->end - info->crouch);
-		draw_vert_line(info->rc, x, (int []){rc->end - info->crouch, WIN_H}, info->floor);
+		draw_vert_line(info->rc, x, (int []){rc->end, WIN_H}, info->floor);
 	}
 }
 
@@ -105,6 +105,7 @@ int	raycast_launcher(t_info *info)
 		draw_raycast(&rc, info, x);
 	}
 	mlx_put_image_to_window(info->ptr, info->win, info->rc->ptr, 0, 0);
+	draw_minimap(info);
 	return (1);
 }
 

@@ -12,17 +12,21 @@
 
 #include "../../inc/cub3D.h"
 
-void	draw_north_symbol(t_img *minimap)
+void	draw_north_symbol_and_borders(t_img *minimap)
 {
 	const int	size = 12;
 	const int	xpos = MNAP_W / 2 - size / 2;
 	const int	ypos = 2;
 	const int	i = 3;
 
-	draw_rect(minimap, (int[]){xpos, ypos}, (int[]){size, size}, YELLOW);
-	draw_vert_line(minimap, xpos + i, (int[]){ypos, ypos + size}, BLACK);
-	draw_vert_line(minimap, xpos + size - i, (int[]){ypos, ypos + size}, BLACK);
-	draw_line(minimap, (int[]){xpos + i, ypos}, (int[]){xpos + size - i, ypos + size}, BLACK);
+	draw_rect(minimap, (int []){xpos, ypos}, (int []){size, size}, YELLOW);
+	draw_vert_line(minimap, xpos + i, (int []){ypos, ypos + size}, BLACK);
+	draw_vert_line(minimap, xpos + size - i, (int []){ypos, ypos + size}, \
+	BLACK);
+	draw_line(minimap, (int []){xpos + i, ypos}, (int []){xpos + size - i, \
+	ypos + size}, BLACK);
+	draw_border(minimap, (int []){0, 0}, (int []){191, 191}, BLUE);
+	draw_border(minimap, (int []){0, 0}, (int []){190, 190}, BLUE);
 }
 
 /*	192x192 screen on win at 20,20, ppos centered
@@ -56,8 +60,6 @@ void	draw_minimap(t_info *info)
 	}
 	draw_rect(info->minimap, (int []){5 * MNAP_TS + MNAP_TS / 3, 5 * MNAP_TS + \
 	MNAP_TS / 3}, (int []){MNAP_TS / 3, MNAP_TS / 3}, RED);
-	draw_border(info->minimap, (int []){0, 0}, (int []){191, 191}, BLUE);
-	draw_border(info->minimap, (int []){0, 0}, (int []){190, 190}, BLUE);
-	draw_north_symbol(info->minimap);
+	draw_north_symbol_and_borders(info->minimap);
 	mlx_put_image_to_window(info->ptr, info->win, info->minimap->ptr, 20, 20);
 }

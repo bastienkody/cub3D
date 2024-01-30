@@ -25,7 +25,8 @@ void	maximap_teleport(int but, unsigned int x, unsigned int y, t_info *info)
 	if (newx >= 0 && newx < info->mw && newy >= 0 && newy < info->mh)
 	{
 		if (info->map[(int)floor(newy)][(int)floor(newx)] != '0')
-			return ((void)ft_fprintf(2, "%s%i,y%i%s\n", T_W, (int)floor(newx), (int)floor(newy), T_WB));
+			return ((void)ft_fprintf(2, "%s%i,y%i%s\n", T_W, (int)floor(newx), \
+			(int)floor(newy), T_WB));
 		info->posx = newx;
 		info->posy = newy;
 		maximap_display(info);
@@ -58,10 +59,12 @@ void	get_maximap_size(t_info *info)
 	upgrade with a circle + fov rays	*/
 void	draw_player_icon(t_info *info, t_img *img_map, int tile_s)
 {
-	double	xpos = info->posx * tile_s;
-	double	ypos = info->posy * tile_s;
-	const int		size = tile_s / PLAYER_ICON_TO_MMAP_TILE_RATIO;
+	double		xpos;
+	double		ypos;
+	const int	size = tile_s / PLAYER_ICON_TO_MMAP_TILE_RATIO;
 
+	xpos = info->posx * tile_s;
+	ypos = info->posy * tile_s;
 	if (xpos + size >= floor(info->posx) * tile_s + tile_s)
 		xpos -= size;
 	if (ypos + size >= floor(info->posy) * tile_s + tile_s)
@@ -74,7 +77,6 @@ void	draw_player_icon(t_info *info, t_img *img_map, int tile_s)
 	else
 		draw_rect_w_border(img_map, (int []){(int)round(xpos), \
 		(int)round(ypos)}, (int []){size, size}, RED);
-	//printf("x%f, y%f - (xm%f, ym%f)\n", info->posx, info->posy, xpos, ypos);
 }
 
 /*	only used once, by init. draw mmap floor/wall/void	*/
@@ -85,7 +87,7 @@ void	draw_first_maximap(t_info *info)
 	const int	colorz[3] = {WHITE, GREY, BLACK};
 
 	get_maximap_size(info);
-	draw_rect(info->maximap, (int[]){0, 0}, (int[]){WIN_W, WIN_H}, BLACK);
+	draw_rect(info->maximap, (int []){0, 0}, (int []){WIN_W, WIN_H}, BLACK);
 	y = -1;
 	while (++y * info->mmap_tile_s < WIN_H && info->map[y] != NULL)
 	{

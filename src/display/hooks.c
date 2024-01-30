@@ -57,20 +57,15 @@ int	key_inputs(int keycode, t_info *info)
 	else if (info->is_intro)
 	{
 		if (keycode == 65293)
-			return (info->is_intro = false, raycast_launcher(info), draw_minimap(info), 1);
+			return (info->is_intro = false, raycast_launcher(info));
 		else if (keycode == XK_Escape)
 			end_free(info);
 	}
 	else if (keycode == XK_Escape)
-		return (info->is_outro = !info->is_outro, raycast_launcher(info), draw_minimap(info), 1);
+		return (info->is_outro = !info->is_outro, raycast_launcher(info));
 	else if (keycode == XK_m && !info->is_outro)
-		return (info->is_maximap = !info->is_maximap, raycast_launcher(info), draw_minimap(info), 1);
+		return (info->is_maximap = !info->is_maximap, raycast_launcher(info));
 	else if (keycode == XK_r && !info->is_maximap && !info->is_outro)
-	{
 		raycast_launcher(info);
-		draw_minimap(info);
-	}
-	else if (keycode == XK_c && !info->is_maximap && !info->is_outro)
-		crouch_uncrouch(info);
 	return (1);
 }

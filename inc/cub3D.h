@@ -178,7 +178,6 @@ typedef struct s_info
 	double			diry;
 	double			planex;
 	double			planey;
-	int				crouch;
 	t_bool			is_intro;
 	t_bool			is_outro;
 	t_bool			is_maximap;
@@ -230,7 +229,6 @@ void	maximap_display(t_info *info);
 void	maximap_teleport(int but, unsigned int x, unsigned int y, t_info *info);
 
 /*	actions / movements	*/
-void	crouch_uncrouch(t_info *info);
 void 	key_movement(int keycode, t_info *info);
 int		key_press(int keycode, t_info *info);
 int		key_release(int keycode, t_info *info);
