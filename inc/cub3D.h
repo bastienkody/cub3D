@@ -89,7 +89,7 @@ might change hardware to fully enjoy the game :)"
 
 /*	counter	*/
 # ifndef INTRO_COUNTER
-#	define INTRO_COUNTER 750
+#  define INTRO_COUNTER 750
 # endif
 
 /*	outro menu position	*/
@@ -102,7 +102,7 @@ might change hardware to fully enjoy the game :)"
 /*	colors	*/
 # define WHITE 0x00FFFFFF
 # define BLACK 0x00000000
-#define GREY 0x00808080
+# define GREY 0x00808080
 # define RED 0x00FF0000
 # define GREEN 0x0000FF00
 # define BLUE 0x000000FF
@@ -110,7 +110,7 @@ might change hardware to fully enjoy the game :)"
 
 /*	typedef	*/
 typedef bool			t_bool;
-typedef unsigned int	uint;
+typedef unsigned int	t_uint;
 
 typedef struct s_img
 {
@@ -209,75 +209,76 @@ typedef struct s_info
 */
 
 /*	display	*/
-void	run(t_info *info);
-int		init_display(t_info *info, t_parser *pars);
-int		loop_manager(t_info *info);
-void	draw_minimap(t_info *info);
+void		run(t_info *info);
+int			init_display(t_info *info, t_parser *pars);
+int			loop_manager(t_info *info);
+void		draw_minimap(t_info *info);
 
 /*	raycast - dda	*/
-void	dda(t_raycast *rc, char **map);
-void	dda_prep(t_raycast *rc, double posx, double posy);
-int		raycast_launcher(t_info *info);
+void		dda(t_raycast *rc, char **map);
+void		dda_prep(t_raycast *rc, double posx, double posy);
+int			raycast_launcher(t_info *info);
 
 /*	outro - pause */
-void	outro(t_info *info);
+void		outro(t_info *info);
 
 /*	maximap	*/
-void	draw_player_icon(t_info *info, t_img *img_map, int tile_s);
-void	draw_first_maximap(t_info *info);
-void	maximap_display(t_info *info);
-void	maximap_teleport(int but, unsigned int x, unsigned int y, t_info *info);
+void		draw_player_icon(t_info *info, t_img *img_map, int tile_s);
+void		draw_first_maximap(t_info *info);
+void		maximap_display(t_info *info);
+void		maximap_teleport(int but, unsigned int x, unsigned int y, \
+			t_info *info);
 
 /*	actions / movements	*/
-void 	key_movement(int keycode, t_info *info);
-int		key_press(int keycode, t_info *info);
-int		key_release(int keycode, t_info *info);
+void		key_movement(int keycode, t_info *info);
+int			key_press(int keycode, t_info *info);
+int			key_release(int keycode, t_info *info);
 
 /*	hooks	*/
-int		outro_mouse_inputs(int but, int x, int y, t_info *info);
-int		mouse_inputs(int button, int x, int y, t_info *info);
-int		key_inputs(int keycode, t_info *info);
+int			outro_mouse_inputs(int but, int x, int y, t_info *info);
+int			mouse_inputs(int button, int x, int y, t_info *info);
+int			key_inputs(int keycode, t_info *info);
 
 /*	drawers	*/
-void	pixel_w(t_img *img, int x, int y, int color);
-uint	get_color(t_img *img, int x, int y);
-void	img_to_img(t_img *src, t_img *dst, int og[2], int dim[2]);
-void	draw_line(t_img *img, int a[2], int b[2], int color);
-void	draw_vert_line(t_img *img, int x, int y[2], int color);
-void	draw_rect(t_img *img, int og[2], int dim[2], int color);
-void	draw_border(t_img *img, int og[2], int dim[2], int color);
-void	draw_rect_w_border(t_img *img, int og[2], int dim[2], int color);
+void		pixel_w(t_img *img, int x, int y, int color);
+uint		get_color(t_img *img, int x, int y);
+void		img_to_img(t_img *src, t_img *dst, int og[2], int dim[2]);
+void		draw_line(t_img *img, int a[2], int b[2], int color);
+void		draw_vert_line(t_img *img, int x, int y[2], int color);
+void		draw_rect(t_img *img, int og[2], int dim[2], int color);
+void		draw_border(t_img *img, int og[2], int dim[2], int color);
+void		draw_rect_w_border(t_img *img, int og[2], int dim[2], int color);
 
 /*	img	*/
-t_img	*create_image(void *mlx_ptr, int w, int h);
-t_img	*create_xpm_image(void *mlx_ptr, char *path, int w, int h);
+t_img		*create_image(void *mlx_ptr, int w, int h);
+t_img		*create_xpm_image(void *mlx_ptr, char *path, int w, int h);
 
 /*	parsing	*/
 t_parser	*main_parser(int argc, char **argv);
-int		get_texture(char *line, char **split, t_parser *pars);
-int		get_rgb(char *line, char **split, t_parser *pars);
-int		map_checker(t_parser *pars);
-void	store_p_orientation(t_parser *pars, int i, int j);
+int			get_texture(char *line, char **split, t_parser *pars);
+int			get_rgb(char *line, char **split, t_parser *pars);
+int			map_checker(t_parser *pars);
+void		store_p_orientation(t_parser *pars, int i, int j);
 
 /*	parsing utils	*/
-int		tab_len(char **tab);
-int		longest_line(char **map);
-int		is_str_only(char *str, char *valid);
-int		is_texture_line(char **split);
-int		is_rgb_line(char **split);
-void	update_map_on(int *map_on, t_parser *pars);
-int		count_c_in_str(char *str, char c);
-int		argb_hex(unsigned char a, unsigned char r, unsigned char g, \
+int			tab_len(char **tab);
+int			longest_line(char **map);
+int			is_str_only(char *str, char *valid);
+int			is_texture_line(char **split);
+int			is_rgb_line(char **split);
+void		update_map_on(int *map_on, t_parser *pars);
+int			count_c_in_str(char *str, char c);
+int			argb_hex(unsigned char a, unsigned char r, unsigned char g, \
 				unsigned char b);
 
 /*	printers	*/
-void	print_error(char *str1, char *str2);
-void	print_raycast(t_raycast *rc);
-void	print_info(t_info *info);
-void	print_rc(t_raycast *rc);
+void		print_error(char *str1, char *str2);
+void		print_raycast(t_raycast *rc);
+void		print_info(t_info *info);
+void		print_rc(t_raycast *rc);
 
 /*	free	*/
-int		end_free(t_info *info);
-void	end_parser(t_parser *pars);
+int			end_free(t_info *info);
+void		end_parser(t_parser *pars);
 
 #endif

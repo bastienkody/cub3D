@@ -1,14 +1,14 @@
-NO ./xpm/star_ship/starship_wall_north.xpm
-SO ./xpm/star_ship/starship_wall_south.xpm
-EA ./xpm/star_ship/starship_wall_east.xpm
-WE ./xpm/star_ship/starship_wall_west.xpm
+NO ./makasamap/xpm/wonderland/wonderland_wall_north.xpm
+SO ./makasamap/xpm/wonderland/wonderland_wall_south.xpm
+EA ./makasamap/xpm/wonderland/wonderland_wall_east.xpm
+WE ./makasamap/xpm/wonderland/wonderland_wall_west.xpm
 
-F 14,13,13
-C 36,36,36
+F 179,144,96
+C 159,228,245
 
 11111111111111111111111111111111111111111
-1N000010000000001000000010000100010100011
-11101010101111101111101010110101010001001
+1S100010000000001000000010000100010100011
+10101010101111101111101010110101010001001
 10101011101000100000101010110101010111101
 10001000101010101000101010000100010000101
 10111010101010101010001011110101011110101

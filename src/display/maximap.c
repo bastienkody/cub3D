@@ -52,11 +52,9 @@ void	get_maximap_size(t_info *info)
 	}
 }
 
-/*	used by mini and maxi maps
-	for now :	player icon is a rect of size tile_s / 4
-				if huuuuge map : just 1 pixel, no need to rect
-				if huge map : no border (if not the red is almost unseen)
-	upgrade with a circle + fov rays	*/
+/*	player icon is a rect of size tile_s / 4
+	if huuuuge map : just 1 pixel, no need to rect
+	if huge map : no border (if not the red is almost unseen)	*/
 void	draw_player_icon(t_info *info, t_img *img_map, int tile_s)
 {
 	double		xpos;
@@ -101,7 +99,7 @@ void	draw_first_maximap(t_info *info)
 	}
 }
 
-/*	redraw (update ppos) + disp. can be separated in two functions	*/
+/*	redraw (update ppos) + disp	*/
 void	maximap_display(t_info *info)
 {
 	static double	oldx = -1;

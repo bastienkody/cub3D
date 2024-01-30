@@ -1,7 +1,7 @@
-NO ./xpm/wonderland/wonderland_wall_north.xpm
-SO ./xpm/wonderland/wonderland_wall_south.xpm
-EA ./xpm/wonderland/wonderland_wall_east.xpm
-WE ./xpm/wonderland/wonderland_wall_west.xpm
+NO ./makasamap/xpm/wonderland/wonderland_wall_north.xpm
+SO ./makasamap/xpm/wonderland/wonderland_wall_south.xpm
+EA ./makasamap/xpm/wonderland/wonderland_wall_east.xpm
+WE ./makasamap/xpm/wonderland/wonderland_wall_west.xpm
 
 F 220,100,0
 C 225,30,0

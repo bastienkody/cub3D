@@ -41,9 +41,8 @@ void	moves_standard(t_info *info)
 	}
 }
 
-/*	lauch by mlx_loop. calls intro at start 
-	then redraw outro if mouse moved (mouse check in here)	
-	new: look for keys pressed and call movements accordingly	*/
+/*	lauch by mlx_loop. calls intro at start, redraw outro and maximap on repeat
+	if no mode : look for keys pressed and call movements accordingly	*/
 int	loop_manager(t_info *info)
 {
 	if (info->is_intro)

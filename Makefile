@@ -27,8 +27,7 @@ DISP_FILES	=	init.c\
 				minimap.c\
 				outro.c
 RAY_FILES	=	raycaster.c\
-				dda.c\
-				utils.c
+				dda.c
 MAIN_FILES	=	main.c endfree.c
 
 SRCS 		=	${MAIN_FILES} ${PARS_FILES} ${PRINT_FILES} ${DISP_FILES} ${RAY_FILES}
@@ -46,7 +45,7 @@ CC			=	cc
 DIM			:=	$(shell xdpyinfo | grep dim | grep -o "[0-9]*x[0-9]* pixels")
 WIDTH		:=	$(shell echo ${DIM} | cut -d'x' -f1 | grep -o "[0-9]*")
 HEIGHT		:=	$(shell echo ${DIM} | cut -d'x' -f2 | grep -o "[0-9]*")
-RES_ALERT	:=	"\033[31mScreen res is lower than 1920x1080. You might not enjoy the game, please change hardware.\033[m"
+RES_ALERT	:=	"\033[31mScreen res is lower than 1920x1080. You might not enjoy the game, please set pixel resolution to 1920x1080.\033[m"
 RES_OK		:=	"\033[32mScreen display set to 1920x1080. Launch game with: \033[4\;36\;1m\.\/cub3D \<map\.cub\>\033[m"
 
 ###		COUNTERS DEF		###
@@ -62,12 +61,12 @@ LDFLAGS		=	-lm ${LIBFT} ${MLX} ${XWIN}
 REDIRVOID	=	>/dev/null 2>&1
 
 ###		COMMANDS DISP	###
-WASD		=	"[WASD]\\t\\t: move around in game\\n"
-ARROWS		=	"[Left/Right]\\t: turn in game\\n"
-QUIT		=	"[Q]\\t\\t: quit game, red cross left click also works"
+WASD		=	"[WASD]\\t\\t: move around\\n"
+SHIFT		=	"[Lshift]\\t: sprint forward\\n"
+ARROWS		=	"[Left/Right]\\t: turn\\n"
+QUIT		=	"[Q]\\t\\t: quit game, red cross leftclick also works"
 OUTRO		=	"[ESC]\\t\\t: pause game\\n"
-MAP			=	"[M]\\t\\t: on/off full map view where you can move around with [WASD] \
-				or you can leftclick to teleport\\n"
+MAP			=	"[M]\\t\\t: on/off full map view, leftclick to teleport\\n"
 
 ###		RULES		###
 $(BUILD_D)/%.o: %.c ${HEADER}
@@ -93,7 +92,7 @@ screen_res_alert:
 
 print_cmds:
 		@echo -e "\033[36;1mCOMMANDS :\033[0m"
-		@echo -e "\033[36m${WASD}${ARROWS}${MAP}${OUTRO}${QUIT}\033[0m"
+		@echo -e "\033[36m${WASD}${SHIFT}${ARROWS}${MAP}${OUTRO}${QUIT}\033[0m"
 
 
 ${MLX}:

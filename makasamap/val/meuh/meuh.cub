@@ -1,7 +1,7 @@
-NO ./xpm/meuh/wall_meuh.xpm
-SO ./xpm/meuh/wall_meuh.xpm
-EA ./xpm/meuh/wall_meuh.xpm
-WE ./xpm/meuh/wall_meuh.xpm
+NO ./makasamap/xpm/meuh/wall_meuh.xpm
+SO ./makasamap/xpm/meuh/wall_meuh.xpm
+EA ./makasamap/xpm/meuh/wall_meuh.xpm
+WE ./makasamap/xpm/meuh/wall_meuh.xpm
 
 F 45,142,46
 C 99,187,235

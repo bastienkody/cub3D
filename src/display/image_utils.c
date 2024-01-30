@@ -18,13 +18,13 @@ void	pixel_w(t_img *img, int x, int y, int color)
 	char	*dst;
 
 	dst = img->addr + (y * img->line_len + x * (img->bpp / 8));
-	*(unsigned int *)dst = color;
+	*(t_uint *)dst = color;
 }
 
 /*	fetch pixel color at specific pos from an img	*/
 unsigned int	get_color(t_img *img, int x, int y)
 {
-	return (*(uint *)(img->addr + (y * img->line_len + x * (img->bpp / 8))));
+	return (*(t_uint *)(img->addr + (y * img->line_len + x * (img->bpp / 8))));
 }
 
 /*	copy dim pixels starting at og, from src img into dst img

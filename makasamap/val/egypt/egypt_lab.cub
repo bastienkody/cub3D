@@ -1,10 +1,10 @@
-NO ./xpm/wonderland/wonderland_wall_north.xpm
-SO ./xpm/wonderland/wonderland_wall_south.xpm
-EA ./xpm/wonderland/wonderland_wall_east.xpm
-WE ./xpm/wonderland/wonderland_wall_west.xpm
+NO ./makasamap/xpm/egypt/egypt_wall_north.xpm
+SO ./makasamap/xpm/egypt/egypt_wall_south.xpm
+EA ./makasamap/xpm/egypt/egypt_wall_east.xpm
+WE ./makasamap/xpm/egypt/egypt_wall_west.xpm
 
-F 179,144,96
-C 159,228,245
+F 23,18,4
+C 36,28,7
 
 11111111111111111111111111111111111111111
 1S100010000000001000000010000100010100011
