@@ -77,26 +77,7 @@ void	store_p_pos(t_parser *pars)
 			{
 				pars->pposx = (double)j;
 				pars->pposy = (double)i;
-				if (pars->map[i][j] == 'N')
-				{
-					pars->pdiry = -1;
-					pars->planex = PLANE_ANG_TO_DIR;
-				}
-				if (pars->map[i][j] == 'S')
-				{
-					pars->pdiry = 1;
-					pars->planex = -PLANE_ANG_TO_DIR;
-				}
-				if (pars->map[i][j] == 'W')
-				{
-					pars->pdirx = -1;
-					pars->planey = -PLANE_ANG_TO_DIR;
-				}
-				if (pars->map[i][j] == 'E')
-				{
-					pars->pdirx = 1;
-					pars->planey = PLANE_ANG_TO_DIR;
-				}
+				store_p_orientation(pars, i, j);
 				pars->map[i][j] = '0';
 			}
 		}

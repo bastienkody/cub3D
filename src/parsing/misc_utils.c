@@ -53,3 +53,28 @@ int	longest_line(char **map)
 			l_line = ft_strlen(map[i]);
 	return (l_line);
 }
+
+/*	set up player dir and plane according to spawn pos	*/
+void	store_p_orientation(t_parser *pars, int i, int j)
+{
+	if (pars->map[i][j] == 'N')
+	{
+		pars->pdiry = -1;
+		pars->planex = PLANE_ANG_TO_DIR;
+	}
+	if (pars->map[i][j] == 'S')
+	{
+		pars->pdiry = 1;
+		pars->planex = -PLANE_ANG_TO_DIR;
+	}
+	if (pars->map[i][j] == 'W')
+	{
+		pars->pdirx = -1;
+		pars->planey = -PLANE_ANG_TO_DIR;
+	}
+	if (pars->map[i][j] == 'E')
+	{
+		pars->pdirx = 1;
+		pars->planey = PLANE_ANG_TO_DIR;
+	}
+}

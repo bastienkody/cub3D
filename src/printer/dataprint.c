@@ -69,14 +69,13 @@ void	print_raycast(t_raycast *rc)
 	ft_fprintf(1, "side:%i\n", rc->side);
 	printf("pwall:%f\n", rc->pwall);
 	ft_fprintf(1, "lineh:%i, start%i, end%i\n", rc->lineh, rc->start, rc->end);
-	//printf("whatext:%i, wallx%f, xtext%i\n", rc->whatext, rc->wallx, rc->xtext);
+	printf("wallx%f, xtext%i\n", rc->wallx, rc->xtext);
 	ft_fprintf(1, "------------------------------------\n");
 }
 
-// shorter one lined output
 void	print_rc(t_raycast *rc)
 {
 	printf("ray:x:%.2f, y:%.2f | delta:x%.2f,y:%.2f | side:x%.2f,y:%.2f | \
-pwall:%.3f\n", rc->raydirx, rc->raydiry, rc->deltax, rc->deltay,\
+pwall:%.3f\n", rc->raydirx, rc->raydiry, rc->deltax, rc->deltay, \
 	rc->sidex, rc->sidey, rc->pwall);
 }

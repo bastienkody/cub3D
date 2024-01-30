@@ -66,7 +66,7 @@ might change hardware to fully enjoy the game :)"
 
 /*	num const	*/
 # define ALLOR 3
-# define TILE_S 1000
+# define TILE_S 64
 # define WIN_W 1920
 # define WIN_H 1010
 # define MENUBAR_H 70
@@ -259,6 +259,7 @@ t_parser	*main_parser(int argc, char **argv);
 int		get_texture(char *line, char **split, t_parser *pars);
 int		get_rgb(char *line, char **split, t_parser *pars);
 int		map_checker(t_parser *pars);
+void	store_p_orientation(t_parser *pars, int i, int j);
 
 /*	parsing utils	*/
 int		tab_len(char **tab);
