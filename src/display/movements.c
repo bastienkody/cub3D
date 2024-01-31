@@ -46,6 +46,7 @@ int	move_frontwards(t_info *info)
 		x_offset = info->posx + info->dirx * VELO_SPRINT;
 		y_offset = info->posy + info->diry * VELO_SPRINT;
 	}
+	printf("maptile[%f,%i][%f,%i]=%c\n", y_offset, (int)floor(y_offset), x_offset, (int)floor(x_offset), info->map[(int)floor(y_offset)][(int)floor(x_offset)]);
 	if (info->map[(int)floor(y_offset)][(int)floor(x_offset)] == '0')
 	{
 		info->posx = x_offset;
@@ -60,6 +61,7 @@ int	move_backwards(t_info *info)
 	const double	x_offset = info->posx - info->dirx * VELO_MOVE;
 	const double	y_offset = info->posy - info->diry * VELO_MOVE;
 
+	printf("maptile[%f,%i][%f,%i]=%c\n", y_offset, (int)floor(y_offset), x_offset, (int)floor(x_offset), info->map[(int)floor(y_offset)][(int)floor(x_offset)]);
 	if (info->map[(int)floor(y_offset)][(int)floor(x_offset)] == '0')
 	{
 		info->posx = x_offset;
