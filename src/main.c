@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bguillau <bguillau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maburnet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 16:23:33 by bguillau          #+#    #+#             */
-/*   Updated: 2023/10/13 16:25:19 by bguillau         ###   ########.fr       */
+/*   Updated: 2024/01/27 17:03:28 by maburnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ t_info	*pars_to_info(t_parser *pars)
 	info->posy = pars->pposy;
 	info->dirx = pars->pdirx;
 	info->diry = pars->pdiry;
+	info->angle = pars->pangle;
+	fprintf(stderr, "angle: %f\n", info->angle); //
 	info->planex = pars->planex;
 	info->planey = pars->planey;
 	info->floor = pars->floor_rgb;

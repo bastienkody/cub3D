@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   drawers.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bguillau <bguillau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maburnet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 16:37:30 by bguillau          #+#    #+#             */
-/*   Updated: 2023/11/17 16:37:32 by bguillau         ###   ########.fr       */
+/*   Updated: 2024/01/29 16:49:23 by maburnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*	draw a vertical colored line on img from (x, y[0]) to (x, y[1])	*/
 void	draw_vert_line(t_img *img, int x, int y[2], int color)
 {
-	while (++y[0] - 1 < y[1])
+	while (++y[0] - 1 < y[1]) //peux etre protection pour ne pas ecrire en dehors de 0-1920x et 0-1080y
 		pixel_w(img, x, y[0] - 1, color);
 }
 

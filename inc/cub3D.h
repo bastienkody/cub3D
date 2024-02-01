@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bguillau <bguillau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maburnet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 16:18:39 by bguillau          #+#    #+#             */
-/*   Updated: 2023/10/13 16:22:14 by bguillau         ###   ########.fr       */
+/*   Updated: 2024/01/29 16:29:21 by maburnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,10 @@ might change hardware to fully enjoy the game :)"
 # define CROUCH_VAL 300
 # define PLANE_ANG_TO_DIR 0.72
 
+# define PI 3.1415926535
+# define P2 PI/2
+# define P3 3*PI/2
+
 /*	minimap : 12x12 rects of tile 16x16	*/
 # define MNAP_TS 16
 # define MNAP_W 192
@@ -122,6 +126,9 @@ typedef struct s_raycast
 	double	raydiry;
 	double	sidex;
 	double	sidey;
+	double	playerx;
+	double	playery;
+	// double	playerang;
 	double	deltax;
 	double	deltay;
 	double	pwall;
@@ -158,6 +165,7 @@ typedef struct s_parser
 	int				pposy;
 	int				pdirx;
 	int				pdiry;
+	double			pangle;
 	double			planex;
 	double			planey;
 }				t_parser;
@@ -175,6 +183,7 @@ typedef struct s_info
 	double			posy;
 	double			dirx;
 	double			diry;
+	double			angle;
 	double			planex;
 	double			planey;
 	int				crouch;
@@ -208,6 +217,7 @@ void	draw_minimap(t_info *info);
 void	dda(t_raycast *rc, char **map);
 void	dda_prep(t_raycast *rc, double posx, double posy);
 int		raycast_launcher(t_info *info);
+int		new_raycast(t_info *info);
 
 /*	outro - pause */
 void	outro(t_info *info);

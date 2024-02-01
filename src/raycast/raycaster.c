@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ray.c                                              :+:      :+:    :+:   */
+/*   raycaster.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bguillau <bguillau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maburnet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 17:51:47 by bguillau          #+#    #+#             */
-/*   Updated: 2024/01/03 17:51:49 by bguillau         ###   ########.fr       */
+/*   Updated: 2024/01/29 16:47:49 by maburnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	raycast_launcher(t_info *info)
 	int			x;
 	double		camerax;
 
-	draw_rect(info->rc, (int []){0, 0}, (int []){WIN_W, WIN_H}, WHITE);
+	// draw_rect(info->rc, (int []){0, 0}, (int []){WIN_W, WIN_H}, WHITE); //no more white artefacts without this maybe needed tho ?
 	ft_bzero(&rc, sizeof(t_raycast));
 	x = -1;
 	while (++x < WIN_W)
@@ -95,3 +95,108 @@ int	raycast_launcher(t_info *info)
 	return (1);
 }
 
+int	wall_found(t_info *info, int mp)
+{
+	int	col;
+	int	line;
+
+	line = mp / info->mw;
+	col = mp % info->mw;
+	if (info->map[line][col] == '1')
+		return (fprintf(stderr, "FOUND WALL\n"), 1);
+	return (0);
+}
+
+int	new_raycast(t_info *info)
+{
+	t_raycast	rc;
+	int			rays;
+	int		mx, my, mp, dof; float rayx, rayy, rayangle, xoffset, yoffset;
+
+	rc.deltax = cos(info->angle) * 5;
+	rc.deltay = sin(info->angle) * 5;
+	rayangle = info->angle;
+	ft_bzero(&rc, sizeof(t_raycast));
+	rays = -1;
+	while (++rays < 1)
+	{
+		//---Check Horizontal Lines---
+		dof = 0; //depth of field
+		float aTan = -1/tan(rayangle);
+		if (rayangle > PI) //looking up
+		{
+			rayy = (((int)info->posy>>6)<<6) - 0.0001;
+			rayx = (info->posy - rayy) * aTan + info->posx;
+			yoffset = -64;
+			xoffset = -yoffset * aTan;
+		}
+		if (rayangle < PI) //looking down
+		{
+			rayy = (((int)info->posy>>6)<<6) + 64;
+			rayx = (info->posy - rayy) * aTan + info->posx;
+			yoffset = 64;
+			xoffset = -yoffset * aTan;
+		}
+		if (rayangle == 0 || rayangle == PI)
+		{
+			rayx = info->posx;
+			rayy = info->posy;
+			dof = 8;
+		}
+		while (dof < 8)
+		{
+			mx = (int) (rayx)>>6;
+			my = (int) (rayy)>>6;
+			mp = my * info->mw + mx;
+			fprintf(stderr, "mp %d\n", mp);
+			if (mp < info->mw * info->mh && wall_found(info, mp) == 1)
+				dof = 8;
+			else
+			{
+				rayx += xoffset;
+				rayy += yoffset;
+				dof++;
+			}
+		}
+		//---Check Vertical Lines---
+		dof = 0; //depth of field
+		float nTan = -tan(rayangle);
+		if (rayangle > P2 && rayangle < P3) //looking left
+		{
+			rayx = (((int)info->posx>>6)<<6) - 0.0001;
+			rayy = (info->posx - rayx) * nTan + info->posy;
+			yoffset = -64;
+			yoffset = xoffset * nTan;
+		}
+		if (rayangle < P2 || rayangle > P3) //looking right
+		{
+			rayx = (((int)info->posx>>6)<<6) + 64;
+			rayy = (info->posx - rayx) * nTan + info->posy;
+			xoffset = 64;
+			yoffset = -xoffset * nTan;
+		}
+		if (rayangle == 0 || rayangle == PI)
+		{
+			rayx = info->posx;
+			rayy = info->posy;
+			dof = 8;
+		}
+		while (dof < 8)
+		{
+			mx = (int) (rayx)>>6;
+			my = (int) (rayy)>>6;
+			mp = my * info->mw + mx;
+			fprintf(stderr, "mp %d\n", mp);
+			if (mp < info->mw * info->mh && wall_found(info, mp) == 1)
+				dof = 8;
+			else
+			{
+				rayx += xoffset;
+				rayy += yoffset;
+				dof++;
+			}
+		}
+	}
+	mlx_put_image_to_window(info->ptr, info->win, info->rc->ptr, 0, 0);
+	return (1);
+}

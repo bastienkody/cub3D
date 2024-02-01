@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movements.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bastienguillaume <marvin@42.fr>            +#+  +:+       +#+        */
+/*   By: maburnet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/30 15:49:58 by bastienguilla     #+#    #+#             */
-/*   Updated: 2023/12/30 15:50:01 by bastienguilla    ###   ########.fr       */
+/*   Created: 2023/12/30 15:49:58 by bastienguil       #+#    #+#             */
+/*   Updated: 2024/01/29 16:41:02 by maburnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,18 @@ int	rotate(__attribute__((unused)) int keycode, t_info *info)
 	const double	oldplanex = info->planex;
 	double			ang;
 
+	if (keycode == XK_Right)
+	{
+		info->angle += 0.1;
+		if (info->angle > 2 * PI)
+			info->angle -= 2 * PI;
+	}
+	else
+	{
+		info->angle -= 0.1;
+		if (info->angle < 0)
+			info->angle += 2 * PI;
+	}
 	ang = -VELO_R;
 	if (keycode == XK_Right)
 		ang = VELO_R;
@@ -26,6 +38,7 @@ int	rotate(__attribute__((unused)) int keycode, t_info *info)
 	info->diry = oldir_x * sin(ang) + info->diry * cos(ang);
 	info->planex = info->planex * cos(ang) - info->planey * sin(ang);
 	info->planey = oldplanex * sin(ang) + info->planey *cos(ang);
+	fprintf(stderr, "Debug: ang %f, dirx %f, diry %f\ninfo->angle %f\n", ang, info->dirx, info->dirx, info->angle);
 	return (1);
 }
 
@@ -106,6 +119,8 @@ void key_movement(int keycode, t_info *info)
 	if (!redraw)
 		return ;
 	raycast_launcher(info);
+	//
+	// new_raycast(info);
 	draw_minimap(info);
 }
 

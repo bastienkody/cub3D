@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_check.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bguillau <bguillau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maburnet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 17:53:00 by bguillau          #+#    #+#             */
-/*   Updated: 2023/11/01 17:53:06 by bguillau         ###   ########.fr       */
+/*   Updated: 2024/01/27 17:01:57 by maburnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,21 +80,25 @@ void	store_p_pos(t_parser *pars)
 				if (pars->map[i][j] == 'N')
 				{
 					pars->pdiry = -1;
+					pars->pangle = PI / 2;
 					pars->planex = PLANE_ANG_TO_DIR;
 				}
 				if (pars->map[i][j] == 'S')
 				{
 					pars->pdiry = 1;
+					pars->pangle = (3 * PI) / 2;
 					pars->planex = -PLANE_ANG_TO_DIR;
 				}
 				if (pars->map[i][j] == 'W')
 				{
 					pars->pdirx = -1;
+					pars->pangle = PI;
 					pars->planey = -PLANE_ANG_TO_DIR;
 				}
 				if (pars->map[i][j] == 'E')
 				{
 					pars->pdirx = 1;
+					pars->pangle = 0;
 					pars->planey = PLANE_ANG_TO_DIR;
 				}
 				pars->map[i][j] = '0';

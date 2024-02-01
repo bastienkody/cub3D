@@ -13,7 +13,7 @@
 #define w 1920
 #define h 1080
 
-Uint32 buffer[screenHeight][screenWidth];
+Uint32 worldMap[screenHeight][screenWidth];
 
 int main(void)
 {
