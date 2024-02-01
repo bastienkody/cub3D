@@ -22,13 +22,13 @@ int	is_this_edge_a_wall(char **map, int i, int j)
 			return (print_error(BAD_WALL, NULL), 0);
 	if (map[i][j] == '2')
 	{
-		if (i > 0 && map[i - 1][j] == '0')
+		if (i > 0 && map[i - 1][j] != '1' && map[i - 1][j] != '2')
 			return (print_error(BAD_SPACE, map[i]), 0);
-		if (i < y_len - 1 && map[i + 1][j] == '0')
+		if (i < y_len - 1 && map[i + 1][j] != '1' && map[i + 1][j] != '2')
 			return (print_error(BAD_SPACE, map[i]), 0);
-		if (j > 0 && map[i][j - 1] == '0')
+		if (j > 0 && map[i][j - 1] != '1' && map[i][j - 1] != '2')
 			return (print_error(BAD_SPACE, map[i]), 0);
-		if (j < x_len - 1 && map[i][j + 1] == '0')
+		if (j < x_len - 1 && map[i][j + 1] != '1' && map[i][j + 1] != '2')
 			return (print_error(BAD_SPACE, map[i]), 0);
 	}
 	return (1);
