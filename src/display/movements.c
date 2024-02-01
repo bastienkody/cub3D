@@ -12,7 +12,17 @@
 
 #include "../../inc/cub3D.h"
 
-/*	always possible to rotate	*/
+/*
+	Movements collision : only move if possible in x AND y. We may enable a
+	'wall slide' effect by checking and updatating each direction separetly
+	FRONT/BACK move dir : using player dir vector (=where player faces)
+	LEFT/RIGHT : using player camera plane (=perfect perpendicular to dir)
+	ROTATE : always possible
+	GLITCH : impossible to get outside of map ; glitch to floor handled by
+	checking : both int(floor(x)) and int(floor(y)) must change (=forcement en 
+	diagonale) and perpendicular walls presence top left + top right (from pov)
+*/
+
 int	rotate(int keycode, t_info *info)
 {
 	const double	oldir_x = info->dirx;
@@ -29,26 +39,24 @@ int	rotate(int keycode, t_info *info)
 	return (1);
 }
 
-/*	FRONT/BACK/SIDE Movements collision : only move if possible in x AND y
-	This can be changed by checking and updatating each direction separetly 
-	Dont know whats better lets discuss together	*/
-
-/*	sprint only in forwrd movement (keys[6] == Lshift)	*/
-int	move_frontwards(t_info *info)
+int	wall_glitch(t_info *info, int x_offset, int y_offset)
 {
-	double	x_offset;
-	double	y_offset;
+	const int	x = (int)floor(info->posx);
+	const int	y = (int)floor(info->posy);
 
-	x_offset = info->posx + info->dirx * VELO_MOVE;
-	y_offset = info->posy + info->diry * VELO_MOVE;
-	if (info->keys[6])
-	{
-		x_offset = info->posx + info->dirx * VELO_SPRINT;
-		y_offset = info->posy + info->diry * VELO_SPRINT;
-	}
-	printf("maptile[%f,%i][%f,%i]=%c\n", y_offset, (int)floor(y_offset), x_offset, (int)floor(x_offset), info->map[(int)floor(y_offset)][(int)floor(x_offset)]);
+	if (x_offset == x || y_offset == y)
+		return (0);
+	if (info->map[y_offset][x] == '1' && info->map[y][x_offset] == '1')
+		return (1);
+	return (0);
+}
+
+int	move(t_info *info, double x_offset, double y_offset)
+{
 	if (info->map[(int)floor(y_offset)][(int)floor(x_offset)] == '0')
 	{
+		if (wall_glitch(info, (int)floor(x_offset), (int)floor(y_offset)))
+			return (printf("Wall glitch aborted\n"), 0);
 		info->posx = x_offset;
 		info->posy = y_offset;
 		return (1);
@@ -56,63 +64,29 @@ int	move_frontwards(t_info *info)
 	return (0);
 }
 
-int	move_backwards(t_info *info)
-{
-	const double	x_offset = info->posx - info->dirx * VELO_MOVE;
-	const double	y_offset = info->posy - info->diry * VELO_MOVE;
-
-	printf("maptile[%f,%i][%f,%i]=%c\n", y_offset, (int)floor(y_offset), x_offset, (int)floor(x_offset), info->map[(int)floor(y_offset)][(int)floor(x_offset)]);
-	if (info->map[(int)floor(y_offset)][(int)floor(x_offset)] == '0')
-	{
-		info->posx = x_offset;
-		info->posy = y_offset;
-		return (1);
-	}
-	return (0);
-}
-
-/*	side via player plane (always perpendiculaire to player dir)	*/
-int	move_sides(int keycode, t_info *info)
-{
-	double	offset[2];
-
-	if (keycode == XK_a)
-	{
-		offset[0] = info->posx - info->planex * VELO_MOVE;
-		offset[1] = info->posy - info->planey * VELO_MOVE;
-		if (info->map[(int)floor(offset[1])][(int)floor(offset[0])] == '0')
-		{
-			info->posx = offset[0];
-			info->posy = offset[1];
-			return (1);
-		}
-	}
-	else if (keycode == XK_d)
-	{
-		offset[0] = info->posx + info->planex * VELO_MOVE;
-		offset[1] = info->posy + info->planey * VELO_MOVE;
-		if (info->map[(int)floor(offset[1])][(int)floor(offset[0])] == '0')
-		{
-			info->posx = offset[0];
-			info->posy = offset[1];
-			return (1);
-		}
-	}
-	return (0);
-}
-
-/*	redraw raycast only if player has moved/turned	*/
+/*	no need to redraw raycast if player could not moved/turned
+	directionnal sprint: add '&& keycode == W' apres le check du shift	*/
 void	key_movement(int keycode, t_info *info)
 {
 	bool	redraw;
+	double	speed;
 
 	redraw = false;
+	speed = VELO_MOVE;
+	if (info->keys[6])
+		speed = VELO_SPRINT;
 	if (keycode == XK_w)
-		redraw = move_frontwards(info);
+		redraw = move(info, info->posx + info->dirx * speed, \
+		info->posy + info->diry * speed);
 	else if (keycode == XK_s)
-		redraw = move_backwards(info);
-	else if ((keycode == XK_a || keycode == XK_d))
-		redraw = move_sides(keycode, info);
+		redraw = move(info, info->posx - info->dirx * speed, \
+		info->posy - info->diry * speed);
+	else if (keycode == XK_a)
+		redraw = move(info, info->posx - info->planex * speed, \
+		info->posy - info->planey * speed);
+	else if (keycode == XK_d)
+		redraw = move(info, info->posx + info->planex * speed, \
+		info->posy + info->planey * speed);
 	else
 		redraw = rotate(keycode, info);
 	if (!redraw)

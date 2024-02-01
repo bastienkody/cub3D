@@ -73,9 +73,9 @@ might change hardware to fully enjoy the game :)"
 # define PLAYER_ICON_TO_MMAP_TILE_RATIO 10
 
 /*	player velocity	*/
-# define VELO_MOVE 0.005
+# define VELO_MOVE 0.05
 # define VELO_SPRINT 0.15
-# define VELO_ROTATE M_PI/48/8
+# define VELO_ROTATE M_PI/48
 
 /*	raycast	*/
 # define PITCH 0
