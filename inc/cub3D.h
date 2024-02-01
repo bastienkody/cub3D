@@ -132,8 +132,8 @@ typedef struct s_parser
 	t_bool			ceil;
 	unsigned int	ceil_rgb;
 	t_bool			floor;
-	int				pposx;
-	int				pposy;
+	double				pposx;
+	double				pposy;
 	int				pdirx;
 	int				pdiry;
 	double			planex;

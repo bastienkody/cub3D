@@ -20,7 +20,7 @@ int	open_config_file(int argc, char **argv)
 	if (argc != 2)
 		return (print_error(BAD_ARG_NB, NULL), -1);
 	path = argv[1];
-	if (ft_strlen(path) < 5 || ft_strcmp(&path[ft_strlen(path) -4], ".cub"))
+	if (ft_strlen(path) < 5 || ft_strcmp(&path[ft_strlen(path) - 4], ".cub"))
 		return (print_error(BAD_CONFIG_NAME, NULL), -2);
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
