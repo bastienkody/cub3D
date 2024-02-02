@@ -6,7 +6,7 @@
 /*   By: maburnet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 17:51:47 by bguillau          #+#    #+#             */
-/*   Updated: 2024/01/29 16:47:49 by maburnet         ###   ########.fr       */
+/*   Updated: 2024/02/01 22:29:15 by maburnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,4 +199,101 @@ int	new_raycast(t_info *info)
 	}
 	mlx_put_image_to_window(info->ptr, info->win, info->rc->ptr, 0, 0);
 	return (1);
+}
+
+int	check_hit(t_info *info, t_raycast *rc)
+{
+	int	hit;
+
+	hit = 0;
+	while (hit == 0)
+	{
+		if (rc->side < rc->sidey)
+		{
+			rc->sidex += rc->deltax;
+			rc->mapx += rc->stepx;
+			rc->side = 0;
+		}
+		else
+		{
+			rc->sidey += rc->deltay;
+			rc->mapy += rc->stepy;
+			rc->side = 1;
+		}
+		if (info->map[rc->mapx][rc->mapy] == '1')
+			hit = 1;
+	}
+	return (0);
+}
+
+int	line_height(t_info *info, t_raycast *rc)
+{
+	if (rc->side = 0)
+		rc->pwall = rc->sidex - rc->deltax;
+	else
+		rc->pwall = rc->sidey - rc->deltay;
+	rc->lineh = (int)(WIN_H / rc->pwall);
+
+	rc->start = -rc->lineh / 2 + WIN_H / 2;
+	if (rc->start < 0)
+		rc->start = 0;
+	rc->end = rc->lineh / 2 + WIN_H / 2;
+	if (rc->end >= WIN_H)
+		rc->end = WIN_H - 1;
+	rc->whatext = 
+	return (0);
+}
+//
+int	raycasting(t_info *info)
+{
+	t_raycast rc;
+	int	x;
+	double	time;
+	double	oldTime;
+
+	time = 0;
+	oldTime = 0;
+	x = -1;
+	ft_bzero(&rc, sizeof(t_raycast));
+	while (++x < WIN_W)
+	{
+		rc.camerax = 2 * x / (double)WIN_W - 1;
+		rc.raydirx = info->dirx + info->planex * rc.camerax;
+		rc.raydiry = info->diry + info->planey * rc.camerax;
+
+		rc.mapx = int(info->posx);
+		rc.mapy = int(info->posy);
+
+		if (rc.raydirx == 0)
+			rc.deltax = 1e30;
+		else
+			rc.deltax = abs(1 / rc.raydirx);
+		if (rc.raydiry == 0)
+			rc.deltay = 1e30;
+		else
+			rc.deltay = abs(1 / rc.raydiry);
+		if (rc.raydirx < 0)
+		{
+			rc.start = -1;
+			rc.sidex = (info->posx - rc.mapx) * rc.deltax;
+		}
+		else
+		{
+			rc.stepx = 1;
+			rc.sidex = (rc.mapx + 1.0 - info->posx) * rc.deltax;
+		}
+		if (rc.raydiry < 0)
+		{
+			rc.stepy = -1;
+			rc.sidey = (info->posy - rc.mapy) * rc.deltay;
+		}
+		else
+		{
+			rc.stepy = 1;
+			rc.sidey = (rc.mapy + 1.0 - info->posy) * rc.deltay;
+		}
+		check_hit(info, &rc);
+		line_height(info, &rc);
+
+	}
 }

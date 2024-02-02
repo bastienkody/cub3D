@@ -81,7 +81,7 @@ int main(int /*argc*/, char */*argv*/[])
   screen(screenWidth, screenHeight, 0, "Raycaster");
   while(!done())
   {
-    for(int x = 0; x < w; x++)
+    for(int x = 0; x < w; x++) //w is width of screen
     {
       //calculate ray position and direction
       double cameraX = 2 * x / (double)w - 1; //x-coordinate in camera space
@@ -174,7 +174,7 @@ int main(int /*argc*/, char */*argv*/[])
       if(drawStart < 0) drawStart = 0;
       int drawEnd = lineHeight / 2 + h / 2;
       if(drawEnd >= h) drawEnd = h - 1;
-
+		/////////// STOPPED HERE
       //choose wall color
       ColorRGB color;
       switch(worldMap[mapX][mapY])

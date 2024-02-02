@@ -6,7 +6,7 @@
 /*   By: maburnet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 16:18:39 by bguillau          #+#    #+#             */
-/*   Updated: 2024/01/29 16:29:21 by maburnet         ###   ########.fr       */
+/*   Updated: 2024/02/01 22:05:25 by maburnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,8 @@ typedef struct s_raycast
 	double	sidey;
 	double	playerx;
 	double	playery;
+	double	camerax;
+	double	cameray;
 	// double	playerang;
 	double	deltax;
 	double	deltay;
