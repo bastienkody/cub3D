@@ -40,7 +40,7 @@ int	key_inputs(int keycode, t_info *info)
 		else if (keycode == XK_Escape)
 			end_free(info);
 	}
-	else if (keycode == XK_Escape)
+	else if (keycode == XK_Escape) //maybe some problems with Espace menu
 		return (info->is_outro = !info->is_outro, 1);
 	else if (keycode == XK_m)
 		info->is_maximap = !info->is_maximap;

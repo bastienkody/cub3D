@@ -27,7 +27,7 @@ t_info	*pars_to_info(t_parser *pars)
 	info->dirx = pars->pdirx;
 	info->diry = pars->pdiry;
 	info->angle = pars->pangle;
-	fprintf(stderr, "angle: %f\n", info->angle); //
+	// fprintf(stderr, "angle: %f\n", info->angle); //
 	info->planex = pars->planex;
 	info->planey = pars->planey;
 	info->floor = pars->floor_rgb;

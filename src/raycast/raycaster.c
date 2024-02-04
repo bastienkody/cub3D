@@ -31,13 +31,13 @@ void	post_dda_calculations(t_raycast *rc, t_info *info)
 	// what texture ? change to nsew selection ?
 	rc->whatext = info->map[rc->mapy][rc->mapx] - 1;
 	// where on the texture exactly
-	rc->wallx = info->posx + rc->pwall *rc->raydirx;
+	rc->wallx = info->posx + rc->pwall * rc->raydirx;
 	if (rc->side == 0)
 		rc->wallx = info->posy + rc->pwall * rc->raydiry;
 	rc->wallx -= floor(rc->wallx); // nsp
 	// texture x pos
 	rc->xtext = (int)(rc->wallx * (double)TILE_S);
-	if ((rc->side == 0 && rc->raydirx > 0) || (rc->side == 1 && rc->raydiry < 0))
+	if ((rc->side == 0 && rc->raydirx < 0) || (rc->side == 1 && rc->raydiry > 0))
 		rc->xtext = TILE_S - rc->xtext - 1; // a creuser aussi
 }
 
@@ -74,11 +74,12 @@ int	raycast_launcher(t_info *info)
 	int			x;
 	double		camerax;
 
-	// draw_rect(info->rc, (int []){0, 0}, (int []){WIN_W, WIN_H}, WHITE); //no more white artefacts without this maybe needed tho ?
+	draw_rect(info->rc, (int []){0, 0}, (int []){WIN_W, WIN_H}, WHITE); //no more white artefacts without this maybe needed tho ?
 	ft_bzero(&rc, sizeof(t_raycast));
 	x = -1;
 	while (++x < WIN_W)
 	{
+		rc.ray = x;
 		camerax = 2 * x / (double)WIN_W - 1;
 		rc.mapx = (int)info->posx;
 		rc.mapy = (int)info->posy;
@@ -226,9 +227,9 @@ int	check_hit(t_info *info, t_raycast *rc)
 	return (0);
 }
 
-int	line_height(t_info *info, t_raycast *rc)
+int	line_height(t_raycast *rc)
 {
-	if (rc->side = 0)
+	if (rc->side == 0)
 		rc->pwall = rc->sidex - rc->deltax;
 	else
 		rc->pwall = rc->sidey - rc->deltay;
@@ -240,7 +241,7 @@ int	line_height(t_info *info, t_raycast *rc)
 	rc->end = rc->lineh / 2 + WIN_H / 2;
 	if (rc->end >= WIN_H)
 		rc->end = WIN_H - 1;
-	rc->whatext = 
+	// rc->whatext = 
 	return (0);
 }
 //
@@ -261,17 +262,17 @@ int	raycasting(t_info *info)
 		rc.raydirx = info->dirx + info->planex * rc.camerax;
 		rc.raydiry = info->diry + info->planey * rc.camerax;
 
-		rc.mapx = int(info->posx);
-		rc.mapy = int(info->posy);
+		rc.mapx = (int)(info->posx);
+		rc.mapy = (int)(info->posy);
 
 		if (rc.raydirx == 0)
 			rc.deltax = 1e30;
 		else
-			rc.deltax = abs(1 / rc.raydirx);
+			rc.deltax = fabs(1 / rc.raydirx);
 		if (rc.raydiry == 0)
 			rc.deltay = 1e30;
 		else
-			rc.deltay = abs(1 / rc.raydiry);
+			rc.deltay = fabs(1 / rc.raydiry);
 		if (rc.raydirx < 0)
 		{
 			rc.start = -1;
@@ -293,7 +294,7 @@ int	raycasting(t_info *info)
 			rc.sidey = (rc.mapy + 1.0 - info->posy) * rc.deltay;
 		}
 		check_hit(info, &rc);
-		line_height(info, &rc);
-
+		line_height(&rc);
 	}
+	return (0);
 }

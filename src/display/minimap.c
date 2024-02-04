@@ -32,6 +32,7 @@ void	draw_north_symbol(t_img *minimap)
 	- draw blue border (double lined)
 	- mlx_put_img_to_win
 */
+
 void	draw_minimap(t_info *info)
 {
 	int			x;

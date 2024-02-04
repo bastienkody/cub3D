@@ -117,6 +117,7 @@ typedef unsigned int	uint;
 
 typedef struct s_raycast
 {
+	int		ray;
 	int		mapx;
 	int		mapy;
 	int		stepx;
@@ -130,7 +131,6 @@ typedef struct s_raycast
 	double	playery;
 	double	camerax;
 	double	cameray;
-	// double	playerang;
 	double	deltax;
 	double	deltay;
 	double	pwall;
@@ -140,7 +140,6 @@ typedef struct s_raycast
 	int		whatext;
 	double	wallx;
 	int		xtext;
-
 }				t_raycast;
 
 typedef struct s_img
