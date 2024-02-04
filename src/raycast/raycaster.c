@@ -44,13 +44,13 @@ void	post_dda_calculations(t_raycast *rc, t_info *info)
 			rc->whatext = info->s_text;
 	}
 	// where on the texture exactly
-	rc->wallx = info->posx + rc->pwall *rc->raydirx;
+	rc->wallx = info->posx + rc->pwall * rc->raydirx;
 	if (rc->side == 0)
 		rc->wallx = info->posy + rc->pwall * rc->raydiry;
 	rc->wallx -= floor(rc->wallx); // nsp
 	// texture x pos
 	rc->xtext = (int)(rc->wallx * (double)TILE_S);
-	if ((rc->side == 0 && rc->raydirx > 0) || (rc->side == 1 && rc->raydiry < 0))
+	if ((rc->side == 0 && rc->raydirx < 0) || (rc->side == 1 && rc->raydiry > 0))
 		rc->xtext = TILE_S - rc->xtext - 1; // a creuser aussi
 }
 
