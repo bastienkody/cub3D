@@ -19,7 +19,8 @@ PRINT_FILES	=	error.c\
 				dataprint.c
 DISP_FILES	=	init.c\
 				image_utils.c\
-				drawers.c\
+				draw_rect.c\
+				draw_line.c\
 				movements.c\
 				hooks.c\
 				displayer.c\
