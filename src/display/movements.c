@@ -56,7 +56,7 @@ int	move(t_info *info, double x_offset, double y_offset)
 	if (info->map[(int)floor(y_offset)][(int)floor(x_offset)] == '0')
 	{
 		if (wall_glitch(info, (int)floor(x_offset), (int)floor(y_offset)))
-			return (printf("Wall glitch aborted\n"), 0);
+			return (0);
 		info->posx = x_offset;
 		info->posy = y_offset;
 		return (1);

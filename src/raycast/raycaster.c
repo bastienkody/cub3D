@@ -12,23 +12,8 @@
 
 #include "../../inc/cub3D.h"
 
-void	post_dda_calculations(t_raycast *rc, t_info *info)
+void	choose_texture(t_raycast *rc, t_info *info)
 {
-	// distance to wall
-	rc->pwall = rc->sidex - rc->deltax;
-	if (rc->side == 1)
-		rc->pwall = rc->sidey - rc->deltay;
-	if (rc->pwall == 0)
-		rc->pwall = 1;
-	rc->lineh = (int)(((double)WIN_H * 1.25) / rc->pwall);
-	// start/end of texture drawings within line
-	rc->start = -rc->lineh / 2 + WIN_H / 2 + PITCH;
-	rc->end = rc->lineh / 2 + WIN_H / 2 + PITCH;
-	if (rc->start < 0)
-		rc->start = 0;
-	if (rc->end >= WIN_H)
-		rc->end = WIN_H ;
-	// what texture ? change to nsew selection ?
 	if (rc->side == 0)
 	{
 		if (rc->raydirx < 0)
@@ -43,42 +28,51 @@ void	post_dda_calculations(t_raycast *rc, t_info *info)
 		else
 			rc->whatext = info->s_text;
 	}
-	// where on the texture exactly
+}
+
+void	post_dda_calculations(t_raycast *rc, t_info *info)
+{
+	rc->pwall = rc->sidex - rc->deltax;
+	if (rc->side == 1)
+		rc->pwall = rc->sidey - rc->deltay;
+	if (rc->pwall == 0)
+		rc->pwall = 1;
+	rc->lineh = (int)(((double)WIN_H * 1.25) / rc->pwall);
+	rc->start = -rc->lineh / 2 + WIN_H / 2;
+	rc->end = rc->lineh / 2 + WIN_H / 2;
+	if (rc->start < 0)
+		rc->start = 0;
+	if (rc->end >= WIN_H)
+		rc->end = WIN_H ;
+	choose_texture(rc, info);
 	rc->wallx = info->posx + rc->pwall * rc->raydirx;
 	if (rc->side == 0)
 		rc->wallx = info->posy + rc->pwall * rc->raydiry;
-	rc->wallx -= floor(rc->wallx); // nsp
-	// texture x pos
+	rc->wallx -= floor(rc->wallx);
 	rc->xtext = (int)(rc->wallx * (double)TILE_S);
-	if ((rc->side == 0 && rc->raydirx < 0) || (rc->side == 1 && rc->raydiry > 0))
-		rc->xtext = TILE_S - rc->xtext - 1; // a creuser aussi
+	if ((!rc->side && rc->raydirx < 0) || (rc->side == 1 && rc->raydiry > 0))
+		rc->xtext = TILE_S - rc->xtext - 1;
 }
 
-void draw_raycast(t_raycast *rc, t_info *info, int x)
+void	draw_raycast(t_raycast *rc, t_info *info, int x)
 {
-	unsigned int	color; // color of the texture
+	unsigned int	color;
 	const double	step = (double)TILE_S / (double)rc->lineh;
 	double			textpos;
 	int				ytext;
 	int				y;
 
-	textpos = (double)(rc->start - PITCH - WIN_H / 2 + (double)rc->lineh / 2) * step;
+	textpos = (double)(rc->start - WIN_H / 2 + (double)rc->lineh / 2) * step;
 	y = rc->start - 1;
 	while (++y < rc->end)
 	{
-		ytext = (int)textpos; // nsp necessaire ?
+		ytext = (int)textpos;
 		textpos += step;
-		//printf("textel x%i, y%i (texpos%f) | ", rc->xtext, ytext, textpos);
 		color = get_color(rc->whatext, rc->xtext, ytext);
-		//printf("pixelw x%i, y%i, color %x\n", x, y, color);
 		pixel_w(info->rc, x, y, color);
 	}
 	draw_vert_line(info->rc, x, (int []){0, rc->start}, info->ceil);
-	if (rc->end < WIN_H)
-	{
-		//printf("rc->end - crouch:%i\n", rc->end - info->crouch);
-		draw_vert_line(info->rc, x, (int []){rc->end, WIN_H}, info->floor);
-	}
+	draw_vert_line(info->rc, x, (int []){rc->end, WIN_H}, info->floor);
 }
 
 int	raycast_launcher(t_info *info)
@@ -100,12 +94,9 @@ int	raycast_launcher(t_info *info)
 		dda_prep(&rc, info->posx, info->posy);
 		dda(&rc, info->map);
 		post_dda_calculations(&rc, info);
-		//printf("x:%i (xcam%f), lih:%i (start%i end%i) ", x, camerax, rc.lineh, rc.start, rc.end);
-		//print_rc(&rc);
 		draw_raycast(&rc, info, x);
 	}
 	mlx_put_image_to_window(info->ptr, info->win, info->rc->ptr, 0, 0);
 	draw_minimap(info);
 	return (1);
 }
-
