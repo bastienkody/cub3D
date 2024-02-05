@@ -18,6 +18,8 @@ int	ft_atouc_novf(const char *nptr, unsigned char *nb)
 {
 	unsigned	old_nb;
 
+	if (ft_strlen(nptr) > 3 || ft_atoi(nptr) > 255)
+		return (0);
 	if (*nptr == '+')
 		nptr++;
 	*nb = 0;
