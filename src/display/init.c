@@ -32,7 +32,6 @@ xpm", WIN_W, WIN_H);
 	info->maximap = create_image(info->ptr, WIN_W, WIN_H);
 	info->minimap = create_image(info->ptr, MNAP_W, MNAP_H);
 	info->rc = create_image(info->ptr, WIN_W, WIN_H);
-	info->rc_buf = create_image(info->ptr, WIN_W, WIN_H);
 }
 
 int	check_textures_load(t_info *info)
@@ -45,7 +44,7 @@ int	check_textures_load(t_info *info)
 		!info->s_text->ptr || !info->w_text || !info->w_text->ptr || \
 		!info->e_text || !info->e_text->ptr || !info->minimap || \
 		!info->minimap->ptr || !info->maximap || !info->maximap->ptr || \
-		!info->rc || !info->rc->ptr || !info->rc_buf || !info->rc_buf->ptr)
+		!info->rc || !info->rc->ptr)
 		return (0);
 	return (1);
 }

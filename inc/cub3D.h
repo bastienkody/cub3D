@@ -112,6 +112,16 @@ might change hardware to fully enjoy the game :)"
 typedef bool			t_bool;
 typedef unsigned int	t_uint;
 
+typedef struct s_bresenham
+{
+	int	dx;
+	int	dy;
+	int	sx;
+	int	sy;
+	int	err;
+	int	err2;
+}				t_bresenham;
+
 typedef struct s_img
 {
 	void	*ptr;
@@ -132,8 +142,8 @@ typedef struct s_parser
 	t_bool			ceil;
 	unsigned int	ceil_rgb;
 	t_bool			floor;
-	double				pposx;
-	double				pposy;
+	double			pposx;
+	double			pposy;
 	int				pdirx;
 	int				pdiry;
 	double			planex;
@@ -195,7 +205,6 @@ typedef struct s_info
 	t_img			*minimap;
 	t_img			*maximap;
 	t_img			*rc;
-	t_img			*rc_buf;
 	bool			keys[7];
 }				t_info;
 
@@ -241,7 +250,7 @@ int			key_inputs(int keycode, t_info *info);
 
 /*	drawers	*/
 void		pixel_w(t_img *img, int x, int y, int color);
-uint		get_color(t_img *img, int x, int y);
+t_uint		get_color(t_img *img, int x, int y);
 void		img_to_img(t_img *src, t_img *dst, int og[2], int dim[2]);
 void		draw_line(t_img *img, int a[2], int b[2], int color);
 void		draw_vert_line(t_img *img, int x, int y[2], int color);

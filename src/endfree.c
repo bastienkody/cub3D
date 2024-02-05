@@ -36,7 +36,6 @@ void	all_textures_cleanup(t_info *info)
 	unload_texture(info->ptr, info->outro[1]);
 	unload_texture(info->ptr, info->outro[2]);
 	unload_texture(info->ptr, info->rc);
-	unload_texture(info->ptr, info->rc_buf);
 }
 
 void	end_parser(t_parser *pars)
