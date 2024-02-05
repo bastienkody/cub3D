@@ -43,7 +43,7 @@ void	draw_cone_raycast(t_info *info)
 
 	ft_bzero(&rc, sizeof(t_raycast));
 	x = -1;
-	while (++x < WIN_H)
+	while (++x < WIN_W)
 	{
 		mini_raycast_calculation(info, &rc, x);
 		xpos = (rc.raydirx * rc.pwall * MNAP_TS);

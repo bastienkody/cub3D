@@ -78,8 +78,7 @@ might change hardware to fully enjoy the game :)"
 # define VELO_ROTATE M_PI/48/3
 
 /*	raycast	*/
-# define PITCH 0
-# define CROUCH_VAL 300
+# define PITCH 10
 # define PLANE_ANG_TO_DIR 0.66
 
 /*	minimap : 12x12 rects of tile 16x16	*/
