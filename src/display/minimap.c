@@ -12,6 +12,32 @@
 
 #include "../../inc/cub3D.h"
 
+
+void ddraw_line(t_img *img, int x0, int y0, int x1, int y1, int color)
+{
+	int dx = abs(x1 - x0);
+	int dy = abs(y1 - y0);
+	int sx = x0 < x1 ? 1 : -1;
+	int sy = y0 < y1 ? 1 : -1;
+	int err = (dx > dy ? dx : -dy) / 2;
+	int e2;
+
+	while (x0 != x1 || y0 != y1)
+	{
+		//printf("drawline point(%d, %d)\n", x0, y0);
+		pixel_w(img, x0, y0, color);
+		e2 = err;
+		if (e2 > -dx) { 
+			err -= dy; 
+			x0 += sx; 
+		}
+		if (e2 < dy) { 
+			err += dx; 
+			y0 += sy; 
+		}
+	}
+}
+
 /*	192x192 screen on win at 20,20, ppos centered
 	- draw black bg
 	- draw floor rect (16x16)
@@ -27,30 +53,38 @@ void draw_cone_raycast(t_info *info)
 	double		camerax;
 
 	ft_bzero(&rc, sizeof(t_raycast));
-	x =  WIN_H / 2;
-	camerax = 2 * x / (double)WIN_W - 1;
-	rc.mapx = (int)info->posx;
-	rc.mapy = (int)info->posy;
-	rc.raydirx = info->dirx + info->planex * camerax;
-	rc.raydiry = info->diry + info->planey * camerax;
-	dda_prep(&rc, info->posx, info->posy);
-	dda(&rc, info->map);
-	if (rc.side == 0)
+	x = -1;
+	while (++x < WIN_H)
 	{
-		rc.pwall = rc.sidex - rc.deltax;
-		//printf("sid0: x%f, pwall%f, raydirx%f, raydiry%f\n", camerax, rc.pwall, rc.raydirx, rc.raydiry);
+		camerax = 2 * x / (double)WIN_W - 1;
+		rc.mapx = (int)info->posx;
+		rc.mapy = (int)info->posy;
+		rc.raydirx = info->dirx + info->planex * camerax;
+		rc.raydiry = info->diry + info->planey * camerax;
+		dda_prep(&rc, info->posx, info->posy);
+		dda(&rc, info->map);
+
+		if (rc.side == 0)
+		{
+			rc.pwall = rc.sidex - rc.deltax;
+			//printf("sid0: x%f, pwall%f, raydirx%f, raydiry%f\n", camerax, rc.pwall, rc.raydirx, rc.raydiry);
+		}
+		else
+		{
+			rc.pwall = rc.sidey - rc.deltay;
+			//printf("sid1: x%f, pwall%f, raydirx%f, raydiry%f\n", camerax, rc.pwall, rc.raydirx, rc.raydiry);
+		}
+		int a[2] = {96, 96};
+		double xpos =(rc.raydirx * MNAP_TS);
+		double ypos = (rc.raydiry * MNAP_TS);
+		int b[2] =  {a[0] + (int)floor(xpos), a[1] + (int)floor(ypos)};
+		printf("drawline from %i,%i to %i,%i\n", a[0], a[1], b[0], b[1]);
+		if (b[0] > 191)
+			printf("b[0]%i, lowered to 191\n", b[0]), b[0] = 191; 
+		if (b[1] > 191)
+			printf("b[1]%i, lowered to 191\n", b[1]), b[1] = 191;
+		ddraw_line(info->minimap, a[0], a[1], b[0], b[1], RED);
 	}
-	else
-	{
-		rc.pwall = rc.sidey - rc.deltay;
-		//printf("sid1: x%f, pwall%f, raydirx%f, raydiry%f\n", camerax, rc.pwall, rc.raydirx, rc.raydiry);
-	}
-	int a[2] = {5 * MNAP_TS + MNAP_TS / 3, 5 * MNAP_TS + MNAP_TS / 3};
-	double xpos =(rc.mapx * MNAP_TS );
-	double ypos = (rc.mapy * MNAP_TS);
-	int b[2] =  {a[0] + (int)floor(xpos), a[1] + (int)floor(ypos)};
-	printf("drawline from %i,%i to %i,%i\n", a[0], a[1], b[0], b[1]);
-	draw_line(info->minimap, a, b, RED);
 }
 
 void draw_north_symbol_and_borders(t_img *minimap)
@@ -84,15 +118,18 @@ void draw_minimap(t_info *info)
 		y = -1;
 		while (++y * MNAP_TS < MNAP_H - 1)
 		{
-			mapx = x - (5 - info->posx);
-			mapy = y - (5 - info->posy);
+			mapx = x - (6 - info->posx);
+			mapy = y - (6  - info->posy);
 			if (mapx > -1 && mapx < info->mw && mapy > -1 && mapy < info->mh)
-				draw_rect(info->minimap, (int[]){x * MNAP_TS, y * MNAP_TS},
-						  (int[]){MNAP_TS, MNAP_TS}, clr[info->map[mapy][mapx] - 48]);
+				if (x * MNAP_TS - 8 > 0 && y * MNAP_TS - 8 > 0)
+					draw_rect(info->minimap, (int[]){x * MNAP_TS - 8, y * MNAP_TS - 8},
+						(int[]){MNAP_TS, MNAP_TS}, clr[info->map[mapy][mapx] - 48]);
 		}
 	}
-	draw_rect(info->minimap, (int[]){5 * MNAP_TS + MNAP_TS / 3, 5 * MNAP_TS + MNAP_TS / 3}, (int[]){MNAP_TS / 3, MNAP_TS / 3}, RED);
+	//draw_rect(info->minimap, (int[]){5 * MNAP_TS + MNAP_TS / 3, 5 * MNAP_TS + MNAP_TS / 3}, (int[]){MNAP_TS / 3, MNAP_TS / 3}, RED);
 	draw_north_symbol_and_borders(info->minimap);
-	//draw_cone_raycast(info);
+	draw_vert_line(info->minimap, 96, (int []){0, 191}, RED);
+	draw_line(info->minimap, (int []){0, 96}, (int []){191, 96}, RED);
+	draw_cone_raycast(info);
 	mlx_put_image_to_window(info->ptr, info->win, info->minimap->ptr, 20, 20);
 }

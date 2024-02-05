@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   drawers.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: bguillau <bguillau@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/17 16:37:30 by bguillau          #+#    #+#             */
-/*   Updated: 2023/11/17 16:37:32 by bguillau         ###   ########.fr       */
-/*                                                                            */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   drawers.c										  :+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: bguillau <bguillau@student.42.fr>		  +#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2023/11/17 16:37:30 by bguillau		  #+#	#+#			 */
+/*   Updated: 2023/11/17 16:37:32 by bguillau		 ###   ########.fr	   */
+/*																			*/
 /* ************************************************************************** */
 
 #include "../../inc/cub3D.h"
@@ -34,7 +34,7 @@ void	draw_line(t_img *img, int a[2], int b[2], int color)
 		dir[1] = 1;
 	while (a[0] != b[0] || a[1] != b[1])
 	{
-		//printf("from drawline: x%i, y%i, with err[1]%i\n", a[0], a[1], err[1]);
+		printf("from drawline: x%i, y%i, with err[0]%i, with err[1]%i\n", a[0], a[1], err[0], err[1]);
 		pixel_w(img, a[0], a[1], color);
 		err[1] = 2 * err[0];
 		if (err[1] > -abs_dist[1])
@@ -49,6 +49,8 @@ void	draw_line(t_img *img, int a[2], int b[2], int color)
 		}
 	}
 }
+
+
 
 /*	og[0] = xpos	dim[0] = w
 	og[1] = ypos 	dim[1] = h	*/
