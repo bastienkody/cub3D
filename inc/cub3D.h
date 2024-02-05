@@ -84,8 +84,7 @@ might change hardware to fully enjoy the game :)"
 
 /*	minimap : 12x12 rects of tile 16x16	*/
 # define MNAP_TS 16
-# define MNAP_W 192
-# define MNAP_H 192
+# define MNAP_S 192
 
 /*	counter	*/
 # ifndef INTRO_COUNTER
@@ -107,6 +106,7 @@ might change hardware to fully enjoy the game :)"
 # define GREEN 0x0000FF00
 # define BLUE 0x000000FF
 # define YELLOW 0x00FFFF00
+# define PALEGREEN 0x0068FF68
 
 /*	typedef	*/
 typedef bool			t_bool;
