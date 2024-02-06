@@ -1,53 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   drawers.c                                          :+:      :+:    :+:   */
+/*   draw_rect.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maburnet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: kody <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/17 16:37:30 by bguillau          #+#    #+#             */
-/*   Updated: 2024/01/29 16:49:23 by maburnet         ###   ########.fr       */
+/*   Created: 2024/02/05 17:48:50 by kody              #+#    #+#             */
+/*   Updated: 2024/02/05 17:48:55 by kody             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3D.h"
-
-/*	draw a vertical colored line on img from (x, y[0]) to (x, y[1])	*/
-void	draw_vert_line(t_img *img, int x, int y[2], int color)
-{
-	while (++y[0] - 1 < y[1]) //peux etre protection pour ne pas ecrire en dehors de 0-1920x et 0-1080y
-		pixel_w(img, x, y[0] - 1, color);
-}
-
-/*	bresenham algo w/ a[0]=x, a[1]=y	*/
-void	draw_line(t_img *img, int a[2], int b[2], int color)
-{
-	const int	abs_dist[2] = {abs(b[0] - a[0]), abs(b[1] - a[1])};
-	int			dir[2];
-	int			err[2];
-
-	err[0] = abs_dist[0] - abs_dist[1];
-	ft_memset(dir, -1, 2);
-	if (a[0] < b[0])
-		dir[0] = 1;
-	if (a[1] < b[1])
-		dir[1] = 1;
-	while (a[0] != b[0] || a[1] != b[1])
-	{
-		pixel_w(img, a[0], a[1], color);
-		err[1] = 2 * err[0];
-		if (err[1] > -abs_dist[1])
-		{
-			err[0] -= abs_dist[1];
-			a[0] += dir[0];
-		}
-		if (err[1] < abs_dist[0])
-		{
-			err[0] += abs_dist[0];
-			a[1] += dir[1];
-		}
-	}
-}
 
 /*	og[0] = xpos	dim[0] = w
 	og[1] = ypos 	dim[1] = h	*/

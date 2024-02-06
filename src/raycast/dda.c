@@ -16,8 +16,7 @@ void	dda_prep(t_raycast *rc, double posx, double posy)
 {
 	rc->deltax = fabs(1 / rc->raydirx); // div 0 possible
 	rc->deltay = fabs(1 / rc->raydiry); // div 0 possible
-
-	if(rc->raydirx < 0)
+	if (rc->raydirx < 0)
 	{
 		rc->stepx = -1;
 		rc->sidex = (posx - rc->mapx) * rc->deltax;
@@ -27,7 +26,7 @@ void	dda_prep(t_raycast *rc, double posx, double posy)
 		rc->stepx = 1;
 		rc->sidex = (rc->mapx + 1.0 - posx) * rc->deltax;
 	}
-	if(rc->raydiry < 0)
+	if (rc->raydiry < 0)
 	{
 		rc->stepy = -1;
 		rc->sidey = (posy - rc->mapy) * rc->deltay;
@@ -58,8 +57,7 @@ void	dda(t_raycast *rc, char **map)
 			rc->mapy += rc->stepy;
 			rc->side = 1;
 		}
-	if (map[rc->mapy][rc->mapx] == '1')
-		hit = true;
+		if (map[rc->mapy][rc->mapx] == '1')
+			hit = true;
 	}
-//	printf("side%i, map:y%i,x%i | ", rc->side, rc->mapy, rc->mapy);
 }

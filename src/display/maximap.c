@@ -15,17 +15,18 @@
 /*	on maximap, left clic to teleport. out of range err handled	*/
 void	maximap_teleport(int but, unsigned int x, unsigned int y, t_info *info)
 {
-	const unsigned int	xb = info->mmap_bordx / 2 + 1;
-	const unsigned int	yb = info->mmap_bordy / 2 + 1;
-	const int			newx = (x - xb) / info->mmap_tile_s;
-	const int			newy = (y - yb) / info->mmap_tile_s;
+	const double	xb = info->mmap_bordx / 2 + 1;
+	const double	yb = info->mmap_bordy / 2 + 1;
+	const double	newx = (x - xb) / info->mmap_tile_s;
+	const double	newy = (y - yb) / info->mmap_tile_s;
 
 	if (but != 1)
 		return ;
 	if (newx >= 0 && newx < info->mw && newy >= 0 && newy < info->mh)
 	{
-		if (info->map[newy][newx] != '0')
-			return ((void)ft_fprintf(2, "%s%i,y%i%s\n", T_W, newx, newy, T_WB));
+		if (info->map[(int)floor(newy)][(int)floor(newx)] != '0')
+			return ((void)ft_fprintf(2, "%s%i,y%i%s\n", T_W, (int)floor(newx), \
+			(int)floor(newy), T_WB));
 		info->posx = newx;
 		info->posy = newy;
 		maximap_display(info);
@@ -51,25 +52,29 @@ void	get_maximap_size(t_info *info)
 	}
 }
 
-/*	used by mini and maxi maps
-	for now :	player icon is a rect of size tile_s / 4
-				if huuuuge map : just 1 pixel, no need to rect
-				if huge map : no border (if not the red is almost unseen)
-	upgrade with a circle + fov rays	*/
+/*	player icon is a rect of size tile_s / 4
+	if huuuuge map : just 1 pixel, no need to rect
+	if huge map : no border (if not the red is almost unseen)	*/
 void	draw_player_icon(t_info *info, t_img *img_map, int tile_s)
 {
-	const int	xpos = info->posx * tile_s + tile_s / 2;
-	const int	ypos = info->posy * tile_s + tile_s / 2;
+	double		xpos;
+	double		ypos;
 	const int	size = tile_s / PLAYER_ICON_TO_MMAP_TILE_RATIO;
 
+	xpos = info->posx * tile_s;
+	ypos = info->posy * tile_s;
+	if (xpos + size >= floor(info->posx) * tile_s + tile_s)
+		xpos -= size;
+	if (ypos + size >= floor(info->posy) * tile_s + tile_s)
+		ypos -= size;
 	if (size <= 1)
-		pixel_w(img_map, xpos, ypos, RED);
+		pixel_w(img_map, (int)round(xpos), (int)round(ypos), RED);
 	else if (size < 4)
-		draw_rect(img_map, (int []){xpos - size / 2, ypos - size / 2}, \
-		(int []){size, size}, RED);
+		draw_rect(img_map, (int []){(int)round(xpos), \
+		(int)round(ypos)}, (int []){size, size}, RED);
 	else
-		draw_rect_w_border(img_map, (int []){xpos - size / 2, ypos - size \
-		/ 2}, (int []){size, size}, RED);
+		draw_rect_w_border(img_map, (int []){(int)round(xpos), \
+		(int)round(ypos)}, (int []){size, size}, RED);
 }
 
 /*	only used once, by init. draw mmap floor/wall/void	*/
@@ -80,6 +85,7 @@ void	draw_first_maximap(t_info *info)
 	const int	colorz[3] = {WHITE, GREY, BLACK};
 
 	get_maximap_size(info);
+	draw_rect(info->maximap, (int []){0, 0}, (int []){WIN_W, WIN_H}, BLACK);
 	y = -1;
 	while (++y * info->mmap_tile_s < WIN_H && info->map[y] != NULL)
 	{
@@ -93,25 +99,25 @@ void	draw_first_maximap(t_info *info)
 	}
 }
 
-/*	redraw (update ppos) + disp. can be separated in two functions	*/
+/*	redraw (update ppos) + disp	*/
 void	maximap_display(t_info *info)
 {
-	static int	oldx = -1;
-	static int	oldy = -1;
-	const int	s = info->mmap_tile_s;
-	const int	clr[3] = {WHITE, GREY, BLACK};
+	static double	oldx = -1;
+	static double	oldy = -1;
+	const int		s = info->mmap_tile_s;
+	const int		clr[3] = {WHITE, GREY, BLACK};
 
 	if (!info->is_maximap)
 		return ;
 	if (oldx > -1 && oldy > -1 && (info->posx != oldx || info->posy != oldy))
-		draw_rect_w_border(info->maximap, (int []){oldx * s, oldy * s}, (int []\
-	){s, s}, clr[info->map[(int)info->posy][(int)info->posx] - '0']);
+		draw_rect_w_border(info->maximap, (int []){(int)floor(oldx) * s, \
+		(int)floor(oldy) * s}, (int []){s, s}, \
+		clr[info->map[(int)info->posy][(int)info->posx] - '0']);
 	draw_player_icon(info, info->maximap, info->mmap_tile_s);
 	oldx = info->posx;
 	oldy = info->posy;
 	mlx_put_image_to_window(info->ptr, info->win, info->bg_default->ptr, 0, 0);
 	mlx_put_image_to_window(info->ptr, info->win, info->maximap->ptr, \
 	(info->mmap_bordx / 2), (info->mmap_bordy / 2));
-	
 	draw_minimap(info);
 }

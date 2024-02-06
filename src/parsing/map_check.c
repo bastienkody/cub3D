@@ -22,13 +22,13 @@ int	is_this_edge_a_wall(char **map, int i, int j)
 			return (print_error(BAD_WALL, NULL), 0);
 	if (map[i][j] == '2')
 	{
-		if (i > 0 && map[i - 1][j] == '0')
+		if (i > 0 && map[i - 1][j] != '1' && map[i - 1][j] != '2')
 			return (print_error(BAD_SPACE, map[i]), 0);
-		if (i < y_len - 1 && map[i + 1][j] == '0')
+		if (i < y_len - 1 && map[i + 1][j] != '1' && map[i + 1][j] != '2')
 			return (print_error(BAD_SPACE, map[i]), 0);
-		if (j > 0 && map[i][j - 1] == '0')
+		if (j > 0 && map[i][j - 1] != '1' && map[i][j - 1] != '2')
 			return (print_error(BAD_SPACE, map[i]), 0);
-		if (j < x_len - 1 && map[i][j + 1] == '0')
+		if (j < x_len - 1 && map[i][j + 1] != '1' && map[i][j + 1] != '2')
 			return (print_error(BAD_SPACE, map[i]), 0);
 	}
 	return (1);
@@ -75,32 +75,9 @@ void	store_p_pos(t_parser *pars)
 		{
 			if (ft_strchr(NSEW, pars->map[i][j]))
 			{
-				pars->pposx = (double)j;
-				pars->pposy = (double)i;
-				if (pars->map[i][j] == 'N')
-				{
-					pars->pdiry = -1;
-					pars->pangle = PI / 2;
-					pars->planex = PLANE_ANG_TO_DIR;
-				}
-				if (pars->map[i][j] == 'S')
-				{
-					pars->pdiry = 1;
-					pars->pangle = (3 * PI) / 2;
-					pars->planex = -PLANE_ANG_TO_DIR;
-				}
-				if (pars->map[i][j] == 'W')
-				{
-					pars->pdirx = -1;
-					pars->pangle = PI;
-					pars->planey = -PLANE_ANG_TO_DIR;
-				}
-				if (pars->map[i][j] == 'E')
-				{
-					pars->pdirx = 1;
-					pars->pangle = 0;
-					pars->planey = PLANE_ANG_TO_DIR;
-				}
+				pars->pposx = (double)j + 0.5;
+				pars->pposy = (double)i + 0.5;
+				store_p_orientation(pars, i, j);
 				pars->map[i][j] = '0';
 			}
 		}

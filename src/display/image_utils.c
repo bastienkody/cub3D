@@ -18,34 +18,13 @@ void	pixel_w(t_img *img, int x, int y, int color)
 	char	*dst;
 
 	dst = img->addr + (y * img->line_len + x * (img->bpp / 8));
-	*(unsigned int *)dst = color;
+	*(t_uint *)dst = color;
 }
 
 /*	fetch pixel color at specific pos from an img	*/
 unsigned int	get_color(t_img *img, int x, int y)
 {
-	return (*(uint *)(img->addr + (y * img->line_len + x * (img->bpp / 8))));
-}
-
-/*	copy dim pixels starting at og, from src img into dst img
-	og, dim, img sizes not checked : user responsability	*/
-void	img_to_img(t_img *src, t_img *dst, int og[2], int dim[2])
-{
-	int				x;
-	int				y;
-	unsigned int	color;
-	const int		end[2] = {og[0] + dim[0], og[1] + dim[1]};
-
-	x = og[0] - 1;
-	while (++x <= end[0])
-	{
-		y = og[1] - 1;
-		while (++y <= end[1])
-		{
-			color = get_color(src, x, y);
-			pixel_w(dst, x, y, color);
-		}
-	}
+	return (*(t_uint *)(img->addr + (y * img->line_len + x * (img->bpp / 8))));
 }
 
 t_img	*create_image(void *mlx_ptr, int w, int h)

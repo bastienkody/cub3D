@@ -44,9 +44,10 @@ t_info	*pars_to_info(t_parser *pars)
 void	run(t_info *info)
 {
 	mlx_mouse_hook(info->win, &mouse_inputs, info);
-	mlx_hook(info->win, 2, 1L << 0, &key_inputs, info);
+	mlx_hook(info->win, 3, 1L << 1, &key_release, info);
+	mlx_hook(info->win, 2, 1L << 0, &key_press, info);
 	mlx_hook(info->win, 17, 0, &end_free, info);
-	mlx_loop_hook(info->ptr, &display_manager, info);
+	mlx_loop_hook(info->ptr, &loop_manager, info);
 	mlx_loop(info->ptr);
 }
 
@@ -55,7 +56,7 @@ int	main(int argc, char **argv, __attribute__((unused)) char **envp)
 	t_parser	*pars;
 	t_info		*info;
 
-	pars = main_parser(argc, argv); // fetch config file
+	pars = main_parser(argc, argv);
 	if (!pars)
 		return (1);
 	info = pars_to_info(pars);
