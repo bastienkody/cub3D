@@ -49,7 +49,8 @@ void	draw_line(t_img *img, int a[2], int b[2], int color)
 	data = bresenham_prep(a, b);
 	while (a[0] != b[0] || a[1] != b[1])
 	{
-		pixel_w(img, a[0], a[1], color);
+		if (a[0] >= 0 && a[0] < MNAP_S && a[1] >= 0 && a[1] < MNAP_S)
+			pixel_w(img, a[0], a[1], color);
 		err2 = data.err;
 		if (err2 > -data.dx)
 		{

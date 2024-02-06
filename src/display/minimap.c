@@ -49,15 +49,9 @@ void	draw_cone_raycast(t_info *info)
 		xpos = (rc.raydirx * rc.pwall * MNAP_TS);
 		ypos = (rc.raydiry * rc.pwall * MNAP_TS);
 		point[0] = MNAP_S / 2 + (int)floor(xpos);
-		point[1] = MNAP_S / 2 + (int)floor(ypos);
-		if (point[0] > MNAP_S - 1)
-			point[0] = MNAP_S - 1; 
-		if (point[0] < 0)
-			point[0] = 0;
-		if (point[1] > MNAP_S - 1)
-			point[1] = MNAP_S - 1;
-		if (point[1] < 0)
-			point[1] = 0;
+		point[1] = MNAP_S / 2 + (int)(ypos);
+		if (x % 4 == 0)
+			printf("x%i, pointx%i (%f), pointy%i (%f)\n", x, point[0], MNAP_S / 2 + xpos, point[1], MNAP_S / 2 + ypos);
 		draw_line(info->minimap, (int []){MNAP_S / 2, MNAP_S / 2}, point, RED);
 	}
 }
@@ -83,7 +77,7 @@ void	draw_north_symbol_and_borders(t_img *minimap)
 	draw_line(minimap, (int []){xpos + i, ypos}, (int []){xpos + size - i, \
 	ypos + size}, BLACK);
 	draw_border(minimap, (int []){0, 0}, (int []){191, 191}, BLUE);
-	draw_border(minimap, (int []){0, 0}, (int []){190, 190}, BLUE);
+	draw_border(minimap, (int []){1, 1}, (int []){190, 190}, BLUE);
 }
 
 void	draw_minimap(t_info *info)
@@ -109,8 +103,8 @@ void	draw_minimap(t_info *info)
 					/ MNAP_TS][(int)floor(mapx) / MNAP_TS] - 48]);
 		}
 	}
-	draw_north_symbol_and_borders(info->minimap);
 	draw_orthonormal_system_player_centered(info->minimap);
 	draw_cone_raycast(info);
+	draw_north_symbol_and_borders(info->minimap);
 	mlx_put_image_to_window(info->ptr, info->win, info->minimap->ptr, 20, 20);
 }
