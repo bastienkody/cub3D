@@ -48,23 +48,20 @@ void	draw_cone_raycast(t_info *info)
 		mini_raycast_calculation(info, &rc, x);
 		xpos = (rc.raydirx * rc.pwall * MNAP_TS);
 		ypos = (rc.raydiry * rc.pwall * MNAP_TS);
-		point[0] = MNAP_S / 2 + (int)round(xpos);
-		point[1] = MNAP_S / 2 + (int)round(ypos);
-		if (x == WIN_W / 2)
-		{
-			printf("point x%i (%f), point y%i (%f)\n", point[0], MNAP_S / 2 + xpos, point[1], MNAP_S / 2 + ypos);
-			draw_line(info->minimap, (int []){MNAP_S / 2, MNAP_S / 2}, point, GREEN);
-		}
-		else
-			draw_line(info->minimap, (int []){MNAP_S / 2, MNAP_S / 2}, point, RED);
+		point[0] = (int)ceil(MNAP_S / 2 + xpos);
+		point[1] = (int)ceil(MNAP_S / 2 + ypos);
+		draw_line_ray(info->minimap, (int []){MNAP_S / 2, MNAP_S / 2}, point, RED);
 	}
 }
 
 void	draw_orthonormal_system_player_centered(t_img *img)
 {
-	draw_vert_line(img, MNAP_S / 2, (int []){0, MNAP_S - 1}, RED);
-	draw_line(img, (int []){0, MNAP_S / 2}, (int []){MNAP_S - 1, MNAP_S / 2}, \
-	RED);
+	draw_vert_line(img, MNAP_S / 2 - 1, (int []){MNAP_S / 2 - 5, MNAP_S / 2 + 5}, BLACK);
+	draw_vert_line(img, MNAP_S / 2, (int []){MNAP_S / 2 - 5, MNAP_S / 2 + 5}, BLACK);
+	draw_line(img, (int []){MNAP_S / 2 - 5, MNAP_S / 2 - 1}, (int []){MNAP_S / 2 + 5, MNAP_S / 2 - 1}, \
+	BLACK);
+	draw_line(img, (int []){MNAP_S / 2 - 5, MNAP_S / 2}, (int []){MNAP_S / 2 + 5, MNAP_S / 2}, \
+	BLACK);
 }
 
 void	draw_north_symbol_and_borders(t_img *minimap)
@@ -101,14 +98,14 @@ void	draw_minimap(t_info *info)
 		{
 			mapx = x - (MNAP_S / 2 - info->posx * MNAP_TS);
 			mapy = y - (MNAP_S / 2 - info->posy * MNAP_TS);
-			if (mapx >= 0 && mapx / MNAP_TS < info->mw && mapy >= 0 && \
+			if (mapx > 0 && mapx / MNAP_TS < info->mw && mapy > 0 && \
 				mapy / MNAP_TS < info->mh)
 				pixel_w(info->minimap, x, y, clr[info->map[(int)floor(mapy) \
 					/ MNAP_TS][(int)floor(mapx) / MNAP_TS] - 48]);
 		}
 	}
-	draw_orthonormal_system_player_centered(info->minimap);
 	draw_cone_raycast(info);
+	draw_orthonormal_system_player_centered(info->minimap);
 	draw_north_symbol_and_borders(info->minimap);
 	mlx_put_image_to_window(info->ptr, info->win, info->minimap->ptr, 20, 20);
 }

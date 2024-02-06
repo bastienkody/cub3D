@@ -74,7 +74,7 @@ might change hardware to fully enjoy the game :)"
 
 /*	player velocity	*/
 # define VELO_MOVE 0.04
-# define VELO_SPRINT 0.08
+# define VELO_SPRINT 0.12
 # define VELO_ROTATE M_PI/48/3
 
 /*	raycast	*/
@@ -222,6 +222,7 @@ void		run(t_info *info);
 int			init_display(t_info *info, t_parser *pars);
 int			loop_manager(t_info *info);
 void		draw_minimap(t_info *info);
+void		draw_line_ray(t_img *img, int a[2], int b[2], int color);
 
 /*	raycast - dda	*/
 void		dda(t_raycast *rc, char **map);
