@@ -29,9 +29,9 @@ int	rotate(int keycode, t_info *info)
 	const double	oldplanex = info->planex;
 	double			ang;
 
-	ang = -VELO_ROTATE;
+	ang = -M_PI / PI_DIVIDER;
 	if (keycode == XK_Right)
-		ang = VELO_ROTATE;
+		ang = M_PI / PI_DIVIDER;
 	info->dirx = info->dirx * cos(ang) - info->diry * sin(ang);
 	info->diry = oldir_x * sin(ang) + info->diry * cos(ang);
 	info->planex = info->planex * cos(ang) - info->planey * sin(ang);

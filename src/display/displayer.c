@@ -27,12 +27,22 @@ void	disp_intro(t_info *info)
 		mlx_put_image_to_window(info->ptr, info->win, info->intro2->ptr, 0, 0);
 }
 
+void	normalize_pos(t_info *info)
+{
+	if (info->posx - floor(info->posx) == 0)
+		info->posx += 0.01;
+	if (info->posy - floor(info->posy) == 0)
+		info->posy += 0.01;
+	raycast_launcher(info);
+}
+
 /*	search for any move key being pressed and call key_movement with kcode	*/
 void	moves_standard(t_info *info)
 {
 	static const int	keys[6] = {XK_w, XK_s, XK_a, XK_d, XK_Left, XK_Right};
 	int					i;
 
+	normalize_pos(info);
 	i = -1;
 	while (++i < 6)
 	{

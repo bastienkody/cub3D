@@ -29,8 +29,6 @@ void	mini_raycast_calculation(t_info *info, t_raycast *rc, int x)
 		rc->pwall = rc->sidex - rc->deltax;
 	else
 		rc->pwall = rc->sidey - rc->deltay;
-	if (!rc->pwall)
-		rc->pwall = 1;
 }
 
 void	draw_cone_raycast(t_info *info)
@@ -50,18 +48,21 @@ void	draw_cone_raycast(t_info *info)
 		ypos = (rc.raydiry * rc.pwall * MNAP_TS);
 		point[0] = (int)ceil(MNAP_S / 2 + xpos);
 		point[1] = (int)ceil(MNAP_S / 2 + ypos);
-		draw_line_ray(info->minimap, (int []){MNAP_S / 2, MNAP_S / 2}, point, RED);
+		draw_line_ray(info->minimap, (int []){MNAP_S / 2, MNAP_S / 2}, point, \
+		RED);
 	}
 }
 
 void	draw_orthonormal_system_player_centered(t_img *img)
 {
-	draw_vert_line(img, MNAP_S / 2 - 1, (int []){MNAP_S / 2 - 5, MNAP_S / 2 + 5}, BLACK);
-	draw_vert_line(img, MNAP_S / 2, (int []){MNAP_S / 2 - 5, MNAP_S / 2 + 5}, BLACK);
-	draw_line(img, (int []){MNAP_S / 2 - 5, MNAP_S / 2 - 1}, (int []){MNAP_S / 2 + 5, MNAP_S / 2 - 1}, \
+	draw_vert_line(img, MNAP_S / 2 - 1, (int []){MNAP_S / 2 - 5, MNAP_S / 2 + \
+	5}, BLACK);
+	draw_vert_line(img, MNAP_S / 2, (int []){MNAP_S / 2 - 5, MNAP_S / 2 + 5}, \
 	BLACK);
-	draw_line(img, (int []){MNAP_S / 2 - 5, MNAP_S / 2}, (int []){MNAP_S / 2 + 5, MNAP_S / 2}, \
-	BLACK);
+	draw_line(img, (int []){MNAP_S / 2 - 5, MNAP_S / 2 - 1}, (int []){MNAP_S / \
+	2 + 5, MNAP_S / 2 - 1}, BLACK);
+	draw_line(img, (int []){MNAP_S / 2 - 5, MNAP_S / 2}, (int []){MNAP_S / 2 + \
+	5, MNAP_S / 2}, BLACK);
 }
 
 void	draw_north_symbol_and_borders(t_img *minimap)

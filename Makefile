@@ -63,7 +63,7 @@ REDIRVOID	=	>/dev/null 2>&1
 
 ###		COMMANDS DISP	###
 WASD		=	"[WASD]\\t\\t: move around\\n"
-SHIFT		=	"[Lshift]\\t: sprint forward\\n"
+SHIFT		=	"[Lshift]\\t: sprint\\n"
 ARROWS		=	"[Left/Right]\\t: turn\\n"
 QUIT		=	"[Q]\\t\\t: quit game, red cross leftclick also works"
 OUTRO		=	"[ESC]\\t\\t: pause game\\n"
