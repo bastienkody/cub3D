@@ -48,11 +48,15 @@ void	draw_cone_raycast(t_info *info)
 		mini_raycast_calculation(info, &rc, x);
 		xpos = (rc.raydirx * rc.pwall * MNAP_TS);
 		ypos = (rc.raydiry * rc.pwall * MNAP_TS);
-		point[0] = MNAP_S / 2 + (int)floor(xpos);
-		point[1] = MNAP_S / 2 + (int)(ypos);
-		if (x % 4 == 0)
-			printf("x%i, pointx%i (%f), pointy%i (%f)\n", x, point[0], MNAP_S / 2 + xpos, point[1], MNAP_S / 2 + ypos);
-		draw_line(info->minimap, (int []){MNAP_S / 2, MNAP_S / 2}, point, RED);
+		point[0] = MNAP_S / 2 + (int)round(xpos);
+		point[1] = MNAP_S / 2 + (int)round(ypos);
+		if (x == WIN_W / 2)
+		{
+			printf("point x%i (%f), point y%i (%f)\n", point[0], MNAP_S / 2 + xpos, point[1], MNAP_S / 2 + ypos);
+			draw_line(info->minimap, (int []){MNAP_S / 2, MNAP_S / 2}, point, GREEN);
+		}
+		else
+			draw_line(info->minimap, (int []){MNAP_S / 2, MNAP_S / 2}, point, RED);
 	}
 }
 

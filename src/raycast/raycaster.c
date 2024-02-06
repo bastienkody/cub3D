@@ -86,7 +86,6 @@ int	raycast_launcher(t_info *info)
 	x = -1;
 	while (++x < WIN_W)
 	{
-		rc.ray = x;
 		camerax = 2 * x / (double)WIN_W - 1;
 		rc.mapx = (int)info->posx;
 		rc.mapy = (int)info->posy;
