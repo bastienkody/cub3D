@@ -16,7 +16,7 @@
 /*	unsigned char	*/
 int	ft_atouc_novf(const char *nptr, unsigned char *nb)
 {
-	unsigned	old_nb;
+	unsigned char	old_nb;
 
 	if (ft_strlen(nptr) > 3 || ft_atoi(nptr) > 255)
 		return (0);
