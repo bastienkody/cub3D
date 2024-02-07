@@ -56,7 +56,6 @@ void	post_dda_calculations(t_raycast *rc, t_info *info)
 
 void	draw_raycast(t_raycast *rc, t_info *info, int x)
 {
-	unsigned int	color;
 	const double	step = (double)TILE_S / (double)rc->lineh;
 	double			textpos;
 	int				ytext;
@@ -68,8 +67,7 @@ void	draw_raycast(t_raycast *rc, t_info *info, int x)
 	{
 		ytext = (int)textpos;
 		textpos += step;
-		color = get_color(rc->whatext, rc->xtext, ytext);
-		pixel_w(info->rc, x, y, color);
+		pixel_w(info->rc, x, y, get_color(rc->whatext, rc->xtext, ytext));
 	}
 	draw_vert_line(info->rc, x, (int []){0, rc->start}, info->ceil);
 	draw_vert_line(info->rc, x, (int []){rc->end, WIN_H}, info->floor);
