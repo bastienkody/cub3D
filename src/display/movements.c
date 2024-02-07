@@ -47,22 +47,64 @@ int	wall_glitch(t_info *info, int x_offset, int y_offset)
 	if (x_offset == x || y_offset == y)
 		return (0);
 	if (info->map[y_offset][x] == '1' && info->map[y][x_offset] == '1')
-		return (1);
+		return (printf("glitch\n"),  1);
 	return (0);
 }
 
-int	move(t_info *info, double x_test, double x_ofs, double y_test, double y_ofs)
+int	move_front_back(t_info *info, int keycode, double speed)
 {
-	if (info->map[(int)floor(y_test)][(int)floor(x_test)] == '0')
+	double	x_ofs;
+	double	y_ofs;
+	double	step;
+
+	step = MOVE_STEP_NUM;
+	x_ofs = info->dirx * speed;
+	y_ofs = info->diry * speed;
+	if (keycode == XK_s)
 	{
-		if (wall_glitch(info, (int)floor(x_test), (int)floor(y_test)))
+		x_ofs *= -1;
+		y_ofs *= -1;
+		step *= -1;
+	}
+	printf("x%f +%f, y%f +%f\n", info->posx, x_ofs + step, info->posy, y_ofs + step);
+	if (info->map[(int)floor(info->posy + y_ofs + \
+		step)][(int)floor(info->posx + x_ofs + step)] == '0')
+	{
+		if (wall_glitch(info, (int)floor(info->posx + x_ofs * MOVE_STEP), \
+			(int)floor(info->posy + y_ofs * MOVE_STEP)))
 			return (0);
-		info->posx = x_ofs;
-		info->posy = y_ofs;
+		info->posx += x_ofs;
+		info->posy += y_ofs;
 		return (1);
 	}
 	return (0);
 }
+
+int	move_sides(t_info *info, int keycode, double speed)
+{
+	double	x_step;
+	double	y_step;
+
+	x_step = info->planex * speed;
+	y_step = info->planey * speed;
+	if (keycode == XK_a)
+	{
+		x_step *= -1;
+		y_step *= -1;
+	}
+	if (info->map[(int)floor(info->posy + y_step * \
+		MOVE_STEP)][(int)floor(info->posx + x_step * MOVE_STEP)] == '0')
+	{
+		if (wall_glitch(info, (int)floor(info->posx + x_step * MOVE_STEP), \
+			(int)floor(info->posy + y_step * MOVE_STEP)))
+			return (0);
+		info->posx += x_step;
+		info->posy += y_step;
+		return (1);
+	}
+	return (0);
+}
+
 
 /*	no need to redraw raycast if player could not moved/turned
 	directionnal sprint: add '&& keycode == W' apres le check du shift	*/
@@ -75,14 +117,10 @@ void	key_movement(int keycode, t_info *info)
 	speed = VELO_MOVE;
 	if (info->keys[6])
 		speed = VELO_SPRINT;
-	if (keycode == XK_w)
-		redraw = move(info, info->posx + info->dirx * MOD * speed, info->posx + info->dirx * speed, info->posy + info->diry * MOD * speed, info->posy + info->diry * speed);
-	else if (keycode == XK_s)
-		redraw = move(info, info->posx - info->dirx * MOD * speed, info->posx - info->dirx * speed, info->posy - info->diry * MOD * speed, info->posy - info->diry * speed);
-	else if (keycode == XK_a)
-		redraw = move(info, info->posx - info->planex * MOD * speed, info->posx - info->planex * speed, info->posy - info->planey * MOD * speed, info->posy - info->planey * speed);
-	else if (keycode == XK_d)
-		redraw = move(info, info->posx + info->planex * MOD * speed, info->posx + info->planex * speed, info->posy + info->planey * MOD * speed, info->posy + info->planey * speed);
+	if (keycode == XK_w || keycode == XK_s)
+		redraw = move_front_back(info, keycode, speed);
+	else if (keycode == XK_a || keycode == XK_d)
+		redraw = move_sides(info, keycode, speed);
 	else
 		redraw = rotate(keycode, info);
 	if (!redraw)

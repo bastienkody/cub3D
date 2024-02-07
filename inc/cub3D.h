@@ -74,7 +74,8 @@ might change hardware to fully enjoy the game :)"
 /*	player velocity	*/
 # define VELO_MOVE 0.05
 # define VELO_SPRINT 0.10
-# define MOD 5
+# define MOVE_STEP 5
+# define MOVE_STEP_NUM 0.2
 # define PI_DIVIDER 100
 
 /*	raycast	*/

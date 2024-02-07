@@ -25,13 +25,9 @@ xpm");
 	info->outro[2] = create_xpm_image(info->ptr, "map/textures/outro/outro3_q.\
 xpm");
 	info->n_text = create_xpm_image(info->ptr, pars->no_path);
-	printf("north ok\n");
 	info->s_text = create_xpm_image(info->ptr, pars->so_path);
-	printf("south ok\n");
 	info->w_text = create_xpm_image(info->ptr, pars->we_path);
-	printf("west ok\n");
 	info->e_text = create_xpm_image(info->ptr, pars->ea_path);
-	printf("east ok\n");
 	info->bg_default = create_image(info->ptr, WIN_W, WIN_H);
 	info->maximap = create_image(info->ptr, WIN_W, WIN_H);
 	info->minimap = create_image(info->ptr, MNAP_S, MNAP_S);
