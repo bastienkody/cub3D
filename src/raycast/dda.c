@@ -14,8 +14,8 @@
 
 void	dda_prep(t_raycast *rc, double posx, double posy)
 {
-	rc->deltax = fabs(1 / rc->raydirx); // div 0 possible
-	rc->deltay = fabs(1 / rc->raydiry); // div 0 possible
+	rc->deltax = fabs(1 / rc->raydirx);
+	rc->deltay = fabs(1 / rc->raydiry);
 	if (rc->raydirx < 0)
 	{
 		rc->stepx = -1;

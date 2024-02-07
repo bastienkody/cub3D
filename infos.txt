@@ -3,6 +3,11 @@
 -------------
  mod pour nouvelle branche
 
+
+ESCAPE MODE bugs
+SPAWN/TP in 0,0 to mod
+MAXIMAP with hugissime map
+
 Post call du 24/01 : 
 - Malo revoit le raycasting sur branche malo
 - branche main reste intacte

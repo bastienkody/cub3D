@@ -66,6 +66,7 @@ void	draw_line(t_img *img, int a[2], int b[2], int color)
 		pixel_w(img, a[0], a[1], color);
 }
 
+/*	mod for the minimap rays not to overlap (or lack) on wall by 1 pixel	*/
 void	draw_line_ray(t_img *img, int a[2], int b[2], int color)
 {
 	t_bresenham	data;

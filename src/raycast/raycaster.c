@@ -81,7 +81,6 @@ int	raycast_launcher(t_info *info)
 	int			x;
 	double		camerax;
 
-	draw_rect(info->rc, (int []){0, 0}, (int []){WIN_W, WIN_H}, WHITE); //no more white artefacts without this maybe needed tho ?
 	ft_bzero(&rc, sizeof(t_raycast));
 	x = -1;
 	while (++x < WIN_W)

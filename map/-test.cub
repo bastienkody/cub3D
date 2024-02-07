@@ -3,7 +3,7 @@ SO map/textures/yellow_led_wall.xpm
 WE map/textures/blue_led_wall.xpm
 EA map/textures/blue_led_wall3.xpm
 
-F 2   5    5  ,   1   , 2   5    5
+F 255,1, 25 0
 C 44,55,66
 
 11111111
