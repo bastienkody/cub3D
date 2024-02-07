@@ -29,11 +29,21 @@ void	disp_intro(t_info *info)
 
 void	normalize_pos(t_info *info)
 {
+	bool	redraw;
+
+	redraw = false;
 	if (info->posx - floor(info->posx) == 0)
+	{
+		redraw = true;
 		info->posx += 0.01;
+	}
 	if (info->posy - floor(info->posy) == 0)
+	{
+		redraw = true;
 		info->posy += 0.01;
-	raycast_launcher(info);
+	}
+	if (redraw)
+		raycast_launcher(info);
 }
 
 /*	search for any move key being pressed and call key_movement with kcode	*/
