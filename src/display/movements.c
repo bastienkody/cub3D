@@ -51,14 +51,14 @@ int	wall_glitch(t_info *info, int x_offset, int y_offset)
 	return (0);
 }
 
-int	move(t_info *info, double x_offset, double y_offset)
+int	move(t_info *info, double x_test, double x_ofs, double y_test, double y_ofs)
 {
-	if (info->map[(int)floor(y_offset)][(int)floor(x_offset)] == '0')
+	if (info->map[(int)floor(y_test)][(int)floor(x_test)] == '0')
 	{
-		if (wall_glitch(info, (int)floor(x_offset), (int)floor(y_offset)))
+		if (wall_glitch(info, (int)floor(x_test), (int)floor(y_test)))
 			return (0);
-		info->posx = x_offset;
-		info->posy = y_offset;
+		info->posx = x_ofs;
+		info->posy = y_ofs;
 		return (1);
 	}
 	return (0);
@@ -76,17 +76,13 @@ void	key_movement(int keycode, t_info *info)
 	if (info->keys[6])
 		speed = VELO_SPRINT;
 	if (keycode == XK_w)
-		redraw = move(info, info->posx + info->dirx * speed, \
-		info->posy + info->diry * speed);
+		redraw = move(info, info->posx + info->dirx * MOD * speed, info->posx + info->dirx * speed, info->posy + info->diry * MOD * speed, info->posy + info->diry * speed);
 	else if (keycode == XK_s)
-		redraw = move(info, info->posx - info->dirx * speed, \
-		info->posy - info->diry * speed);
+		redraw = move(info, info->posx - info->dirx * MOD * speed, info->posx - info->dirx * speed, info->posy - info->diry * MOD * speed, info->posy - info->diry * speed);
 	else if (keycode == XK_a)
-		redraw = move(info, info->posx - info->planex * speed, \
-		info->posy - info->planey * speed);
+		redraw = move(info, info->posx - info->planex * MOD * speed, info->posx - info->planex * speed, info->posy - info->planey * MOD * speed, info->posy - info->planey * speed);
 	else if (keycode == XK_d)
-		redraw = move(info, info->posx + info->planex * speed, \
-		info->posy + info->planey * speed);
+		redraw = move(info, info->posx + info->planex * MOD * speed, info->posx + info->planex * speed, info->posy + info->planey * MOD * speed, info->posy + info->planey * speed);
 	else
 		redraw = rotate(keycode, info);
 	if (!redraw)

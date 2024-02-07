@@ -49,14 +49,14 @@ void	post_dda_calculations(t_raycast *rc, t_info *info)
 	if (rc->side == 0)
 		rc->wallx = info->posy + rc->pwall * rc->raydiry;
 	rc->wallx -= floor(rc->wallx);
-	rc->xtext = (int)(rc->wallx * (double)TILE_S);
+	rc->xtext = (int)(rc->wallx * (double)rc->whatext->width);
 	if ((!rc->side && rc->raydirx < 0) || (rc->side == 1 && rc->raydiry > 0))
-		rc->xtext = TILE_S - rc->xtext - 1;
+		rc->xtext = rc->whatext->width - rc->xtext - 1;
 }
 
 void	draw_raycast(t_raycast *rc, t_info *info, int x)
 {
-	const double	step = (double)TILE_S / (double)rc->lineh;
+	const double	step = (double)rc->whatext->height / (double)rc->lineh;
 	double			textpos;
 	int				ytext;
 	int				y;

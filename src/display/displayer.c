@@ -35,12 +35,12 @@ void	normalize_pos(t_info *info)
 	if (info->posx - floor(info->posx) == 0)
 	{
 		redraw = true;
-		info->posx += 0.01;
+		info->posx += 0.2;
 	}
 	if (info->posy - floor(info->posy) == 0)
 	{
 		redraw = true;
-		info->posy += 0.01;
+		info->posy += 0.2;
 	}
 	if (redraw)
 		raycast_launcher(info);
