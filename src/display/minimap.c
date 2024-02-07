@@ -46,8 +46,8 @@ void	draw_cone_raycast(t_info *info)
 		mini_raycast_calculation(info, &rc, x);
 		xpos = (rc.raydirx * rc.pwall * MNAP_TS);
 		ypos = (rc.raydiry * rc.pwall * MNAP_TS);
-		point[0] = (int)ceil(MNAP_S / 2 + xpos);
-		point[1] = (int)ceil(MNAP_S / 2 + ypos);
+		point[0] = (int)round(MNAP_S / 2 + xpos);
+		point[1] = (int)round(MNAP_S / 2 + ypos);
 		draw_line_ray(info->minimap, (int []){MNAP_S / 2, MNAP_S / 2}, point, \
 		RED);
 	}
@@ -88,7 +88,7 @@ void	draw_minimap(t_info *info)
 	int			y;
 	double		mapx;
 	double		mapy;
-	const int	clr[3] = {WHITE, GREY, BLACK};
+	const int	clr[3] = {GREEN, GREY, BLACK}; //WHITE
 
 	draw_rect(info->minimap, (int []){0, 0}, (int []){191, 191}, BLACK);
 	x = -1;
