@@ -75,8 +75,8 @@ void	store_p_pos(t_parser *pars)
 		{
 			if (ft_strchr(NSEW, pars->map[i][j]))
 			{
-				pars->pposx = (double)j + 0.5;
-				pars->pposy = (double)i + 0.5;
+				pars->pposx = (double)j + 0.501;
+				pars->pposy = (double)i + 0.501;
 				store_p_orientation(pars, i, j);
 				pars->map[i][j] = '0';
 			}
