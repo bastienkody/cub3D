@@ -53,13 +53,13 @@ void	draw_line(t_img *img, int a[2], int b[2], int color)
 		err2 = data.err;
 		if (err2 > -data.dx)
 		{
-			data.err -= data.dy; 
-			a[0] += data.sx; 
+			data.err -= data.dy;
+			a[0] += data.sx;
 		}
 		if (err2 < data.dy)
 		{
-			data.err += data.dx; 
-			a[1] += data.sy; 
+			data.err += data.dx;
+			a[1] += data.sy;
 		}
 	}
 	if (a[0] >= 0 && a[0] < MNAP_S && a[1] >= 0 && a[1] < MNAP_S)
@@ -81,16 +81,16 @@ void	draw_line_ray(t_img *img, int a[2], int b[2], int color)
 		err2 = data.err;
 		if (err2 > -data.dx)
 		{
-			data.err -= data.dy; 
-			a[0] += data.sx; 
+			data.err -= data.dy;
+			a[0] += data.sx;
 		}
 		if (err2 < data.dy)
 		{
-			data.err += data.dx; 
-			a[1] += data.sy; 
+			data.err += data.dx;
+			a[1] += data.sy;
 		}
 	}
 	if (a[0] >= 0 && a[0] <= MNAP_S && a[1] >= 0 && a[1] <= MNAP_S)
 		if (get_color(img, a[0], a[1]) != GREY)
-			pixel_w(img, a[0], a[1], color);
+			pixel_w(img, a[0], a[1], BLACK);
 }

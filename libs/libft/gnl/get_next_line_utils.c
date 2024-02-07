@@ -42,6 +42,8 @@ int	strle(const char *s)
 	int	i;
 
 	i = 0;
+	if (!s)
+		return (0);
 	while (s[i])
 		i++;
 	return (i);
@@ -60,10 +62,10 @@ char	*strj(char *s1, char *s2)
 		return (NULL);
 	i = -1;
 	j = -1;
-	while (s1[++i])
+	while (s1 && s1[++i])
 		res[++j] = s1[i];
 	i = -1;
-	while (s2[++i])
+	while (s2 && s2[++i])
 		res[++j] = s2[i];
 	res[++j] = '\0';
 	free(s1);
