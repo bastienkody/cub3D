@@ -49,7 +49,7 @@ void	run(t_info *info)
 	mlx_loop(info->ptr);
 }
 
-int	main(int argc, char **argv, __attribute__((unused)) char **envp)
+int	main(int argc, char **argv)
 {
 	t_parser	*pars;
 	t_info		*info;
