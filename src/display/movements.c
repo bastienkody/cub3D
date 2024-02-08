@@ -39,40 +39,54 @@ int	rotate(int keycode, t_info *info)
 	return (1);
 }
 
-int	wall_glitch(t_info *info, int x_offset, int y_offset)
+/*	add a step security to move to ensure player is always a bit away from wall
+	step is set according to dir (going front/back) or plane (going sideway)
+	if player goes backwards or right is it the opposite	
+*/
+void	update_step(t_info *info, int keycode, double *stepx, double *stepy)
 {
-	const int	x = (int)floor(info->posx);
-	const int	y = (int)floor(info->posy);
-
-	if (x_offset == x || y_offset == y)
-		return (0);
-	if (info->map[y_offset][x] == '1' && info->map[y][x_offset] == '1')
-		return (printf("glitch\n"),  1);
-	return (0);
+	*stepx = MOVE_STEP_NUM;
+	*stepy = MOVE_STEP_NUM;
+	if (keycode == XK_w || keycode == XK_s)
+	{
+		if (info->dirx < 0)
+			*stepx = -MOVE_STEP_NUM;
+		if (info->diry < 0)
+			*stepy = -MOVE_STEP_NUM;
+	}
+	if (keycode == XK_a || keycode == XK_d)
+	{
+		if (info->planex < 0)
+			*stepx = -MOVE_STEP_NUM;
+		if (info->planey < 0)
+			*stepy = -MOVE_STEP_NUM;
+	}
+	if (keycode == XK_s || keycode == XK_a)
+	{
+		*stepx *= -1;
+		*stepy *= -1;
+	}
 }
 
 int	move_front_back(t_info *info, int keycode, double speed)
 {
 	double	x_ofs;
 	double	y_ofs;
-	double	step;
+	double	stepy;
+	double	stepx;
 
-	step = MOVE_STEP_NUM;
+	update_step(info, keycode, &stepx, &stepy);
 	x_ofs = info->dirx * speed;
 	y_ofs = info->diry * speed;
 	if (keycode == XK_s)
 	{
 		x_ofs *= -1;
 		y_ofs *= -1;
-		step *= -1;
 	}
-	printf("x%f +%f, y%f +%f\n", info->posx, x_ofs + step, info->posy, y_ofs + step);
+	//printf("x%f +%f, y%f +%f\n", info->posx, x_ofs + stepx, info->posy, y_ofs + stepy);
 	if (info->map[(int)floor(info->posy + y_ofs + \
-		step)][(int)floor(info->posx + x_ofs + step)] == '0')
+		stepy)][(int)floor(info->posx + x_ofs + stepx)] == '0')
 	{
-		if (wall_glitch(info, (int)floor(info->posx + x_ofs * MOVE_STEP), \
-			(int)floor(info->posy + y_ofs * MOVE_STEP)))
-			return (0);
 		info->posx += x_ofs;
 		info->posy += y_ofs;
 		return (1);
@@ -82,29 +96,28 @@ int	move_front_back(t_info *info, int keycode, double speed)
 
 int	move_sides(t_info *info, int keycode, double speed)
 {
-	double	x_step;
-	double	y_step;
+	double	x_ofs;
+	double	y_ofs;
+	double	stepy;
+	double	stepx;
 
-	x_step = info->planex * speed;
-	y_step = info->planey * speed;
+	update_step(info, keycode, &stepx, &stepy);
+	x_ofs = info->planex * speed;
+	y_ofs = info->planey * speed;
 	if (keycode == XK_a)
 	{
-		x_step *= -1;
-		y_step *= -1;
+		x_ofs *= -1;
+		y_ofs *= -1;
 	}
-	if (info->map[(int)floor(info->posy + y_step * \
-		MOVE_STEP)][(int)floor(info->posx + x_step * MOVE_STEP)] == '0')
+	if (info->map[(int)floor(info->posy + y_ofs + \
+		stepy)][(int)floor(info->posx + x_ofs + stepx)] == '0')
 	{
-		if (wall_glitch(info, (int)floor(info->posx + x_step * MOVE_STEP), \
-			(int)floor(info->posy + y_step * MOVE_STEP)))
-			return (0);
-		info->posx += x_step;
-		info->posy += y_step;
+		info->posx += x_ofs;
+		info->posy += y_ofs;
 		return (1);
 	}
 	return (0);
 }
-
 
 /*	no need to redraw raycast if player could not moved/turned
 	directionnal sprint: add '&& keycode == W' apres le check du shift	*/
