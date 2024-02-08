@@ -49,7 +49,8 @@ t_img	*create_xpm_image(void *mlx_ptr, char *path)
 	img = malloc(sizeof(t_img));
 	if (!img)
 		return (NULL);
-	img->ptr = mlx_xpm_file_to_image(mlx_ptr, path, &(img->width), &(img->height));
+	img->ptr = mlx_xpm_file_to_image(mlx_ptr, path, &(img->width), \
+	&(img->height));
 	if (!img->ptr)
 		return (print_error(BAD_XPM_FILE, path), NULL);
 	img->addr = mlx_get_data_addr(img->ptr, &img->bpp, &img->line_len, \

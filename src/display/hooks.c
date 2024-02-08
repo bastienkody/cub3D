@@ -63,7 +63,7 @@ int	key_inputs(int keycode, t_info *info)
 	}
 	else if (keycode == XK_Escape)
 		return (info->is_outro = !info->is_outro, raycast_launcher(info));
-	else if (keycode == XK_m && !info->is_outro && info->mmap_tile_s)
+	else if (keycode == XK_m && !info->is_outro && info->mmap_tile_s > 3)
 		return (info->is_maximap = !info->is_maximap, raycast_launcher(info));
 	else if (keycode == XK_r && !info->is_maximap && !info->is_outro)
 		raycast_launcher(info);
