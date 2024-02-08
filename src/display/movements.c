@@ -13,17 +13,21 @@
 #include "../../inc/cub3D.h"
 
 /*
-	Movements collision : only move if possible in x AND y. We may enable a
-	'wall slide' effect by checking and updatating each direction separetly
+	MOVE COLLISIONS : checking and updating each direction separetly!
+	To toggle off 'wall slide' effect : both x AND y offset must lead to floor
 	FRONT/BACK move dir : using player dir vector (=where player faces)
 	LEFT/RIGHT : using player camera plane (=perfect perpendicular to dir)
+	STEP : add a security to move to ensure player is always a bit away (0.2)
+	from walls. Step is set with dir (going front/back) or plane (going sideway)
+	if player goes backwards or leftside is it the opposite.
 	ROTATE : always possible
-	GLITCH : impossible to get outside of map ; glitch to floor handled by
-	checking : both int(floor(x)) and int(floor(y)) must change (=forcement en 
-	diagonale) and perpendicular walls presence top left + top right (from pov)
+	REDRAW : only if a move had occured. bool is mod in each function
+	GLITCH (no need since step) :glitch to floor handled by checking : 
+	both int(floor(x)) and int(floor(y)) must change (=forcement en diagonale) 
+	and perpendicular walls presence top left + top right (from pov)
 */
 
-int	rotate(int keycode, t_info *info)
+void	rotate(int keycode, t_info *info, bool *redraw)
 {
 	const double	oldir_x = info->dirx;
 	const double	oldplanex = info->planex;
@@ -36,13 +40,9 @@ int	rotate(int keycode, t_info *info)
 	info->diry = oldir_x * sin(ang) + info->diry * cos(ang);
 	info->planex = info->planex * cos(ang) - info->planey * sin(ang);
 	info->planey = oldplanex * sin(ang) + info->planey * cos(ang);
-	return (1);
+	*redraw = true;
 }
 
-/*	add a step security to move to ensure player is always a bit away from wall
-	step is set according to dir (going front/back) or plane (going sideway)
-	if player goes backwards or right is it the opposite	
-*/
 void	update_step(t_info *info, int keycode, double *stepx, double *stepy)
 {
 	*stepx = MOVE_STEP_NUM;
@@ -68,7 +68,7 @@ void	update_step(t_info *info, int keycode, double *stepx, double *stepy)
 	}
 }
 
-int	move_front_back(t_info *info, int keycode, double speed)
+void	move_front_back(t_info *info, int keycode, double speed, bool *redraw)
 {
 	double	x_ofs;
 	double	y_ofs;
@@ -83,18 +83,21 @@ int	move_front_back(t_info *info, int keycode, double speed)
 		x_ofs *= -1;
 		y_ofs *= -1;
 	}
-	//printf("x%f +%f, y%f +%f\n", info->posx, x_ofs + stepx, info->posy, y_ofs + stepy);
-	if (info->map[(int)floor(info->posy + y_ofs + \
-		stepy)][(int)floor(info->posx + x_ofs + stepx)] == '0')
+	if (info->map[(int)floor(info->posy + y_ofs + stepy)] \
+	[(int)floor(info->posx)] == '0')
+	{
+		info->posy += y_ofs;
+		*redraw = true;
+	}
+	if (info->map[(int)floor(info->posy)] \
+	[(int)floor(info->posx + x_ofs + stepx)] == '0')
 	{
 		info->posx += x_ofs;
-		info->posy += y_ofs;
-		return (1);
+		*redraw = true;
 	}
-	return (0);
 }
 
-int	move_sides(t_info *info, int keycode, double speed)
+void	move_sides(t_info *info, int keycode, double speed, bool *redraw)
 {
 	double	x_ofs;
 	double	y_ofs;
@@ -109,14 +112,18 @@ int	move_sides(t_info *info, int keycode, double speed)
 		x_ofs *= -1;
 		y_ofs *= -1;
 	}
-	if (info->map[(int)floor(info->posy + y_ofs + \
-		stepy)][(int)floor(info->posx + x_ofs + stepx)] == '0')
+	if (info->map[(int)floor(info->posy + y_ofs + stepy)] \
+	[(int)floor(info->posx)] == '0')
+	{
+		info->posy += y_ofs;
+		*redraw = true;
+	}
+	if (info->map[(int)floor(info->posy)] \
+	[(int)floor(info->posx + x_ofs + stepx)] == '0')
 	{
 		info->posx += x_ofs;
-		info->posy += y_ofs;
-		return (1);
+		*redraw = true;
 	}
-	return (0);
 }
 
 /*	no need to redraw raycast if player could not moved/turned
@@ -131,11 +138,11 @@ void	key_movement(int keycode, t_info *info)
 	if (info->keys[6])
 		speed = VELO_SPRINT;
 	if (keycode == XK_w || keycode == XK_s)
-		redraw = move_front_back(info, keycode, speed);
+		move_front_back(info, keycode, speed, &redraw);
 	else if (keycode == XK_a || keycode == XK_d)
-		redraw = move_sides(info, keycode, speed);
+		move_sides(info, keycode, speed, &redraw);
 	else
-		redraw = rotate(keycode, info);
+		rotate(keycode, info, &redraw);
 	if (!redraw)
 		return ;
 	raycast_launcher(info);
