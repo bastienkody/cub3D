@@ -49,13 +49,24 @@ int draw_pistol(t_info *info)
 	return (0);
 }
 
+int	fire_pistol(t_info *info)
+{
+	int	timer;
+
+	timer = 0;
+	while (timer < 1000)
+	{
+		if (timer < 250)
+			info->pistol.frame = 0;
+		
+	}
+}
+
 int game_mouse_inputs(int button, t_info *info)
 {
 	if (button != 1)
 		return (0);
-	info->pistol.frame ++;
-	if (info->pistol.frame > 3)
-		info->pistol.frame = 0;
+	fire_pistol(info);
 	raycast_launcher(info);
 	return (0);
 }

@@ -61,6 +61,7 @@ int	init_display(t_info *info, t_parser *pars)
 	load_textures(info, pars);
 	if (!check_textures_load(info))
 		return (0);
+	create_pistol(info);
 	draw_first_maximap(info);
 	return (1);
 }
