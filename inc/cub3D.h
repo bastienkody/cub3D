@@ -65,7 +65,6 @@ might change hardware to fully enjoy the game :)"
 # define TRUC ""
 
 /*	num const	*/
-# define ALLOR 3
 # define WIN_W 1920
 # define WIN_H 1010
 # define MENUBAR_H 70
