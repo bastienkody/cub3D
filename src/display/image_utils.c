@@ -59,3 +59,22 @@ t_img	*create_xpm_image(void *mlx_ptr, char *path)
 		return (print_error("pb with mlx get data addr for:", path), NULL);
 	return (img);
 }
+
+void    img_to_img(t_img *src, t_img *dst, int og[2], int dim[2])
+{
+    int                x;
+    int                y;
+    unsigned int    color;
+    const int        end[2] = {og[0] + dim[0], og[1] + dim[1]};
+
+    x = og[0] - 1;
+    while (++x <= end[0])
+    {
+        y = og[1] - 1;
+        while (++y <= end[1])
+        {
+            color = get_color(src, x - og[0], y - og[1]);
+            pixel_w_alpha(dst, x, y, color);
+        }
+    }
+}

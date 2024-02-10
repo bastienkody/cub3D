@@ -36,6 +36,10 @@ void	all_textures_cleanup(t_info *info)
 	unload_texture(info->ptr, info->outro[1]);
 	unload_texture(info->ptr, info->outro[2]);
 	unload_texture(info->ptr, info->rc);
+	unload_texture(info->ptr, info->pistol.img[0]);
+	unload_texture(info->ptr, info->pistol.img[1]);
+	unload_texture(info->ptr, info->pistol.img[2]);
+	unload_texture(info->ptr, info->pistol.img[3]);
 }
 
 void	end_parser(t_parser *pars)

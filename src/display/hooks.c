@@ -18,6 +18,8 @@ int	mouse_inputs(int button, int x, int y, t_info *info)
 		maximap_teleport(button, x, y, info);
 	if (info->is_outro)
 		outro_mouse_inputs(button, x, y, info);
+	if (!info->is_intro && !info->is_outro && !info->is_maximap)
+		game_mouse_inputs(button, info);
 	return (1);
 }
 

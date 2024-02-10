@@ -26,7 +26,9 @@ DISP_FILES	=	init.c\
 				displayer.c\
 				maximap.c\
 				minimap.c\
-				outro.c
+				outro.c \
+				alpha.c \
+				weapon.c
 RAY_FILES	=	raycaster.c\
 				dda.c
 MAIN_FILES	=	main.c endfree.c

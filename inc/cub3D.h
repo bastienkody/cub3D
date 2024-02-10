@@ -131,6 +131,18 @@ typedef struct s_img
 	int		height;
 }				t_img;
 
+typedef struct s_weapon
+{
+	t_img		*img[4];
+	int			frame;
+	int			posx;
+	int			posy;
+	int			sizex;
+	int			sizey;
+	int			ammo;
+}				t_weapon;
+
+
 typedef struct s_parser
 {
 	char			**map;
@@ -207,6 +219,7 @@ typedef struct s_info
 	t_img			*minimap;
 	t_img			*maximap;
 	t_img			*rc;
+	t_weapon		pistol;
 	bool			keys[7];
 }				t_info;
 
@@ -225,6 +238,9 @@ int			init_display(t_info *info, t_parser *pars);
 int			loop_manager(t_info *info);
 void		draw_minimap(t_info *info);
 void		draw_line_ray(t_img *img, int a[2], int b[2], int color);
+int			create_pistol(t_info *info);
+int			draw_pistol(t_info *info);
+int			game_mouse_inputs(int button, t_info *info);
 
 /*	raycast - dda	*/
 void		dda(t_raycast *rc, char **map);
@@ -253,6 +269,7 @@ int			key_inputs(int keycode, t_info *info);
 
 /*	drawers	*/
 void		pixel_w(t_img *img, int x, int y, int color);
+void		pixel_w_alpha(t_img *img, int x, int y, int color);
 t_uint		get_color(t_img *img, int x, int y);
 void		img_to_img(t_img *src, t_img *dst, int og[2], int dim[2]);
 void		draw_line(t_img *img, int a[2], int b[2], int color);

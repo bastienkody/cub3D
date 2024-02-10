@@ -94,6 +94,7 @@ int	raycast_launcher(t_info *info)
 		draw_raycast(&rc, info, x);
 	}
 	mlx_put_image_to_window(info->ptr, info->win, info->rc->ptr, 0, 0);
+	draw_pistol(info);
 	draw_minimap(info);
 	return (1);
 }
