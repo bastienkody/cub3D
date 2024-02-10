@@ -16,7 +16,7 @@
 
 void	mini_raycast_calculation(t_info *info, t_raycast *rc, int x)
 {
-	double		camerax;
+	double	camerax;
 
 	camerax = 2 * x / (double)WIN_W - 1;
 	rc->mapx = (int)info->posx;
