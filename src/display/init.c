@@ -15,19 +15,19 @@
 void	load_textures(t_info *info, t_parser *pars)
 {
 	info->intro1 = create_xpm_image(info->ptr, \
-		"map/textures/intrologo/logo_pink_green_0.xpm", WIN_W, WIN_H);
+		"map/textures/intrologo/logo_pink_green_0.xpm");
 	info->intro2 = create_xpm_image(info->ptr, \
-		"map/textures/intrologo/logo_pink_green_1.xpm", WIN_W, WIN_H);
+		"map/textures/intrologo/logo_pink_green_1.xpm");
 	info->outro[0] = create_xpm_image(info->ptr, "map/textures/outro/outro3.\
-xpm", WIN_W, WIN_H);
+xpm");
 	info->outro[1] = create_xpm_image(info->ptr, "map/textures/outro/outro3_r.\
-xpm", WIN_W, WIN_H);
+xpm");
 	info->outro[2] = create_xpm_image(info->ptr, "map/textures/outro/outro3_q.\
-xpm", WIN_W, WIN_H);
-	info->n_text = create_xpm_image(info->ptr, pars->no_path, TILE_S, TILE_S);
-	info->s_text = create_xpm_image(info->ptr, pars->so_path, TILE_S, TILE_S);
-	info->w_text = create_xpm_image(info->ptr, pars->we_path, TILE_S, TILE_S);
-	info->e_text = create_xpm_image(info->ptr, pars->ea_path, TILE_S, TILE_S);
+xpm");
+	info->n_text = create_xpm_image(info->ptr, pars->no_path);
+	info->s_text = create_xpm_image(info->ptr, pars->so_path);
+	info->w_text = create_xpm_image(info->ptr, pars->we_path);
+	info->e_text = create_xpm_image(info->ptr, pars->ea_path);
 	info->bg_default = create_image(info->ptr, WIN_W, WIN_H);
 	info->maximap = create_image(info->ptr, WIN_W, WIN_H);
 	info->minimap = create_image(info->ptr, MNAP_S, MNAP_S);

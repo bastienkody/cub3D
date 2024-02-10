@@ -49,15 +49,14 @@ void	post_dda_calculations(t_raycast *rc, t_info *info)
 	if (rc->side == 0)
 		rc->wallx = info->posy + rc->pwall * rc->raydiry;
 	rc->wallx -= floor(rc->wallx);
-	rc->xtext = (int)(rc->wallx * (double)TILE_S);
+	rc->xtext = (int)(rc->wallx * (double)rc->whatext->width);
 	if ((!rc->side && rc->raydirx < 0) || (rc->side == 1 && rc->raydiry > 0))
-		rc->xtext = TILE_S - rc->xtext - 1;
+		rc->xtext = rc->whatext->width - rc->xtext - 1;
 }
 
 void	draw_raycast(t_raycast *rc, t_info *info, int x)
 {
-	unsigned int	color;
-	const double	step = (double)TILE_S / (double)rc->lineh;
+	const double	step = (double)rc->whatext->height / (double)rc->lineh;
 	double			textpos;
 	int				ytext;
 	int				y;
@@ -68,8 +67,7 @@ void	draw_raycast(t_raycast *rc, t_info *info, int x)
 	{
 		ytext = (int)textpos;
 		textpos += step;
-		color = get_color(rc->whatext, rc->xtext, ytext);
-		pixel_w(info->rc, x, y, color);
+		pixel_w(info->rc, x, y, get_color(rc->whatext, rc->xtext, ytext));
 	}
 	draw_vert_line(info->rc, x, (int []){0, rc->start}, info->ceil);
 	draw_vert_line(info->rc, x, (int []){rc->end, WIN_H}, info->floor);

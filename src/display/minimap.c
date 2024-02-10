@@ -48,12 +48,8 @@ void	draw_cone_raycast(t_info *info)
 		ypos = (rc.raydiry * rc.pwall * MNAP_TS);
 		point[0] = (int)round(MNAP_S / 2 + xpos);
 		point[1] = (int)round(MNAP_S / 2 + ypos);
-		if ((x >= 0 && x <= 20) || x == WIN_W - 1)
-			draw_line_ray(info->minimap, (int []){MNAP_S / 2, MNAP_S / 2}, point, \
-				BLACK);
-		else
-			draw_line_ray(info->minimap, (int []){MNAP_S / 2, MNAP_S / 2}, point, \
-				RED);
+		draw_line_ray(info->minimap, (int []){MNAP_S / 2, MNAP_S / 2}, point, \
+		RED);
 	}
 }
 

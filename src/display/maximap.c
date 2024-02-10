@@ -27,8 +27,8 @@ void	maximap_teleport(int but, unsigned int x, unsigned int y, t_info *info)
 		if (info->map[(int)floor(newy)][(int)floor(newx)] != '0')
 			return ((void)ft_fprintf(2, "%s%i,y%i%s\n", T_W, (int)floor(newx), \
 			(int)floor(newy), T_WB));
-		info->posx = newx;
-		info->posy = newy;
+		info->posx = floor(newx) + 0.5;
+		info->posy = floor(newy) + 0.5;
 		maximap_display(info);
 	}
 }

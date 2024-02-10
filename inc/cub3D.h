@@ -65,8 +65,6 @@ might change hardware to fully enjoy the game :)"
 # define TRUC ""
 
 /*	num const	*/
-# define ALLOR 3
-# define TILE_S 64
 # define WIN_W 1920
 # define WIN_H 1010
 # define MENUBAR_H 70
@@ -75,6 +73,8 @@ might change hardware to fully enjoy the game :)"
 /*	player velocity	*/
 # define VELO_MOVE 0.05
 # define VELO_SPRINT 0.10
+# define MOVE_STEP 5
+# define MOVE_STEP_NUM 0.2
 # define PI_DIVIDER 100
 
 /*	raycast	*/
@@ -127,6 +127,8 @@ typedef struct s_img
 	int		bpp;
 	int		line_len;
 	int		endian;
+	int		width;
+	int		height;
 }				t_img;
 
 typedef struct s_parser
@@ -261,7 +263,7 @@ void		draw_rect_w_border(t_img *img, int og[2], int dim[2], int color);
 
 /*	img	*/
 t_img		*create_image(void *mlx_ptr, int w, int h);
-t_img		*create_xpm_image(void *mlx_ptr, char *path, int w, int h);
+t_img		*create_xpm_image(void *mlx_ptr, char *path);
 
 /*	parsing	*/
 t_parser	*main_parser(int argc, char **argv);
