@@ -40,7 +40,6 @@ int draw_pistol(t_info *info)
 	t_weapon pistol;
 
 	pistol = info->pistol;
-	printf("pistol frame is %d\n", info->pistol.frame);
 	pistol.sizex = pistol.img[pistol.frame]->width;
 	pistol.sizey = pistol.img[pistol.frame]->height;
 	pistol.posx = WIN_W / 2 - pistol.sizex / 2;
@@ -52,31 +51,29 @@ int draw_pistol(t_info *info)
 
 int	fire_pistol(t_info *info)
 {
-	int		timer;
+	static int		counter = 0;
 	int		old_frame;
 
-	timer = 0;
+	if (info->pistol.fire == 0)
+		return (0);
 	old_frame = info->pistol.frame;
-	while (timer < 1000)
+	if (counter < 500)
+		info->pistol.frame = 0;
+	if (counter >= 500 && counter < 750)
+		info->pistol.frame = 1;
+	if (counter >= 750 && counter < 1000)
+		info->pistol.frame = 2;
+	if (counter >= 1000 && counter < 1250)
+		info->pistol.frame = 3;
+	if (counter >= 1250)
 	{
-		old_frame = info->pistol.frame;
-		if (timer < 250)
-			info->pistol.frame = 0;
-		if (timer >= 250 && timer < 500)
-			info->pistol.frame = 1;
-		if (timer >= 500 && timer < 750)
-			info->pistol.frame = 2;
-		if (timer >= 750)
-			info->pistol.frame = 3;
-		if (info->pistol.frame != old_frame)
-		{
-			raycast_launcher(info);
-			fprintf(stderr, "FRAME %d old %d, timer %d\n", info->pistol.frame, old_frame, timer);
-			usleep(20000);
-		}
-		timer++;
+		info->pistol.frame = 0;
+		counter = 0;
+		info->pistol.fire = 0;
 	}
-	// info->pistol.frame = 0;
+	if (info->pistol.frame != old_frame)
+		raycast_launcher(info);
+	counter++;
 	return (0);
 }
 
@@ -84,8 +81,6 @@ int game_mouse_inputs(int button, t_info *info)
 {
 	if (button != 1)
 		return (0);
-	fire_pistol(info);
-	raycast_launcher(info);
+	info->pistol.fire = 1;
 	return (0);
 }
-

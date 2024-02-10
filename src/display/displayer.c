@@ -52,6 +52,6 @@ int	loop_manager(t_info *info)
 	if (info->is_maximap)
 		return (maximap_display(info), 1);
 	if (!info->is_intro && !info->is_outro && !info->is_maximap)
-		return (moves_standard(info), 1);
+		return (moves_standard(info), fire_pistol(info), 1);
 	return (0);
 }

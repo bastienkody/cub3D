@@ -134,6 +134,7 @@ typedef struct s_img
 typedef struct s_weapon
 {
 	t_img		*img[4];
+	t_bool			fire;
 	int			frame;
 	int			posx;
 	int			posy;
@@ -241,6 +242,7 @@ void		draw_line_ray(t_img *img, int a[2], int b[2], int color);
 int			create_pistol(t_info *info);
 int			draw_pistol(t_info *info);
 int			game_mouse_inputs(int button, t_info *info);
+int			fire_pistol(t_info *info);
 
 /*	raycast - dda	*/
 void		dda(t_raycast *rc, char **map);

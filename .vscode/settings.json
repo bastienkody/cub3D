@@ -57,6 +57,7 @@
   "C_Cpp_Runner.useLinkTimeOptimization": false,
   "C_Cpp_Runner.msvcSecureNoWarnings": false,
   "files.associations": {
-    "keysym.h": "c"
+    "keysym.h": "c",
+    "cub3d.h": "c"
   }
 }
